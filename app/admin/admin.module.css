@@ -1,0 +1,276 @@
+.adminLayout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: #e2e8f0;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: #1e293b;
+    border-right: 1px solid #334155;
+    padding: 1.5rem 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebarHeader {
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid #334155;
+    margin-bottom: 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #8b5cf6;
+}
+
+.navSection {
+    margin-bottom: 2rem;
+}
+
+.navTitle {
+    padding: 0 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+}
+
+.navLink:hover {
+    background-color: #334155;
+    color: #fff;
+}
+
+.navLinkActive {
+    background-color: #8b5cf628;
+    color: #a78bfa;
+    border-left: 3px solid #8b5cf6;
+    padding-left: calc(1.5rem - 3px);
+}
+
+.mainContent {
+    flex: 1;
+    margin-left: 260px;
+    padding: 2rem;
+}
+
+.pageHeader {
+    margin-bottom: 2rem;
+}
+
+.pageTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.pageDescription {
+    color: #94a3b8;
+    font-size: 1rem;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.statCard {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.statLabel {
+    font-size: 0.875rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.statChange {
+    font-size: 0.75rem;
+    color: #10b981;
+    margin-top: 0.5rem;
+}
+
+.card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.cardTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    background-color: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background-color: #7c3aed;
+}
+
+.btnSecondary {
+    background-color: #334155;
+}
+
+.btnSecondary:hover {
+    background-color: #475569;
+}
+
+.btnDanger {
+    background-color: #ef4444;
+}
+
+.btnDanger:hover {
+    background-color: #dc2626;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid #334155;
+    color: #94a3b8;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #334155;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.badgeSuccess {
+    background-color: #10b98128;
+    color: #10b981;
+}
+
+.badgeDanger {
+    background-color: #ef444428;
+    color: #ef4444;
+}
+
+.badgeWarning {
+    background-color: #f59e0b28;
+    color: #f59e0b;
+}
+
+.badgeInfo {
+    background-color: #3b82f628;
+    color: #3b82f6;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggleSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #475569;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.toggleSlider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked+.toggleSlider {
+    background-color: #8b5cf6;
+}
+
+input:checked+.toggleSlider:before {
+    transform: translateX(24px);
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: #64748b;
+}
+
+.emptyStateIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}

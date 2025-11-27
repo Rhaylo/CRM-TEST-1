@@ -1,0 +1,246 @@
+.container {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+.addButton {
+    padding: 0.75rem 1.5rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.addButton:hover {
+    background-color: #2563eb;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.tab {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.tab:hover {
+    color: #3b82f6;
+}
+
+.activeTab {
+    color: #3b82f6;
+    border-bottom-color: #3b82f6;
+}
+
+.filtersSection {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.filterLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #475569;
+}
+
+.filterSelect {
+    padding: 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    min-width: 150px;
+}
+
+.clearButton {
+    padding: 0.5rem 1rem;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.clearButton:hover {
+    background-color: #e2e8f0;
+}
+
+.tableContainer {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #475569;
+    background-color: #f8fafc;
+    border-bottom: 2px solid #e2e8f0;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.tr {
+    border-bottom: 1px solid #e2e8f0;
+    transition: background-color 0.15s;
+}
+
+.tr:hover {
+    background-color: #f8fafc;
+}
+
+.td {
+    padding: 1rem;
+    color: #334155;
+    font-size: 0.875rem;
+}
+
+.overdueRow {
+    background-color: #fef2f2;
+    border-left: 4px solid #ef4444;
+}
+
+.overdueRow:hover {
+    background-color: #fee2e2;
+}
+
+.dueTodayRow {
+    background-color: #fef3c7;
+    border-left: 4px solid #f59e0b;
+}
+
+.dueTodayRow:hover {
+    background-color: #fde68a;
+}
+
+.taskTitle {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.taskDescription {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+.stateBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.statusBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.priorityBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.actionButton {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #cbd5e1;
+    background-color: white;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.actionButton:hover {
+    background-color: #f1f5f9;
+}
+
+.completeButton {
+    background-color: #dcfce7;
+    color: #166534;
+    border-color: #86efac;
+}
+
+.completeButton:hover {
+    background-color: #bbf7d0;
+}
+
+.deleteButton {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.deleteButton:hover {
+    background-color: #fee2e2;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: #94a3b8;
+}

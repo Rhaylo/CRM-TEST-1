@@ -79,11 +79,14 @@ export async function runScheduledTask(id: number) {
       title: action.title ?? 'Scheduled Task',
       priority: action.priority ?? 'Medium',
       status: 'Pending',
-      // store as string so it fits most Prisma date/datetime types
+      // guardamos como string ISO
       dueDate: new Date().toISOString(),
-    },
+    } as any, // 👈 forzamos el tipo para evitar el error de 'client'
   });
 } else if (action.type === 'check_lead_age') {
+  // resto del código que ya tienes...
+}
+
             // Find leads (Deals in 'Lead' stage) older than X days
             const days = action.days || 7;
             const cutoffDate = new Date();

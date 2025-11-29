@@ -74,19 +74,15 @@ export async function runScheduledTask(id: number) {
         const action = JSON.parse(task.action);
 
         if (action.type === 'create_task') {
-  await prisma.task.create({
-    data: {
-      title: action.title ?? 'Scheduled Task',
-      priority: action.priority ?? 'Medium',
-      status: 'Pending',
-      // guardamos como string ISO
-      dueDate: new Date().toISOString(),
-    } as any, // 👈 forzamos el tipo para evitar el error de 'client'
-  });
-} else if (action.type === 'check_lead_age') {
-  // resto del código que ya tienes...
-}
-
+            await prisma.task.create({
+                data: {
+                    title: action.title ?? 'Scheduled Task',
+                    priority: action.priority ?? 'Medium',
+                    status: 'Pending',
+                    dueDate: new Date().toISOString(),
+                } as any,
+            });
+        } else if (action.type === 'check_lead_age') {
             // Find leads (Deals in 'Lead' stage) older than X days
             const days = action.days || 7;
             const cutoffDate = new Date();
@@ -107,7 +103,7 @@ export async function runScheduledTask(id: number) {
             for (const lead of oldLeads) {
                 await prisma.task.create({
                     data: {
-                        title: `Follow up: ${lead.title} (${days} days old)`,
+                        title: `Follow up: ${lead.client.companyName} (${days} days old)`,
                         description: `This lead has been inactive for ${days} days. Please follow up.`,
                         priority: 'High',
                         status: 'Not Started',

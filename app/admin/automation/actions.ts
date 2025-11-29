@@ -134,6 +134,23 @@ export async function executeAutomationRule(ruleId: number, metadata?: any) {
                         });
                         console.log(`Automation: Created notification note`);
                     }
+                } else if (action.type === 'send_email') {
+                    // Mock email sending
+                    const recipient = action.recipient || 'info@xyreholdings.com';
+                    const subject = action.subject || 'Automation Notification';
+                    const body = `This is an automated email notification.\n\nTriggered by rule: ${rule.name}\n\nContext: Client ID ${clientId || 'N/A'}, Task ID ${taskId || 'N/A'}`;
+
+                    console.log(`
+---------------------------------------------------
+[MOCK EMAIL SENT]
+To: ${recipient}
+Subject: ${subject}
+Body:
+${body}
+---------------------------------------------------
+`);
+                    // TODO: Integrate with Resend or Nodemailer here
+                    // await resend.emails.send({ from: '...', to: recipient, subject, text: body });
                 }
             }
         }

@@ -253,7 +253,7 @@ export default function NewScheduledTaskPage() {
                                         })()}
                                         onChange={(e) => {
                                             const type = e.target.value;
-                                            let newAction = { type };
+                                            let newAction: any = { type };
                                             if (type === 'create_task') newAction = { type, title: 'New Scheduled Task', priority: 'Medium' };
                                             if (type === 'send_summary_report') newAction = { type, recipients: 'admin@crm.com' };
                                             if (type === 'cleanup_logs') newAction = { type, daysToKeep: 30 };

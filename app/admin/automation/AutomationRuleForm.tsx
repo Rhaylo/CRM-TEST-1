@@ -168,30 +168,30 @@ export default function AutomationRuleForm({ initialData, isEditing = false }: A
                         <select
                             value={JSON.parse(formData.actions)[0]?.type || ''}
                             onChange={(e) => {
-                               const type = e.target.value;
-let newAction: any = { type };
+                                const type = e.target.value;
+                                let newAction: any = { type };
 
-if (type === 'create_task') {
-  newAction = {
-    type,
-    title: 'New Automated Task',
-    priority: 'Medium',
-  };
-}
+                                if (type === 'create_task') {
+                                    newAction = {
+                                        type,
+                                        title: 'New Automated Task',
+                                        priority: 'Medium',
+                                    };
+                                }
 
-if (type === 'update_deal_stage') {
-  newAction = {
-    type,
-    stage: 'Negotiation',
-  };
-}
+                                if (type === 'update_deal_stage') {
+                                    newAction = {
+                                        type,
+                                        stage: 'Negotiation',
+                                    };
+                                }
 
-if (type === 'send_notification') {
-  newAction = {
-    type,
-    message: 'Automation triggered!',
-  };
-}
+                                if (type === 'send_notification') {
+                                    newAction = {
+                                        type,
+                                        message: 'Automation triggered!',
+                                    };
+                                }
 
                                 setFormData({ ...formData, actions: JSON.stringify([newAction]) });
                             }}
@@ -208,7 +208,8 @@ if (type === 'send_notification') {
                             <option value="">Select an action...</option>
                             <option value="create_task">Create a Task</option>
                             <option value="update_deal_stage">Update Deal Stage</option>
-                            <option value="send_notification">Send Notification</option>
+                            <option value="send_notification">Send In-App Notification</option>
+                            <option value="send_email">Send Email</option>
                         </select>
 
                         {/* Dynamic Fields based on Action Type */}
@@ -270,6 +271,7 @@ if (type === 'send_notification') {
                                                 <option value="Offer Sent">Offer Sent</option>
                                                 <option value="Negotiation">Negotiation</option>
                                                 <option value="Under Contract">Under Contract</option>
+                                                <option value="Contract Out">Contract Out</option>
                                                 <option value="Closed">Closed</option>
                                             </select>
                                         </div>
@@ -289,6 +291,37 @@ if (type === 'send_notification') {
                                                 }}
                                                 style={{ width: '100%', padding: '0.5rem', borderRadius: '0.25rem', border: '1px solid #334155', background: '#0f172a', color: 'white' }}
                                             />
+                                        </div>
+                                    );
+                                }
+
+                                if (action.type === 'send_email') {
+                                    return (
+                                        <div style={{ display: 'grid', gap: '1rem' }}>
+                                            <div>
+                                                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>Recipient Email</label>
+                                                <input
+                                                    type="email"
+                                                    value={action.recipient || 'info@xyreholdings.com'}
+                                                    onChange={(e) => {
+                                                        const newAction = { ...action, recipient: e.target.value };
+                                                        setFormData({ ...formData, actions: JSON.stringify([newAction]) });
+                                                    }}
+                                                    style={{ width: '100%', padding: '0.5rem', borderRadius: '0.25rem', border: '1px solid #334155', background: '#0f172a', color: 'white' }}
+                                                />
+                                            </div>
+                                            <div>
+                                                <label style={{ display: 'block', fontSize: '0.875rem', marginBottom: '0.25rem' }}>Subject</label>
+                                                <input
+                                                    type="text"
+                                                    value={action.subject || ''}
+                                                    onChange={(e) => {
+                                                        const newAction = { ...action, subject: e.target.value };
+                                                        setFormData({ ...formData, actions: JSON.stringify([newAction]) });
+                                                    }}
+                                                    style={{ width: '100%', padding: '0.5rem', borderRadius: '0.25rem', border: '1px solid #334155', background: '#0f172a', color: 'white' }}
+                                                />
+                                            </div>
                                         </div>
                                     );
                                 }

@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, Briefcase, FileText, CheckSquare, Settings } from 'lucide-react';
+import { Users, Briefcase, FileText, CheckSquare, Settings, LayoutDashboard, Calendar } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
 const navItems = [
-    { name: 'Clients', href: '/', icon: Users },
+    { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+    { name: 'Clients', href: '/clients', icon: Users },
+    { name: 'Calendar', href: '/calendar', icon: Calendar },
     { name: 'Tasks', href: '/tasks', icon: CheckSquare },
     { name: 'Deals', href: '/deals', icon: Briefcase },
     { name: 'Dispositions', href: '/dispositions', icon: Users },
@@ -20,9 +22,16 @@ export default function Sidebar() {
     return (
         <aside className={styles.sidebar}>
             <div className={styles.header}>
-                <h1 className={styles.title}>
-                    Wholesale CRM
-                </h1>
+                <img
+                    src="/logo.png"
+                    alt="Xyre Holdings"
+                    style={{
+                        width: '50px',
+                        height: 'auto',
+                        objectFit: 'contain',
+                        margin: '0 auto'
+                    }}
+                />
             </div>
             <nav className={styles.nav}>
                 {navItems.map((item) => {
@@ -40,17 +49,6 @@ export default function Sidebar() {
                     );
                 })}
             </nav>
-            <div className={styles.footer}>
-                <div className={styles.userProfile}>
-                    <div className={styles.avatar}>
-                        <span>AD</span>
-                    </div>
-                    <div className={styles.userInfo}>
-                        <span className={styles.userName}>Admin User</span>
-                        <span className={styles.userEmail}>admin@crm.com</span>
-                    </div>
-                </div>
-            </div>
         </aside>
     );
 }

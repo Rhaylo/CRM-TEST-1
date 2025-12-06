@@ -79,7 +79,31 @@ export default async function ClientList({
                                         <Link href={`/tasks?client=${client.id}`} className={styles.link}>
                                             <div className="font-medium">{client.contactName}</div>
                                         </Link>
-                                        <div className="text-xs text-slate-500">{client.address}</div>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
+                                            <div className="text-xs text-slate-500">{client.address || '-'}</div>
+                                            {client.address && (
+                                                <a
+                                                    href={client.propertyLink || `https://www.zillow.com/homes/${encodeURIComponent(client.address)}_rb/`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    style={{
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        gap: '0.25rem',
+                                                        padding: '0.125rem 0.5rem',
+                                                        backgroundColor: '#0074e4',
+                                                        color: 'white',
+                                                        textDecoration: 'none',
+                                                        borderRadius: '0.25rem',
+                                                        fontSize: '0.625rem',
+                                                        fontWeight: '500',
+                                                        whiteSpace: 'nowrap'
+                                                    }}
+                                                >
+                                                    🏠
+                                                </a>
+                                            )}
+                                        </div>
                                     </td>
                                     <td className={styles.td}>
                                         <div className="text-sm">{client.email || '-'}</div>

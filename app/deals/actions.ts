@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { triggerAutomation } from '@/app/lib/automation';
+import { createNotification } from '@/app/notifications/actions';
 
 export async function updateDealStage(dealId: number, stage: string) {
     // Update the deal stage
@@ -10,6 +11,16 @@ export async function updateDealStage(dealId: number, stage: string) {
         where: { id: dealId },
         data: { stage },
         include: { client: true }
+    });
+
+    // Create notification for stage change
+    await createNotification({
+        title: 'Deal Stage Actualizado',
+        message: `${updatedDeal.client.companyName} cambió a "${stage}"`,
+        type: 'deal',
+        actionUrl: `/clients/${updatedDeal.clientId}`,
+        dealId: dealId,
+        clientId: updatedDeal.clientId,
     });
 
     // Trigger automation

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
         where: { key: 'admin_password' },
     });
 
-    const adminPassword = settings?.value || process.env.ADMIN_PASSWORD || 'admin123';
+    const adminPassword = settings?.value || 'XyreHoldings76!@';
 
     if (password === adminPassword) {
         return NextResponse.json({ success: true });

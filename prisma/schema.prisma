@@ -16,6 +16,8 @@ model Client {
   phone           String?
   email           String?
   address         String?
+  lat             Float?
+  lng             Float?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   
@@ -34,10 +36,17 @@ model Client {
   ourOffer          Float?
   arv               Float?
 
-  deals     Deal[]
-  notes     Note[]
-  contracts Contract[]
-  tasks     Task[]
+  // Contract Generation Fields
+  seller2Name       String?   // Second seller name (optional)
+  closingDate       DateTime? // Expected closing date
+  purchasePrice     Float?    // Final purchase price
+  state             String?   // Property state
+
+  deals         Deal[]
+  notes         Note[]
+  contracts     Contract[]
+  tasks         Task[]
+  notifications Notification[]
 }
 
 model Deal {
@@ -54,8 +63,9 @@ model Deal {
   clientId Int
   client   Client @relation(fields: [clientId], references: [id])
   
-  contracts Contract[]
-  notes     Note[]
+  contracts     Contract[]
+  notes         Note[]
+  notifications Notification[]
   
   investorId Int?
   investor   Investor? @relation(fields: [investorId], references: [id])
@@ -92,7 +102,8 @@ model Task {
   clientId Int
   client   Client @relation(fields: [clientId], references: [id])
   
-  notes Note[]
+  notes         Note[]
+  notifications Notification[]
 }
 
 model Note {
@@ -171,8 +182,30 @@ model Investor {
   phone           String?
   status          String   @default("Active") // Active, Inactive, Do Not Contact
   buyingCriteria  String?  // Text description of what they buy
+  state           String?  // e.g. GA, FL
+  zone            String?  // e.g. Atlanta, Metro Area
   notes           Note[]
   deals           Deal[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  title       String
+  message     String
+  type        String   // 'task', 'deal', 'automation', 'system'
+  read        Boolean  @default(false)
+  actionUrl   String?  // URL to navigate when clicked
+  createdAt   DateTime @default(now())
+  
+  // Optional relations
+  clientId    Int?
+  client      Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  taskId      Int?
+  task        Task? @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  dealId      Int?
+  deal        Deal? @relation(fields: [dealId], references: [id], onDelete: Cascade)
 }

@@ -5,6 +5,7 @@ import styles from './page.module.css';
 import { updateContractStatus, uploadContractDocument } from './actions';
 import { deleteContract } from './deleteActions';
 import { Trash2, Eye } from 'lucide-react';
+import DownloadContractButton from './DownloadContractButton';
 
 export default function ContractList({ contracts }: { contracts: any[] }) {
     const [previewDoc, setPreviewDoc] = useState<string | null>(null);
@@ -109,7 +110,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                         <td className={styles.td}>${contract.deal.amount.toLocaleString()}</td>
                                         <td className={styles.td}>
                                             <span className={`${styles.statusBadge} ${contract.status === 'In' ? styles.statusIn :
-                                                    contract.status === 'Out' ? styles.statusOut : styles.statusSigned
+                                                contract.status === 'Out' ? styles.statusOut : styles.statusSigned
                                                 }`}>
                                                 {contract.status}
                                             </span>
@@ -148,15 +149,18 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                             )}
                                         </td>
                                         <td className={styles.td}>
-                                            <select
-                                                className="p-1 border rounded text-sm"
-                                                value={contract.status}
-                                                onChange={(e) => handleStatusChange(contract.id, e.target.value)}
-                                            >
-                                                <option value="Out">Out</option>
-                                                <option value="In">In</option>
-                                                <option value="Signed">Signed</option>
-                                            </select>
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                                <select
+                                                    className="p-1 border rounded text-sm"
+                                                    value={contract.status}
+                                                    onChange={(e) => handleStatusChange(contract.id, e.target.value)}
+                                                >
+                                                    <option value="Out">Out</option>
+                                                    <option value="In">In</option>
+                                                    <option value="Signed">Signed</option>
+                                                </select>
+                                                <DownloadContractButton contract={contract} />
+                                            </div>
                                         </td>
                                         <td className={styles.td}>
                                             <button

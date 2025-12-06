@@ -10,6 +10,8 @@ export async function createInvestor(formData: FormData) {
     const phone = formData.get('phone') as string;
     const status = formData.get('status') as string;
     const buyingCriteria = formData.get('buyingCriteria') as string;
+    const state = formData.get('state') as string;
+    const zone = formData.get('zone') as string;
 
     await prisma.investor.create({
         data: {
@@ -19,6 +21,8 @@ export async function createInvestor(formData: FormData) {
             phone,
             status,
             buyingCriteria,
+            state,
+            zone,
         },
     });
 
@@ -32,6 +36,8 @@ export async function updateInvestor(investorId: number, formData: FormData) {
     const phone = formData.get('phone') as string;
     const status = formData.get('status') as string;
     const buyingCriteria = formData.get('buyingCriteria') as string;
+    const state = formData.get('state') as string;
+    const zone = formData.get('zone') as string;
 
     await prisma.investor.update({
         where: { id: investorId },
@@ -42,6 +48,8 @@ export async function updateInvestor(investorId: number, formData: FormData) {
             phone,
             status,
             buyingCriteria,
+            state,
+            zone,
         },
     });
 

@@ -6,9 +6,12 @@ import { updateClientDetails } from './actions';
 import { deleteClient } from './deleteActions';
 import { Pencil, Save, X } from 'lucide-react';
 import DeleteButton from '@/app/components/DeleteButton';
+import EmailModal from './EmailModal';
+import ContractGenerator from './ContractGenerator';
 
 export default function ClientInfo({ client }: { client: any }) {
     const [isEditing, setIsEditing] = useState(false);
+    const [showEmailModal, setShowEmailModal] = useState(false);
     const leadAge = Math.floor((Date.now() - new Date(client.createdAt).getTime()) / (1000 * 60 * 60 * 24));
 
     const handleSubmit = async (formData: FormData) => {
@@ -121,6 +124,7 @@ export default function ClientInfo({ client }: { client: any }) {
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                     <span className={styles.leadAge}>{leadAge} days old</span>
+                    <ContractGenerator clientId={client.id} clientName={client.contactName} />
                     <DeleteButton
                         onDelete={() => deleteClient(client.id)}
                         itemType="Client"
@@ -131,7 +135,30 @@ export default function ClientInfo({ client }: { client: any }) {
             <div className={styles.contactInfo}>
                 <div className={styles.infoItem}>
                     <span className={styles.label}>Email:</span>
-                    <span className={styles.value}>{client.email || '-'}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+                        <span className={styles.value}>{client.email || '-'}</span>
+                        {client.email && (
+                            <button
+                                onClick={() => setShowEmailModal(true)}
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.25rem',
+                                    padding: '0.25rem 0.75rem',
+                                    backgroundColor: '#10b981',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '0.375rem',
+                                    fontSize: '0.75rem',
+                                    fontWeight: '500',
+                                    cursor: 'pointer',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                📧 Send Email
+                            </button>
+                        )}
+                    </div>
                 </div>
                 <div className={styles.infoItem}>
                     <span className={styles.label}>Phone:</span>
@@ -139,21 +166,35 @@ export default function ClientInfo({ client }: { client: any }) {
                 </div>
                 <div className={styles.infoItem}>
                     <span className={styles.label}>Address:</span>
-                    <span className={styles.value}>{client.address || '-'}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flex: 1 }}>
+                        <span className={styles.value}>{client.address || '-'}</span>
+                        {client.address && (
+                            <a
+                                href={client.propertyLink || `https://www.zillow.com/homes/${encodeURIComponent(client.address)}_rb/`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.25rem',
+                                    padding: '0.25rem 0.75rem',
+                                    backgroundColor: client.propertyLink ? '#10b981' : '#0074e4',
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                    borderRadius: '0.375rem',
+                                    fontSize: '0.75rem',
+                                    fontWeight: '500',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                {client.propertyLink ? '🔗 View Property' : '🏠 View on Zillow'}
+                            </a>
+                        )}
+                    </div>
                 </div>
                 <div className={styles.infoItem}>
                     <span className={styles.label}>Condition:</span>
                     <span className={styles.value}>{client.propertyCondition || '-'}</span>
-                </div>
-                <div className={styles.infoItem}>
-                    <span className={styles.label}>Link:</span>
-                    {client.propertyLink ? (
-                        <a href={client.propertyLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline truncate max-w-[200px] block">
-                            View Property
-                        </a>
-                    ) : (
-                        <span className={styles.value}>-</span>
-                    )}
                 </div>
                 <div className={styles.infoItem}>
                     <span className={styles.label}>Asking Price:</span>
@@ -168,6 +209,14 @@ export default function ClientInfo({ client }: { client: any }) {
                     <span className={styles.value}>{client.arv ? `$${client.arv.toLocaleString()}` : '-'}</span>
                 </div>
             </div>
+
+            {showEmailModal && client.email && (
+                <EmailModal
+                    clientEmail={client.email}
+                    clientName={client.contactName}
+                    onClose={() => setShowEmailModal(false)}
+                />
+            )}
         </div>
     );
 }

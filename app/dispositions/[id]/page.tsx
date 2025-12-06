@@ -5,8 +5,9 @@ import { ArrowLeft, Mail, Phone, Building, Calendar } from 'lucide-react';
 import InvestorNotes from './InvestorNotes';
 import EditInvestorForm from './EditInvestorForm';
 import ActiveDealsSection from './ActiveDealsSection';
+import InvestorNavigation from './InvestorNavigation';
 
-export default async function InvestorDetailPage({ params }: { params: { id: string } }) {
+export default async function InvestorDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
 
     // Fetch investor with deals and notes
@@ -35,8 +36,24 @@ export default async function InvestorDetailPage({ params }: { params: { id: str
         notFound();
     }
 
+    // Get all investor IDs for navigation
+    const allInvestors = await prisma.investor.findMany({
+        select: { id: true },
+        orderBy: { createdAt: 'desc' },
+    });
+
+    const currentIndex = allInvestors.findIndex(i => i.id === investor.id);
+    const prevInvestorId = currentIndex > 0 ? allInvestors[currentIndex - 1].id : null;
+    const nextInvestorId = currentIndex < allInvestors.length - 1 ? allInvestors[currentIndex + 1].id : null;
+
     return (
         <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <InvestorNavigation
+                prevInvestorId={prevInvestorId}
+                nextInvestorId={nextInvestorId}
+                currentIndex={currentIndex + 1}
+                totalInvestors={allInvestors.length}
+            />
             <Link href="/dispositions" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: '#64748b', textDecoration: 'none', marginBottom: '1.5rem' }}>
                 <ArrowLeft size={16} />
                 Back to Dispositions

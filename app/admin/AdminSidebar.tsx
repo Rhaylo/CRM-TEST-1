@@ -10,6 +10,7 @@ export default function AdminSidebar() {
 
     const navItems = [
         { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+        { href: '/admin/revenue', icon: LayoutDashboard, label: 'Revenue Data' },
         { href: '/admin/automation', icon: Zap, label: 'Automation Rules' },
         { href: '/admin/scheduler', icon: Clock, label: 'Scheduled Tasks' },
         { href: '/admin/logs', icon: FileText, label: 'Execution Logs' },

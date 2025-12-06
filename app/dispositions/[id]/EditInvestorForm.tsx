@@ -86,6 +86,16 @@ export default function EditInvestorForm({ investor }: { investor: any }) {
                 <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Phone</label>
                 <input type="tel" name="phone" defaultValue={investor.phone || ''} style={{ width: '100%', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.375rem' }} />
             </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div>
+                    <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>State</label>
+                    <input type="text" name="state" defaultValue={investor.state || ''} placeholder="e.g. GA" style={{ width: '100%', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.375rem' }} />
+                </div>
+                <div>
+                    <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Zone/Market</label>
+                    <input type="text" name="zone" defaultValue={investor.zone || ''} placeholder="e.g. Atlanta" style={{ width: '100%', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.375rem' }} />
+                </div>
+            </div>
             <div style={{ marginBottom: '1rem' }}>
                 <label style={{ display: 'block', marginBottom: '0.25rem', fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>Status</label>
                 <select name="status" defaultValue={investor.status} style={{ width: '100%', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.375rem' }}>

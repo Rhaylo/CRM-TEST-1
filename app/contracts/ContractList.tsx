@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
-import { updateContractStatus, uploadContractDocument } from './actions';
+import { updateContractStatus, uploadContractDocument, updateContractDocumentName } from './actions';
 import { deleteContract } from './deleteActions';
-import { Trash2, Eye } from 'lucide-react';
+import { Trash2, Eye, Pencil, Check, X } from 'lucide-react';
 import { generateBuyerPacket } from '../utils/generateBuyerPacket';
 import { generateDealSummary } from '../utils/generateDealSummary';
 import { FileText } from 'lucide-react';
@@ -13,6 +13,26 @@ import BuyerPacketModal from './BuyerPacketModal';
 export default function ContractList({ contracts }: { contracts: any[] }) {
     const [previewDoc, setPreviewDoc] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<'sent' | 'received'>('sent');
+
+    // Rename state
+    const [editingDocId, setEditingDocId] = useState<number | null>(null);
+    const [tempDocName, setTempDocName] = useState('');
+
+    const startEditing = (contract: any) => {
+        setEditingDocId(contract.id);
+        const currentName = contract.documentName || (contract.documentPath ? contract.documentPath.split('/').pop() : '');
+        setTempDocName(currentName);
+    };
+
+    const saveDocName = async (id: number) => {
+        await updateContractDocumentName(id, tempDocName);
+        setEditingDocId(null);
+    };
+
+    const cancelEditing = () => {
+        setEditingDocId(null);
+        setTempDocName('');
+    };
 
     const handleStatusChange = async (id: number, status: string) => {
         await updateContractStatus(id, status);
@@ -206,61 +226,58 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                         <td className={styles.td}>{contract.dateSent ? new Date(contract.dateSent).toLocaleDateString() : '-'}</td>
                                         <td className={styles.td}>
                                             {contract.documentPath ? (
-                                                {
-                                                    contract.documentPath ? (
-                                                        <div className="flex flex-col gap-1">
-                                                            {editingDocId === contract.id ? (
-                                                                <div className="flex items-center gap-1">
-                                                                    <input
-                                                                        type="text"
-                                                                        className="border rounded px-1 py-0.5 text-sm w-32"
-                                                                        value={tempDocName}
-                                                                        onChange={(e) => setTempDocName(e.target.value)}
-                                                                        autoFocus
-                                                                    />
-                                                                    <button onClick={() => saveDocName(contract.id)} className="text-green-600 hover:text-green-700"><Check size={14} /></button>
-                                                                    <button onClick={cancelEditing} className="text-red-500 hover:text-red-700"><X size={14} /></button>
-                                                                </div>
-                                                            ) : (
-                                                                <div className="flex items-center gap-1">
-                                                                    <span className="text-green-600 text-sm truncate max-w-[150px]" title={contract.documentName || contract.documentPath.split('/').pop()}>
-                                                                        📄 {contract.documentName || contract.documentPath.split('/').pop()}
-                                                                    </span>
-                                                                    <button onClick={() => startEditing(contract)} className="text-gray-400 hover:text-blue-600 p-0.5"><Pencil size={12} /></button>
-                                                                </div>
-                                                            )}
-
-                                                            {!editingDocId && (
-                                                                <button
-                                                                    onClick={() => setPreviewDoc(contract.documentPath)}
-                                                                    style={{
-                                                                        padding: '0.25rem',
-                                                                        border: '1px solid #cbd5e1',
-                                                                        backgroundColor: 'white',
-                                                                        borderRadius: '0.25rem',
-                                                                        cursor: 'pointer',
-                                                                        display: 'flex',
-                                                                        alignItems: 'center',
-                                                                        justifyContent: 'center',
-                                                                        width: 'fit-content'
-                                                                    }}
-                                                                    title="Preview document"
-                                                                >
-                                                                    <Eye size={14} /> <span className="text-xs ml-1">View</span>
-                                                                </button>
-                                                            )}
+                                                <div className="flex flex-col gap-1">
+                                                    {editingDocId === contract.id ? (
+                                                        <div className="flex items-center gap-1">
+                                                            <input
+                                                                type="text"
+                                                                className="border rounded px-1 py-0.5 text-sm w-32"
+                                                                value={tempDocName}
+                                                                onChange={(e) => setTempDocName(e.target.value)}
+                                                                autoFocus
+                                                            />
+                                                            <button onClick={() => saveDocName(contract.id)} className="text-green-600 hover:text-green-700"><Check size={14} /></button>
+                                                            <button onClick={cancelEditing} className="text-red-500 hover:text-red-700"><X size={14} /></button>
                                                         </div>
                                                     ) : (
-                                                        <label className={styles.uploadLabel}>
-                                                            Upload
-                                                            <input
-                                                                type="file"
-                                                                className={styles.fileInput}
-                                                                onChange={(e) => handleFileUpload(contract.id, e)}
-                                                            />
-                                                        </label>
-                                                    )
-                                                }
+                                                        <div className="flex items-center gap-1">
+                                                            <span className="text-green-600 text-sm truncate max-w-[150px]" title={contract.documentName || contract.documentPath.split('/').pop()}>
+                                                                📄 {contract.documentName || contract.documentPath.split('/').pop()}
+                                                            </span>
+                                                            <button onClick={() => startEditing(contract)} className="text-gray-400 hover:text-blue-600 p-0.5"><Pencil size={12} /></button>
+                                                        </div>
+                                                    )}
+
+                                                    {!editingDocId && (
+                                                        <button
+                                                            onClick={() => setPreviewDoc(contract.documentPath)}
+                                                            style={{
+                                                                padding: '0.25rem',
+                                                                border: '1px solid #cbd5e1',
+                                                                backgroundColor: 'white',
+                                                                borderRadius: '0.25rem',
+                                                                cursor: 'pointer',
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                justifyContent: 'center',
+                                                                width: 'fit-content'
+                                                            }}
+                                                            title="Preview document"
+                                                        >
+                                                            <Eye size={14} /> <span className="text-xs ml-1">View</span>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <label className={styles.uploadLabel}>
+                                                    Upload
+                                                    <input
+                                                        type="file"
+                                                        className={styles.fileInput}
+                                                        onChange={(e) => handleFileUpload(contract.id, e)}
+                                                    />
+                                                </label>
+                                            )}
                                         </td>
                                         <td className={styles.td}>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

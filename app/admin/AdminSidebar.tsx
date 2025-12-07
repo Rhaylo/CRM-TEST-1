@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Zap, Clock, FileText, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Zap, Clock, FileText, Settings, LogOut, Mail } from 'lucide-react';
 import styles from './admin.module.css';
 
 export default function AdminSidebar() {
@@ -13,6 +13,7 @@ export default function AdminSidebar() {
         { href: '/admin/revenue', icon: LayoutDashboard, label: 'Revenue Data' },
         { href: '/admin/automation', icon: Zap, label: 'Automation Rules' },
         { href: '/admin/scheduler', icon: Clock, label: 'Scheduled Tasks' },
+        { href: '/admin/email-templates', icon: Mail, label: 'Email Templates' },
         { href: '/admin/logs', icon: FileText, label: 'Execution Logs' },
         { href: '/admin/settings', icon: Settings, label: 'Settings' },
     ];

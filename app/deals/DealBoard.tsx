@@ -39,20 +39,35 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
         await deleteDeal(dealId);
     };
 
+    const STAGE_COLORS: Record<string, string> = {
+        'Pending': '#f59e0b',         // Amber/Orange
+        'Contract Out': '#3b82f6',    // Blue
+        'Contract In': '#8b5cf6',     // Purple
+        'Complete': '#22c55e',        // Green
+    };
+
     return (
         <div className={styles.board}>
             {STAGES.map(stage => {
                 const stageDeals = deals.filter(d => d.stage === stage);
+                const color = STAGE_COLORS[stage] || '#cbd5e1';
+
                 return (
                     <div
                         key={stage}
                         className={styles.column}
                         onDragOver={handleDragOver}
                         onDrop={() => handleDrop(stage)}
+                        style={{ borderTop: `4px solid ${color}` }}
                     >
-                        <div className={styles.columnHeader}>
+                        <div className={styles.columnHeader} style={{ color: color }}>
                             <span>{stage}</span>
-                            <span className={styles.count}>{stageDeals.length}</span>
+                            <span
+                                className={styles.count}
+                                style={{ backgroundColor: `${color}20`, color: color }}
+                            >
+                                {stageDeals.length}
+                            </span>
                         </div>
                         <div className={styles.columnContent}>
                             {stageDeals.map(deal => {

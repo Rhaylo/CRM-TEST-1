@@ -7,7 +7,6 @@ import { deleteClient } from './deleteActions';
 import { Pencil, Save, X } from 'lucide-react';
 import DeleteButton from '@/app/components/DeleteButton';
 import EmailModal from './EmailModal';
-import ContractGenerator from './ContractGenerator';
 
 export default function ClientInfo({ client }: { client: any }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -124,7 +123,6 @@ export default function ClientInfo({ client }: { client: any }) {
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                     <span className={styles.leadAge}>{leadAge} days old</span>
-                    <ContractGenerator clientId={client.id} clientName={client.contactName} />
                     <DeleteButton
                         onDelete={() => deleteClient(client.id)}
                         itemType="Client"

@@ -54,6 +54,10 @@ export default async function DashboardPage() {
 
     // Process pipeline data
     const pipelineColors: Record<string, string> = {
+        'Complete': '#22c55e',       // Green
+        'Contract In': '#8b5cf6',     // Purple
+        'Contract Out': '#3b82f6',    // Blue
+        'Pending': '#f59e0b',         // Amber/Orange
         'Lead': '#94a3b8',
         'Contact Made': '#60a5fa',
         'Proposal Sent': '#818cf8',

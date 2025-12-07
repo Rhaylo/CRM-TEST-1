@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, Briefcase, FileText, CheckSquare, Settings, LayoutDashboard, Calendar } from 'lucide-react';
+import { Users, Briefcase, FileText, CheckSquare, Settings, LayoutDashboard, Calendar, Mail } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
 const navItems = [

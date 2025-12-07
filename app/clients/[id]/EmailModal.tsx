@@ -16,6 +16,40 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+    // Templates state
+    const [templates, setTemplates] = useState<any[]>([]);
+    const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
+
+    // Fetch templates on mount
+    useState(() => {
+        fetch('/api/email-templates')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setTemplates(data);
+                }
+            })
+            .catch(err => console.error('Error fetching templates:', err));
+    });
+
+    const handleTemplateChange = (templateId: string) => {
+        setSelectedTemplateId(templateId);
+        if (!templateId) return;
+
+        const template = templates.find(t => t.id.toString() === templateId);
+        if (template) {
+            setSubject(template.subject);
+
+            // Basic variable replacement
+            let body = template.body;
+            body = body.replace(/{{clientName}}/g, clientName);
+            body = body.replace(/{{clientEmail}}/g, clientEmail);
+            body = body.replace(/{{myCompany}}/g, 'Xyre Holdings'); // Hardcoded for now based on context
+
+            setMessage(body);
+        }
+    };
+
     const handleSend = async () => {
         if (!subject.trim() || !message.trim()) {
             setError('Please fill in both subject and message');
@@ -95,6 +129,32 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
                     </div>
                 ) : (
                     <>
+                        {/* Template Selector */}
+                        {templates.length > 0 && (
+                            <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f0f9ff', borderRadius: '0.5rem', border: '1px solid #bae6fd' }}>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#0369a1', marginBottom: '0.5rem' }}>
+                                    Load Template
+                                </label>
+                                <select
+                                    value={selectedTemplateId}
+                                    onChange={(e) => handleTemplateChange(e.target.value)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.5rem',
+                                        border: '1px solid #7dd3fc',
+                                        borderRadius: '0.375rem',
+                                        backgroundColor: 'white',
+                                        color: '#0c4a6e'
+                                    }}
+                                >
+                                    <option value="">-- Select a template to autofill --</option>
+                                    {templates.map(t => (
+                                        <option key={t.id} value={t.id}>{t.name}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        )}
+
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
                                 To:

@@ -1,0 +1,10 @@
+node_modules
+.next
+dist
+build
+.cache
+.git
+*.log
+*.sqlite
+*.db
+*.bak

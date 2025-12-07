@@ -49,3 +49,11 @@ export async function uploadContractDocument(id: number, filename: string) {
     });
     revalidatePath('/contracts');
 }
+
+export async function updateContractDocumentName(id: number, name: string) {
+    await prisma.contract.update({
+        where: { id },
+        data: { documentName: name },
+    });
+    revalidatePath('/contracts');
+}

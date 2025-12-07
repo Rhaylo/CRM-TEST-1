@@ -5,8 +5,17 @@ import styles from './page.module.css';
 export default async function ContractsPage() {
     const contracts = await prisma.contract.findMany({
         include: {
-            client: true,
-            deal: true
+            client: {
+                include: {
+                    tasks: true,
+                    notes: { orderBy: { createdAt: 'desc' }, take: 5 }
+                }
+            },
+            deal: {
+                include: {
+                    notes: { orderBy: { createdAt: 'desc' }, take: 5 }
+                }
+            }
         },
         orderBy: { updatedAt: 'desc' },
     });

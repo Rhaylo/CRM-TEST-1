@@ -3,7 +3,7 @@
 export const ASSIGNMENT_CONTRACT = `
 ASSIGNMENT OF CONTRACT OF SALE
 
-In consideration of the final sales price of {{FINAL_SALES_PRICE_WORDS}} (${{ FINAL_SALES_PRICE }}) 
+In consideration of the final sales price of {{FINAL_SALES_PRICE_WORDS}} (\${{ FINAL_SALES_PRICE }}) 
 and other good and valuable consideration, and the mutual benefits to be derived by all parties 
 to this assignment, the undersigned, {{ASSIGNOR}} (Assignor) does hereby 
 assign unto {{ASSIGNEE}} (Assignee) all rights, interest, suits, 
@@ -44,7 +44,7 @@ sells to the Buyer and the Buyer purchases from the Seller the Property having a
 attached fixtures and any other utility fixtures, if any. 
 
 2. Purchase Price. The purchase price (the "Purchase Price") which the Buyer shall pay to the Seller 
-for the Property shall be {{PURCHASE_PRICE_WORDS}} (${{ PURCHASE_PRICE }}). 
+for the Property shall be {{PURCHASE_PRICE_WORDS}} (\${{ PURCHASE_PRICE }}). 
 
 The Purchase Price shall be payable in the following manner:  
 A check in the amount of One Hundred Dollars, ($100) shall be deposited into the Escrow Account of the 
@@ -163,7 +163,7 @@ sells to the Buyer and the Buyer purchases from the Seller the Property having a
 attached fixtures and any other utility fixtures, if any. 
 
 2. Purchase Price. The purchase price (the "Purchase Price") which the Buyer shall pay to the Seller 
-for the Property shall be {{PURCHASE_PRICE_WORDS}} (${{ PURCHASE_PRICE }}). 
+for the Property shall be {{PURCHASE_PRICE_WORDS}} (\${{ PURCHASE_PRICE }}). 
 
 The Purchase Price shall be paid in full by Buyer by certified check, cash, or bank wire transfer at the time of 
 closing. 

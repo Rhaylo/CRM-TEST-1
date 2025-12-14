@@ -24,6 +24,12 @@ body {
   flex-direction: column;
 }
 
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+  }
+}
+
 .page-content {
   padding: 2rem;
   padding-top: 6rem;

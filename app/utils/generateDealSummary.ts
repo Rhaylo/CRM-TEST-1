@@ -8,11 +8,15 @@ interface DealSummaryData {
         phone: string | null;
         email: string | null;
         address: string | null;
+        arv?: number;
+        repairs?: number;
+        ourOffer?: number;
         tasks: any[];
         notes: any[];
     };
     deal: {
         amount: number;
+        assignmentFee?: number;
         stage: string;
         createdAt: Date;
         notes: any[];
@@ -59,14 +63,30 @@ export const generateDealSummary = (data: DealSummaryData) => {
 
     // Column 2: Deal Metrics (Right side)
     const col2X = pageWidth / 2 + 10;
-    let y2 = 55; // Reset Y for col 2
-    doc.text(`Deal Amount: $${data.deal.amount.toLocaleString()}`, col2X, y2);
+    let y2 = 45 + 10; // Match y start
+
+    doc.text(`Deal Amount (Wholesale Price): $${data.deal.amount.toLocaleString()}`, col2X, y2);
     y2 += 6;
+    doc.text(`ARV: $${(data.client.arv || 0).toLocaleString()}`, col2X, y2);
+    y2 += 6;
+    doc.text(`Est. Repairs: $${(data.client.repairs || 0).toLocaleString()}`, col2X, y2);
+    y2 += 6;
+    doc.text(`Our Accepted Offer: $${(data.client.ourOffer || 0).toLocaleString()}`, col2X, y2);
+    y2 += 6;
+
+    // Assignment Fee
+    const ourOffer = data.client.ourOffer || 0;
+    const assignmentFee = data.deal.assignmentFee ?? (data.deal.amount - ourOffer);
+
+    doc.setTextColor(22, 163, 74); // Green
+    doc.text(`Assignment Fee: $${assignmentFee.toLocaleString()}`, col2X, y2);
+    doc.setTextColor(33, 41, 59); // Reset
+    y2 += 6;
+
+    y2 += 4;
     doc.text(`Current Stage: ${data.deal.stage}`, col2X, y2);
     y2 += 6;
     doc.text(`Created Date: ${new Date(data.deal.createdAt).toLocaleDateString()}`, col2X, y2);
-    y2 += 6;
-    doc.text(`Title Status: Open`, col2X, y2);
 
     y = Math.max(y, y2) + 15;
 

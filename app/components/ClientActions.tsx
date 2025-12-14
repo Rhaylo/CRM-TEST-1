@@ -3,8 +3,9 @@
 import { Briefcase, X } from 'lucide-react';
 import { useState } from 'react';
 import { createDealFromClient } from './createDealAction';
+import { updateClientStatus } from '@/app/clients/[id]/actions';
 
-export default function ClientActions({ clientId, clientName }: { clientId: number; clientName: string }) {
+export default function ClientActions({ clientId, clientName, status }: { clientId: number; clientName: string; status: string }) {
     const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = async (formData: FormData) => {
@@ -12,8 +13,44 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
         setShowModal(false);
     };
 
+    const handleSnooze = async () => {
+        if (confirm(`Are you sure you want to snooze ${clientName}? They will be moved to the Snoozed tab.`)) {
+            await updateClientStatus(clientId, 'Snoozed');
+        }
+    };
+
+    const handleActivate = async () => {
+        await updateClientStatus(clientId, 'Active');
+    };
+
     return (
-        <>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <select
+                value={status}
+                onChange={async (e) => {
+                    const newStatus = e.target.value;
+                    if (confirm(`Change status to ${newStatus}?`)) {
+                        await updateClientStatus(clientId, newStatus);
+                    }
+                }}
+                style={{
+                    padding: '0.375rem 0.75rem',
+                    borderRadius: '0.375rem',
+                    border: '1px solid #cbd5e1',
+                    fontSize: '0.75rem',
+                    fontWeight: '500',
+                    color: '#334155',
+                    cursor: 'pointer',
+                    outline: 'none',
+                    backgroundColor: status === 'Active' ? '#f0f9ff' : status === 'Snoozed' ? '#fffbeb' : '#f1f5f9',
+                    borderColor: status === 'Active' ? '#bae6fd' : status === 'Snoozed' ? '#fde68a' : '#e2e8f0',
+                }}
+            >
+                <option value="Active">Active</option>
+                <option value="Snoozed">Snoozed</option>
+                <option value="Archived">Archived</option>
+            </select>
+
             <button
                 onClick={() => setShowModal(true)}
                 style={{
@@ -160,6 +197,6 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 }

@@ -68,13 +68,14 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
     };
 
     // Helper to determine if file is previewable
-    const isPreviewable = (path: string) => {
-        const lower = path.toLowerCase();
+    const isPreviewable = (name: string) => {
+        if (!name) return false;
+        const lower = name.toLowerCase();
         return lower.endsWith('.pdf') || lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.png');
     };
 
-    const renderPreviewContent = (path: string) => {
-        const lower = path.toLowerCase();
+    const renderPreviewContent = (path: string, name: string) => {
+        const lower = (name || path).toLowerCase();
         if (lower.endsWith('.pdf')) {
             return (
                 <iframe
@@ -97,7 +98,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                     <p style={{ marginBottom: '1rem' }}>This file type cannot be previewed directly.</p>
                     <a
                         href={path}
-                        download
+                        download={name}
                         target="_blank"
                         rel="noreferrer"
                         style={{
@@ -269,14 +270,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                                     )}
                                                 </div>
                                             ) : (
-                                                <label className={styles.uploadLabel}>
-                                                    Upload
-                                                    <input
-                                                        type="file"
-                                                        className={styles.fileInput}
-                                                        onChange={(e) => handleFileUpload(contract.id, e)}
-                                                    />
-                                                </label>
+                                                <span className="text-gray-400">-</span>
                                             )}
                                         </td>
                                         <td className={styles.td}>
@@ -297,7 +291,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                                             address: contract.client.address || 'Address on Request',
                                                             askingPrice: contract.deal?.amount || 0,
                                                             arv: contract.client.arv || 0,
-                                                            repairs: contract.client.propertyCondition || 0,
+                                                            repairs: contract.client.repairs || 0,
                                                             titleStatus: 'Open',
                                                             contactEmail: 'adrian@xyreholdings.com'
                                                         }
@@ -354,42 +348,44 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                         )}
                     </tbody>
                 </table>
-            </div>
+            </div >
 
             {/* Document Preview Modal */}
-            {previewDoc && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: 'rgba(0,0,0,0.7)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1000,
-                }} onClick={() => setPreviewDoc(null)}>
+            {
+                previewDoc && (
                     <div style={{
-                        backgroundColor: 'white',
-                        padding: '2rem',
-                        borderRadius: '0.75rem',
-                        maxWidth: '800px',
-                        width: '90%',
-                        maxHeight: '90vh',
-                        overflow: 'auto',
-                    }} onClick={(e) => e.stopPropagation()}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Document Preview</h3>
-                            <button onClick={() => setPreviewDoc(null)} style={{ cursor: 'pointer', fontSize: '1.5rem', border: 'none', background: 'none' }}>×</button>
-                        </div>
-                        <div style={{ textAlign: 'center', padding: '1rem', backgroundColor: '#f8fafc', borderRadius: '0.5rem', minHeight: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                            <p style={{ color: '#64748b', marginBottom: '1rem', fontWeight: 'bold' }}>{previewDoc.split('/').pop()}</p>
-                            {renderPreviewContent(previewDoc)}
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'rgba(0,0,0,0.7)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        zIndex: 1000,
+                    }} onClick={() => setPreviewDoc(null)}>
+                        <div style={{
+                            backgroundColor: 'white',
+                            padding: '2rem',
+                            borderRadius: '0.75rem',
+                            maxWidth: '800px',
+                            width: '90%',
+                            maxHeight: '90vh',
+                            overflow: 'auto',
+                        }} onClick={(e) => e.stopPropagation()}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                                <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Document Preview</h3>
+                                <button onClick={() => setPreviewDoc(null)} style={{ cursor: 'pointer', fontSize: '1.5rem', border: 'none', background: 'none' }}>×</button>
+                            </div>
+                            <div style={{ textAlign: 'center', padding: '1rem', backgroundColor: '#f8fafc', borderRadius: '0.5rem', minHeight: '300px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                <p style={{ color: '#64748b', marginBottom: '1rem', fontWeight: 'bold' }}>{previewDoc.split('/').pop()}</p>
+                                {renderPreviewContent(previewDoc, tempDocName || previewDoc)}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )
+            }
         </>
     );
 }

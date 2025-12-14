@@ -19,14 +19,19 @@ export default async function SearchPage({
         );
     }
 
+    // Check if we are likely using Postgres (Vercel) vs SQLite (Local)
+    // 'mode' is only supported in Postgres, so we conditionally add it.
+    const isPostgres = !!process.env.POSTGRES_PRISMA_URL;
+    const mode = isPostgres ? 'insensitive' : undefined;
+
     const clients = await prisma.client.findMany({
         where: {
             OR: [
-                { companyName: { contains: query } },
-                { contactName: { contains: query } },
-                { email: { contains: query } },
-                { phone: { contains: query } },
-                { address: { contains: query } },
+                { companyName: { contains: query, mode: mode as any } },
+                { contactName: { contains: query, mode: mode as any } },
+                { email: { contains: query, mode: mode as any } },
+                { phone: { contains: query, mode: mode as any } },
+                { address: { contains: query, mode: mode as any } },
             ],
         },
     });

@@ -14,18 +14,24 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                // Check credentials
-                const validEmail = 'info@xyreholdings.com';
-                const validPassword = process.env.AUTH_PASSWORD || 'XyreHoldings76!@';
+                // Credentials check
+                const allowedEmails = ['info@xyreholdings.com', 'adrian@xyreholdings.com'];
+                const envPassword = process.env.AUTH_PASSWORD;
+                const defaultPassword = 'XyreHoldings76!@';
 
-                if (credentials.email === validEmail && credentials.password === validPassword) {
+                // Allow login if password matches Env var (if set/changed) OR the default hardcoded one
+                const isValidPassword = (envPassword && envPassword !== 'CHANGE_ME' && credentials.password === envPassword) ||
+                    (credentials.password === defaultPassword);
+
+                if (allowedEmails.includes(credentials.email.toLowerCase()) && isValidPassword) {
                     return {
                         id: '1',
-                        email: 'info@xyreholdings.com',
+                        email: credentials.email,
                         name: 'Xyre Holdings Admin'
                     };
                 }
 
+                console.log('Login failed for:', credentials.email);
                 return null;
             }
         })

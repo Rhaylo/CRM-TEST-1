@@ -1,7 +1,7 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
@@ -11,6 +11,45 @@ export default function LoginPage() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { data: session, status } = useSession();
+
+    // Prevent auto-redirect loop for now. Let user click.
+    if (status === 'authenticated') {
+        return (
+            <div style={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: '#f8fafc'
+            }}>
+                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#334155' }}>Already Logged In</h2>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button
+                        onClick={() => window.location.href = '/'}
+                        style={{ padding: '0.75rem 1.5rem', background: '#2563eb', color: 'white', borderRadius: '0.5rem', border: 'none', cursor: 'pointer' }}
+                    >
+                        Go to Dashboard
+                    </button>
+                    <button
+                        onClick={() => {
+                            // Force logout if stuck and redirect to login
+                            const signOut = require('next-auth/react').signOut;
+                            signOut({ callbackUrl: '/login' });
+                        }}
+                        style={{ padding: '0.75rem 1.5rem', background: '#fff', color: '#ef4444', borderRadius: '0.5rem', border: '1px solid #ef4444', cursor: 'pointer' }}
+                    >
+                        Logout
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
+    if (status === 'loading') {
+        return null; // Or a loading spinner
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

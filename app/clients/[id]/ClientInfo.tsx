@@ -51,11 +51,8 @@ export default function ClientInfo({ client }: { client: any }) {
                         <label className={styles.label}>Address</label>
                         <input name="address" defaultValue={client.address} className="border rounded px-2 py-1 w-full" />
                     </div>
-                    <div className={styles.infoItem}>
-                        <label className={styles.label}>Property Condition</label>
-                        <input name="propertyCondition" defaultValue={client.propertyCondition} className="border rounded px-2 py-1 w-full" placeholder="e.g. Good" />
-                    </div>
-                    <div className={styles.infoItem}>
+
+                    <div className={styles.infoItem} style={{ gridColumn: '1 / -1' }}>
                         <label className={styles.label}>Property Link</label>
                         <input name="propertyLink" defaultValue={client.propertyLink} className="border rounded px-2 py-1 w-full" placeholder="https://..." />
                     </div>
@@ -190,10 +187,7 @@ export default function ClientInfo({ client }: { client: any }) {
                         )}
                     </div>
                 </div>
-                <div className={styles.infoItem}>
-                    <span className={styles.label}>Condition:</span>
-                    <span className={styles.value}>{client.propertyCondition || '-'}</span>
-                </div>
+
                 <div className={styles.infoItem}>
                     <span className={styles.label}>Asking Price:</span>
                     <span className={styles.value}>{client.askingPrice ? `$${client.askingPrice.toLocaleString()}` : '-'}</span>
@@ -212,6 +206,7 @@ export default function ClientInfo({ client }: { client: any }) {
                 <EmailModal
                     clientEmail={client.email}
                     clientName={client.contactName}
+                    clientCompanyName={client.companyName || ''}
                     onClose={() => setShowEmailModal(false)}
                 />
             )}

@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
 
 export async function POST(request: NextRequest) {
     try {
@@ -15,30 +13,17 @@ export async function POST(request: NextRequest) {
 
         const buffer = Buffer.from(await file.arrayBuffer());
 
-        // Ensure uploads directory exists
-        const uploadDir = join(process.cwd(), 'public', 'uploads');
-        try {
-            await mkdir(uploadDir, { recursive: true });
-        } catch (e) {
-            // Ignore error if directory already exists
-        }
-
-        // Create a unique filename to avoid collisions
-        const uniqueFilename = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
-        const filePath = join(uploadDir, uniqueFilename);
-
-        // Write file to public/uploads
-        await writeFile(filePath, buffer);
-
-        const publicPath = `/uploads/${uniqueFilename}`;
-
-        // Update database
+        // Update database with file content
         await prisma.contract.update({
             where: { id: parseInt(contractId) },
-            data: { documentPath: publicPath },
+            data: {
+                documentContent: buffer,
+                documentPath: `/api/documents/${contractId}`, // API Route to serve content
+                documentName: file.name
+            },
         });
 
-        return NextResponse.json({ success: true, path: publicPath });
+        return NextResponse.json({ success: true, path: `/api/documents/${contractId}` });
 
     } catch (error: any) {
         console.error('Upload error:', error);

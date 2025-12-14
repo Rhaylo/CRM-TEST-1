@@ -46,9 +46,9 @@ export const generateBuyerPacket = (data: DealData) => {
     // Financials
     doc.setFontSize(12);
 
-    // Asking Price
+    // Asking Price (Wholesale Price)
     doc.setFont('helvetica', 'bold');
-    doc.text('Asking Price:', labelX, y);
+    doc.text('Wholesale Price:', labelX, y);
     doc.setFont('helvetica', 'normal');
     doc.text(`$${data.askingPrice.toLocaleString()}`, valueX, y);
     y += 10;
@@ -78,6 +78,20 @@ export const generateBuyerPacket = (data: DealData) => {
     doc.text('GROSS SPREAD:', labelX, y);
     doc.text(`$${profit.toLocaleString()}`, valueX, y);
     doc.setTextColor(33, 41, 59); // Reset
+    y += 15;
+
+    // Title Status & Contact
+    doc.setFont('helvetica', 'bold');
+    doc.text('Title Status:', labelX, y);
+    doc.setFont('helvetica', 'normal');
+    doc.text(data.titleStatus || 'Open / Clear', valueX, y);
+    y += 10;
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('Contact Email:', labelX, y);
+    doc.setFont('helvetica', 'normal');
+    // @ts-ignore
+    doc.text(data.contactEmail || 'adrian@xyreholdings.com', valueX, y);
     y += 20;
 
     // -- Deal Info --

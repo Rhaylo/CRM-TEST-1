@@ -6,10 +6,11 @@ import { X, Send } from 'lucide-react';
 interface EmailModalProps {
     clientEmail: string;
     clientName: string;
+    clientCompanyName: string;
     onClose: () => void;
 }
 
-export default function EmailModal({ clientEmail, clientName, onClose }: EmailModalProps) {
+export default function EmailModal({ clientEmail, clientName, clientCompanyName, onClose }: EmailModalProps) {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [sending, setSending] = useState(false);
@@ -43,6 +44,7 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
             // Basic variable replacement
             let body = template.body;
             body = body.replace(/{{clientName}}/g, clientName);
+            body = body.replace(/{{companyName}}/g, clientCompanyName);
             body = body.replace(/{{clientEmail}}/g, clientEmail);
             body = body.replace(/{{myCompany}}/g, 'Xyre Holdings'); // Hardcoded for now based on context
 

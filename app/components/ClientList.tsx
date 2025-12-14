@@ -9,6 +9,7 @@ export default async function ClientList({
 }: {
     searchParams: { [key: string]: string | string[] | undefined };
 }) {
+    const status = typeof searchParams.status === 'string' ? searchParams.status : 'Active';
     const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'newest';
 
     let orderBy: any = { createdAt: 'desc' };
@@ -16,6 +17,10 @@ export default async function ClientList({
     if (sort === 'motivation') orderBy = { motivationScore: 'desc' };
 
     const clients = await prisma.client.findMany({
+        where: {
+            // @ts-ignore
+            status: status === 'All' ? undefined : status, // Support 'All' or specific status
+        },
         orderBy,
         include: {
             deals: { orderBy: { createdAt: 'desc' } },
@@ -27,7 +32,7 @@ export default async function ClientList({
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>
-                    Clients
+                    {status} Clients
                     <span style={{
                         fontSize: '1rem',
                         fontWeight: 'normal',
@@ -51,6 +56,27 @@ export default async function ClientList({
                 </div>
             </div>
 
+            <div className={styles.tabs}>
+                <Link
+                    href="/clients"
+                    className={`${styles.tab} ${status === 'Active' ? styles.activeTab : ''}`}
+                >
+                    Active
+                </Link>
+                <Link
+                    href="/clients?status=Snoozed"
+                    className={`${styles.tab} ${status === 'Snoozed' ? styles.activeTab : ''}`}
+                >
+                    Snoozed
+                </Link>
+                <Link
+                    href="/clients?status=Archived"
+                    className={`${styles.tab} ${status === 'Archived' ? styles.activeTab : ''}`}
+                >
+                    Archived
+                </Link>
+            </div>
+
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>
@@ -65,7 +91,7 @@ export default async function ClientList({
                         </tr>
                     </thead>
                     <tbody>
-                        {clients.map((client) => {
+                        {clients.map((client: any) => {
                             const leadAge = Math.floor(
                                 (Date.now() - new Date(client.createdAt).getTime()) /
                                 (1000 * 60 * 60 * 24),
@@ -158,7 +184,11 @@ export default async function ClientList({
                                     </td>
                                     <td className={styles.td}>
                                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                            <ClientActions clientId={client.id} clientName={client.contactName} />
+                                            <ClientActions
+                                                clientId={client.id}
+                                                clientName={client.contactName}
+                                                status={client.status || 'Active'}
+                                            />
                                             <Link
                                                 href={`/tasks?client=${client.id}`}
                                                 className={styles.link}

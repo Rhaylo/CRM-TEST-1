@@ -13,14 +13,15 @@ export default function ClientTabs({ client }: { client: any }) {
     // Motivation State
     const [motivationScore, setMotivationScore] = useState(client.motivationScore || 5);
     const [motivationNote, setMotivationNote] = useState(client.motivationNote || '');
+    const [condition, setCondition] = useState(client.propertyCondition || '');
 
     // Management State
     const [internalComments, setInternalComments] = useState(client.internalComments || '');
     const [internalTags, setInternalTags] = useState(client.internalTags || '');
 
     const handleUpdateMotivation = async () => {
-        await updateMotivation(client.id, parseInt(motivationScore), motivationNote);
-        alert('Motivation updated!');
+        await updateMotivation(client.id, parseInt(motivationScore), motivationNote, condition);
+        alert('Motivation & Condition updated!');
     };
 
     const handleUpdateManagement = async () => {
@@ -66,6 +67,16 @@ export default function ClientTabs({ client }: { client: any }) {
                                     value={motivationNote}
                                     onChange={(e) => setMotivationNote(e.target.value)}
                                     placeholder="Why is this score assigned?"
+                                />
+                            </div>
+                            <div className={styles.formGroup}>
+                                <label className={styles.label}>Property Condition</label>
+                                <textarea
+                                    className={styles.textarea}
+                                    value={condition}
+                                    onChange={(e) => setCondition(e.target.value)}
+                                    placeholder="Describe the property condition..."
+                                    rows={4}
                                 />
                             </div>
                             <button className={styles.btn} onClick={handleUpdateMotivation}>Update Motivation</button>

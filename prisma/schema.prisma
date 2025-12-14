@@ -4,14 +4,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "sqlite"
+  url       = env("DATABASE_URL")
 }
 
 model Client {
   id              Int      @id @default(autoincrement())
   companyName     String
   contactName     String
+  status          String   @default("Active") // Active, Snoozed, Archived
   position        String?
   phone           String?
   email           String?
@@ -35,6 +36,7 @@ model Client {
   askingPrice       Float?
   ourOffer          Float?
   arv               Float?
+  repairs           Float?
 
   // Contract Generation Fields
   seller2Name       String?   // Second seller name (optional)
@@ -69,6 +71,18 @@ model Deal {
   
   investorId Int?
   investor   Investor? @relation(fields: [investorId], references: [id])
+  documents  Document[]
+}
+
+model Document {
+  id          Int      @id @default(autoincrement())
+  fileName    String
+  fileContent Bytes
+  category    String   @default("Other") // Contract, ID, Deed, Other
+  createdAt   DateTime @default(now())
+  
+  dealId      Int
+  deal        Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
 }
 
 model Contract {
@@ -77,6 +91,7 @@ model Contract {
   dateSent     DateTime?
   dateReceived DateTime?
   documentPath String?
+  documentContent Bytes?
   documentName String?   // User-friendly display name
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt

@@ -1,0 +1,238 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // Uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Uses direct connection
+}
+
+model Client {
+  id              Int      @id @default(autoincrement())
+  companyName     String
+  contactName     String
+  status          String   @default("Active") // Active, Snoozed, Archived
+  position        String?
+  phone           String?
+  email           String?
+  address         String?
+  lat             Float?
+  lng             Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Seller Motivation
+  motivationScore Int?     // 1-10
+  motivationNote  String?
+  
+  // Management
+  internalComments String?
+  internalTags     String? // Comma separated tags
+
+  // Property Details
+  propertyCondition String?
+  propertyLink      String?
+  askingPrice       Float?
+  ourOffer          Float?
+  arv               Float?
+  repairs           Float?
+
+  // Contract Generation Fields
+  seller2Name       String?   // Second seller name (optional)
+  closingDate       DateTime? // Expected closing date
+  purchasePrice     Float?    // Final purchase price
+  state             String?   // Property state
+
+  deals         Deal[]
+  notes         Note[]
+  contracts     Contract[]
+  tasks         Task[]
+  notifications Notification[]
+}
+
+model Deal {
+  id                Int       @id @default(autoincrement())
+  amount            Float
+  assignmentFee     Float?
+  products          String?
+  owner             String?
+  stage             String    // Pending, Contract In, Contract Out, Complete
+  expectedCloseDate DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+  
+  contracts     Contract[]
+  notes         Note[]
+  notifications Notification[]
+  
+  investorId Int?
+  investor   Investor? @relation(fields: [investorId], references: [id])
+  documents  Document[]
+}
+
+model Document {
+  id          Int      @id @default(autoincrement())
+  fileName    String
+  fileContent Bytes
+  category    String   @default("Other") // Contract, ID, Deed, Other
+  createdAt   DateTime @default(now())
+  
+  dealId      Int
+  deal        Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+}
+
+model Contract {
+  id           Int       @id @default(autoincrement())
+  status       String    // In, Out, Signed
+  dateSent     DateTime?
+  dateReceived DateTime?
+  documentPath String?
+  documentContent Bytes?
+  documentName String?   // User-friendly display name
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  dealId Int
+  deal   Deal @relation(fields: [dealId], references: [id])
+  
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  dueDate     DateTime
+  dueTime     String?
+  priority    String   @default("Medium") // Low, Medium, High
+  status      String   @default("Not Started") // Not Started, In Progress, Completed
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+  
+  notes         Note[]
+  notifications Notification[]
+}
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  clientId Int?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  dealId Int?
+  deal   Deal? @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  taskId Int?
+  task   Task? @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  investorId Int?
+  investor   Investor? @relation(fields: [investorId], references: [id], onDelete: Cascade)
+}
+
+model AutomationRule {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  enabled     Boolean  @default(true)
+  triggerType String   // "task_created", "task_completed", "deal_stage_change", "schedule"
+  conditions  String   // JSON string of conditions
+  actions     String   // JSON string of actions to perform
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  
+  executions AutomationExecution[]
+}
+
+model AutomationExecution {
+  id          Int      @id @default(autoincrement())
+  ruleId      Int?
+  rule        AutomationRule? @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  status      String   // "success", "failed", "pending"
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  duration    Int?     // Duration in milliseconds
+  error       String?
+  metadata    String?  // JSON string of execution details
+}
+
+model ScheduledTask {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  schedule    String   // Cron expression
+  action      String   // JSON string of action to perform
+  enabled     Boolean  @default(true)
+  lastRun     DateTime?
+  nextRun     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}
+
+
+
+model Settings {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Investor {
+  id              Int      @id @default(autoincrement())
+  companyName     String?
+  contactName     String
+  email           String?
+  phone           String?
+  status          String   @default("Active") // Active, Inactive, Do Not Contact
+  buyingCriteria  String?  // Text description of what they buy
+  state           String?  // e.g. GA, FL
+  zone            String?  // e.g. Atlanta, Metro Area
+  notes           Note[]
+  deals           Deal[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  title       String
+  message     String
+  type        String   // 'task', 'deal', 'automation', 'system'
+  read        Boolean  @default(false)
+  actionUrl   String?  // URL to navigate when clicked
+  createdAt   DateTime @default(now())
+  
+  // Optional relations
+  clientId    Int?
+  client      Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  taskId      Int?
+  task        Task? @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  dealId      Int?
+  deal        Deal? @relation(fields: [dealId], references: [id], onDelete: Cascade)
+}
+
+model EmailTemplate {
+  id        Int      @id @default(autoincrement())
+  name      String
+  subject   String
+  body      String
+  variables String?  // JSON string of fields like ["{{contactName}}", "{{companyName}}"]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

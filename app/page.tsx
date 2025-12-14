@@ -5,7 +5,10 @@ import DealPipeline from './dashboard/DealPipeline';
 import RecentActivity from './dashboard/RecentActivity';
 import DashboardHeader from './dashboard/DashboardHeader';
 
+import styles from './dashboard/Dashboard.module.css';
+
 export default async function DashboardPage() {
+    // ... (data fetching logic remains unchanged) ...
     // Fetch data for KPIs
     const [totalRevenue, activeDealsCount, totalClients, dealsWon, dealsByStage, settings] = await Promise.all([
         prisma.deal.aggregate({
@@ -74,7 +77,7 @@ export default async function DashboardPage() {
     }));
 
     return (
-        <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
+        <div className={styles.container}>
             <DashboardHeader
                 initialBusinessName={businessName}
                 initialWelcomeMessage={welcomeMessage}
@@ -87,12 +90,12 @@ export default async function DashboardPage() {
                 dealsWon={dealsWon}
             />
 
-            <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+            <div className={styles.chartsGrid}>
                 <RevenueChart data={revenueData} />
                 <DealPipeline data={pipelineData} />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
+            <div className={styles.activityGrid}>
                 <RecentActivity />
             </div>
         </div>

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, Briefcase, FileText, CheckSquare, Settings, LayoutDashboard, Calendar, Mail } from 'lucide-react';
+import { Users, Briefcase, FileText, CheckSquare, Settings, LayoutDashboard, Calendar, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
 const navItems = [
@@ -16,22 +16,37 @@ const navItems = [
     { name: 'Admin', href: '/admin', icon: Settings },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+    isCollapsed?: boolean;
+    toggleSidebar?: () => void;
+}
+
+export default function Sidebar({ isCollapsed = false, toggleSidebar }: SidebarProps) {
     const pathname = usePathname();
 
     return (
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
             <div className={styles.header}>
-                <img
-                    src="/logo.png"
-                    alt="Xyre Holdings"
-                    style={{
-                        width: '50px',
-                        height: 'auto',
-                        objectFit: 'contain',
-                        margin: '0 auto'
-                    }}
-                />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: isCollapsed ? 'center' : 'space-between', width: '100%' }}>
+                    {!isCollapsed && (
+                        <img
+                            src="/logo.png"
+                            alt="Xyre Holdings"
+                            style={{
+                                width: '40px',
+                                height: 'auto',
+                                objectFit: 'contain',
+                            }}
+                        />
+                    )}
+                    <button
+                        onClick={toggleSidebar}
+                        className={styles.toggleButton}
+                        title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                    >
+                        {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+                    </button>
+                </div>
             </div>
             <nav className={styles.nav}>
                 {navItems.map((item) => {
@@ -41,10 +56,11 @@ export default function Sidebar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`${styles.link} ${isActive ? styles.active : ''}`}
+                            className={`${styles.link} ${isActive ? styles.active : ''} ${isCollapsed ? styles.linkCollapsed : ''}`}
+                            title={isCollapsed ? item.name : ''}
                         >
                             <Icon size={20} />
-                            <span className="font-medium">{item.name}</span>
+                            {!isCollapsed && <span className="font-medium">{item.name}</span>}
                         </Link>
                     );
                 })}

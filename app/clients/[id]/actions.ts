@@ -77,12 +77,13 @@ export async function deleteClientNote(noteId: number) {
 
 
 
-export async function updateMotivation(clientId: number, score: number, note: string) {
+export async function updateMotivation(clientId: number, score: number, note: string, condition: string) {
     await prisma.client.update({
         where: { id: clientId },
         data: {
             motivationScore: score,
             motivationNote: note,
+            propertyCondition: condition,
         },
     });
     revalidatePath(`/clients/${clientId}`);
@@ -96,5 +97,14 @@ export async function updateManagementInfo(clientId: number, comments: string, t
             internalTags: tags,
         },
     });
+    revalidatePath(`/clients/${clientId}`);
+}
+
+export async function updateClientStatus(clientId: number, status: string) {
+    await prisma.client.update({
+        where: { id: clientId },
+        data: { status },
+    });
+    revalidatePath('/clients');
     revalidatePath(`/clients/${clientId}`);
 }

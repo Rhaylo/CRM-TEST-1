@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import KPICards from './dashboard/KPICards';
+import KPIBoard from './dashboard/KPIBoard';
 import RevenueChart from './dashboard/RevenueChart';
 import DealPipeline from './dashboard/DealPipeline';
 import RecentActivity from './dashboard/RecentActivity';
@@ -82,6 +83,8 @@ export default async function DashboardPage() {
                 initialBusinessName={businessName}
                 initialWelcomeMessage={welcomeMessage}
             />
+
+            <KPIBoard />
 
             <KPICards
                 totalRevenue={totalRevenue._sum.amount || 0}

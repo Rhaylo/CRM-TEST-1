@@ -26,7 +26,24 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
                 },
                 orderBy: { dueDate: 'asc' },
             },
+            additionalSellers: true, // Use proper relation now that schema is fixed
+            titleCompany: true,
+            escrowAgent: true,
         },
+    });
+
+    // "Touch" the client to update 'updatedAt' so they appear at the top of the list
+    if (client) {
+        await prisma.client.update({
+            where: { id: client.id },
+            data: { updatedAt: new Date() }
+        });
+    }
+
+    // Fetch Title Companies for dropdowns
+    const titleCompanies = await prisma.titleCompany.findMany({
+        include: { escrowAgents: true },
+        orderBy: { name: 'asc' }
     });
 
     if (!client) notFound();
@@ -41,6 +58,17 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
     const prevClientId = currentIndex > 0 ? allClients[currentIndex - 1].id : null;
     const nextClientId = currentIndex < allClients.length - 1 ? allClients[currentIndex + 1].id : null;
 
+    // Sanitize client object to remove Uint8Array (documentContent) before passing to Client Components
+    const clientAny = client as any;
+    const serializedClient = {
+        ...clientAny,
+        contracts: clientAny.contracts.map((c: any) => ({ ...c, documentContent: undefined })),
+        deals: clientAny.deals.map((d: any) => ({
+            ...d,
+            contracts: d.contracts.map((c: any) => ({ ...c, documentContent: undefined }))
+        }))
+    };
+
     return (
         <div className={styles.container}>
             <ClientNavigation
@@ -49,8 +77,8 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
                 currentIndex={currentIndex + 1}
                 totalClients={allClients.length}
             />
-            <ClientInfo client={client} />
-            <ClientTabs client={client} />
+            <ClientInfo client={serializedClient} titleCompanies={titleCompanies} />
+            <ClientTabs client={serializedClient} />
         </div>
     );
 }

@@ -4,6 +4,8 @@ import { Plus, Play, Edit, Trash2, Clock } from 'lucide-react';
 import styles from '../admin.module.css';
 import { toggleScheduledTask, deleteScheduledTask, runScheduledTask } from './actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SchedulerPage() {
     const tasks = await prisma.scheduledTask.findMany({
         orderBy: { createdAt: 'desc' }

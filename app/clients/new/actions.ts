@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
+import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { triggerAutomation } from '@/app/lib/automation';
 
@@ -21,8 +22,14 @@ export async function createClient(formData: FormData) {
         throw new Error('Contact Name is required');
     }
 
+    const user = await getCurrentUser();
+    if (!user) {
+        throw new Error('Unauthorized');
+    }
+
     const client = await prisma.client.create({
         data: {
+            userId: user.id, // Assign owner
             companyName: contactName,
             contactName,
             email,

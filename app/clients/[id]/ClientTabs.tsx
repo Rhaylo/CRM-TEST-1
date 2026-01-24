@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './ClientTabs.module.css';
 import { updateMotivation, updateManagementInfo } from './actions';
 import TaskList from './TaskList';
@@ -19,14 +20,28 @@ export default function ClientTabs({ client }: { client: any }) {
     const [internalComments, setInternalComments] = useState(client.internalComments || '');
     const [internalTags, setInternalTags] = useState(client.internalTags || '');
 
+    const router = useRouter();
+
     const handleUpdateMotivation = async () => {
-        await updateMotivation(client.id, parseInt(motivationScore), motivationNote, condition);
-        alert('Motivation & Condition updated!');
+        try {
+            await updateMotivation(client.id, parseInt(motivationScore.toString()), motivationNote, condition);
+            alert('Motivation & Condition updated!');
+            router.refresh();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update.');
+        }
     };
 
     const handleUpdateManagement = async () => {
-        await updateManagementInfo(client.id, internalComments, internalTags);
-        alert('Management info updated!');
+        try {
+            await updateManagementInfo(client.id, internalComments, internalTags);
+            alert('Management info updated!');
+            router.refresh();
+        } catch (error) {
+            console.error(error);
+            alert('Failed to update.');
+        }
     };
 
     return (
@@ -161,7 +176,7 @@ export default function ClientTabs({ client }: { client: any }) {
                                 </div>
                             ))
                         ) : (
-                            <p className="text-slate-500">No contracts found.</p>
+                            <p className="text-slate-500">No previous contracts found.</p>
                         )}
                     </div>
                 )}

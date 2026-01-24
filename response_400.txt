@@ -1,0 +1,43 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+System.Management.Automation.RemoteException
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0* Host ep-patient-mode-ahg1gxif.us-east-1.aws.neon.tech:443 was resolved.
+* IPv6: (none)
+* IPv4: 52.20.107.131, 100.26.116.133, 23.23.229.9, 44.207.148.149, 44.199.59.172, 34.194.100.28
+*   Trying 52.20.107.131:443...
+* schannel: disabled automatic use of client certificate
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/1.1
+* Established connection to ep-patient-mode-ahg1gxif.us-east-1.aws.neon.tech (52.20.107.131 port 443) from 10.0.0.29 port 56002 
+* using HTTP/1.x
+> GET /neondb/auth/.well-known/openid-configuration HTTP/1.1
+System.Management.Automation.RemoteException
+> Host: ep-patient-mode-ahg1gxif.us-east-1.aws.neon.tech
+System.Management.Automation.RemoteException
+> User-Agent: curl/8.16.0
+System.Management.Automation.RemoteException
+> Accept: */*
+System.Management.Automation.RemoteException
+> 
+System.Management.Automation.RemoteException
+* Request completely sent off
+* schannel: remote party requests renegotiation
+* schannel: renegotiating SSL/TLS connection
+* schannel: SSL/TLS connection renegotiated
+< HTTP/1.1 400 Bad Request
+System.Management.Automation.RemoteException
+< content-type: application/json
+System.Management.Automation.RemoteException
+< neon-request-id: 93b9f335-73ca-4919-9078-816ba5e9b04d
+System.Management.Automation.RemoteException
+< content-length: 24
+System.Management.Automation.RemoteException
+< date: Sun, 21 Dec 2025 21:15:55 GMT
+System.Management.Automation.RemoteException
+< 
+System.Management.Automation.RemoteException
+{ [24 bytes data]
+System.Management.Automation.RemoteException
+100    24  100    24    0     0    196      0 --:--:-- --:--:-- --:--:--   198
+* Connection #0 to host ep-patient-mode-ahg1gxif.us-east-1.aws.neon.tech:443 left intact
+"query is not supported"

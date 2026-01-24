@@ -1,12 +1,21 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import styles from './page.module.css';
+import { getCurrentUser } from '@/lib/auth';
+import { redirect } from 'next/navigation';
+
+export const dynamic = 'force-dynamic';
 
 export default async function SearchPage({
     searchParams,
 }: {
     searchParams: Promise<{ q: string }>;
 }) {
+    const user = await getCurrentUser();
+    if (!user) {
+        redirect('/auth');
+    }
+
     const { q } = await searchParams;
     const query = q || '';
 
@@ -26,13 +35,23 @@ export default async function SearchPage({
 
     const clients = await prisma.client.findMany({
         where: {
-            OR: [
-                { companyName: { contains: query, mode: mode as any } },
-                { contactName: { contains: query, mode: mode as any } },
-                { email: { contains: query, mode: mode as any } },
-                { phone: { contains: query, mode: mode as any } },
-                { address: { contains: query, mode: mode as any } },
-            ],
+            AND: [
+                {
+                    OR: [
+                        { userId: user.id },
+                        { userId: null }
+                    ]
+                },
+                {
+                    OR: [
+                        { companyName: { contains: query, mode: mode as any } },
+                        { contactName: { contains: query, mode: mode as any } },
+                        { email: { contains: query, mode: mode as any } },
+                        { phone: { contains: query, mode: mode as any } },
+                        { address: { contains: query, mode: mode as any } },
+                    ]
+                }
+            ]
         },
     });
 
@@ -104,7 +123,8 @@ export default async function SearchPage({
                         </div>
                     ))}
                 </div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }

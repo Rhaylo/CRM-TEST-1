@@ -4,6 +4,9 @@ import { Plus, Search } from 'lucide-react';
 import AddInvestorModal from './AddInvestorModal';
 import InvestorList from './InvestorList';
 
+// Force rebuild: Dispositions Page
+export const dynamic = 'force-dynamic';
+
 export default async function DispositionsPage() {
     const investors = await prisma.investor.findMany({
         orderBy: { createdAt: 'desc' },

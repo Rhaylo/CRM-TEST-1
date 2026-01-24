@@ -12,7 +12,7 @@ import BuyerPacketModal from './BuyerPacketModal';
 
 export default function ContractList({ contracts }: { contracts: any[] }) {
     const [previewDoc, setPreviewDoc] = useState<string | null>(null);
-    const [activeTab, setActiveTab] = useState<'sent' | 'received'>('sent');
+    const [activeTab, setActiveTab] = useState<'sent' | 'under_contract' | 'marketing' | 'buyer_found' | 'sold'>('sent');
 
     // Rename state
     const [editingDocId, setEditingDocId] = useState<number | null>(null);
@@ -129,10 +129,18 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
     };
 
     // Separate contracts by status
-    const sentContracts = contracts.filter(c => c.status === 'Out');
-    const receivedContracts = contracts.filter(c => c.status === 'In' || c.status === 'Signed');
+    const sentContracts = contracts.filter(c => c.status === 'Out' || c.status === 'Sent');
+    const underContractContracts = contracts.filter(c => c.status === 'In' || c.status === 'Received' || c.status === 'Signed' || c.status === 'Under Contract');
+    const marketingContracts = contracts.filter(c => c.status === 'Marketing');
+    const buyerFoundContracts = contracts.filter(c => c.status === 'Buyer Found');
+    const soldContracts = contracts.filter(c => c.status === 'Sold');
 
-    const displayedContracts = activeTab === 'sent' ? sentContracts : receivedContracts;
+    const displayedContracts =
+        activeTab === 'sent' ? sentContracts :
+            activeTab === 'marketing' ? marketingContracts :
+                activeTab === 'buyer_found' ? buyerFoundContracts :
+                    activeTab === 'sold' ? soldContracts :
+                        underContractContracts;
 
     return (
         <>
@@ -167,7 +175,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                     Documents Sent ({sentContracts.length})
                 </button>
                 <button
-                    onClick={() => setActiveTab('received')}
+                    onClick={() => setActiveTab('under_contract')}
                     style={{
                         padding: '0.75rem 1.5rem',
                         border: 'none',
@@ -175,13 +183,64 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                         cursor: 'pointer',
                         fontSize: '1rem',
                         fontWeight: '600',
-                        color: activeTab === 'received' ? '#3b82f6' : '#64748b',
-                        borderBottom: activeTab === 'received' ? '3px solid #3b82f6' : '3px solid transparent',
+                        color: activeTab === 'under_contract' ? '#3b82f6' : '#64748b',
+                        borderBottom: activeTab === 'under_contract' ? '3px solid #3b82f6' : '3px solid transparent',
                         marginBottom: '-2px',
                         transition: 'all 0.2s',
                     }}
                 >
-                    Documents Received ({receivedContracts.length})
+                    Under Contract ({underContractContracts.length})
+                </button>
+                <button
+                    onClick={() => setActiveTab('marketing')}
+                    style={{
+                        padding: '0.75rem 1.5rem',
+                        border: 'none',
+                        background: 'none',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: activeTab === 'marketing' ? '#3b82f6' : '#64748b',
+                        borderBottom: activeTab === 'marketing' ? '3px solid #3b82f6' : '3px solid transparent',
+                        marginBottom: '-2px',
+                        transition: 'all 0.2s',
+                    }}
+                >
+                    Marketing ({marketingContracts.length})
+                </button>
+                <button
+                    onClick={() => setActiveTab('buyer_found')}
+                    style={{
+                        padding: '0.75rem 1.5rem',
+                        border: 'none',
+                        background: 'none',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: activeTab === 'buyer_found' ? '#3b82f6' : '#64748b',
+                        borderBottom: activeTab === 'buyer_found' ? '3px solid #3b82f6' : '3px solid transparent',
+                        marginBottom: '-2px',
+                        transition: 'all 0.2s',
+                    }}
+                >
+                    Buyer Found ({buyerFoundContracts.length})
+                </button>
+                <button
+                    onClick={() => setActiveTab('sold')}
+                    style={{
+                        padding: '0.75rem 1.5rem',
+                        border: 'none',
+                        background: 'none',
+                        cursor: 'pointer',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        color: activeTab === 'sold' ? '#3b82f6' : '#64748b',
+                        borderBottom: activeTab === 'sold' ? '3px solid #3b82f6' : '3px solid transparent',
+                        marginBottom: '-2px',
+                        transition: 'all 0.2s',
+                    }}
+                >
+                    Sold ({soldContracts.length})
                 </button>
             </div>
 
@@ -217,10 +276,15 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                         <td className={styles.td}>{contract.client.companyName}</td>
                                         <td className={styles.td}>${contract.deal.amount.toLocaleString()}</td>
                                         <td className={styles.td}>
-                                            <span className={`${styles.statusBadge} ${contract.status === 'In' ? styles.statusIn :
-                                                contract.status === 'Out' ? styles.statusOut : styles.statusSigned
+                                            <span className={`${styles.statusBadge} ${(contract.status === 'Out' || contract.status === 'Sent') ? styles.statusOut :
+                                                (contract.status === 'Marketing') ? styles.statusWarning :
+                                                    (contract.status === 'Buyer Found') ? styles.statusSuccess :
+                                                        (contract.status === 'Sold') ? styles.statusSuccess :
+                                                            styles.statusSigned
                                                 }`}>
-                                                {contract.status}
+                                                {(contract.status === 'Out' || contract.status === 'Sent') ? 'Sent' :
+                                                    (contract.status === 'In' || contract.status === 'Received' || contract.status === 'Signed' || contract.status === 'Under Contract') ? 'Under Contract' :
+                                                        contract.status}
                                             </span>
                                             {isStale && <span className={styles.staleText}>Overdue ({'>'} 7 days)</span>}
                                         </td>
@@ -276,13 +340,21 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                         <td className={styles.td}>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                                 <select
-                                                    className="p-1 border rounded text-sm"
-                                                    value={contract.status}
+                                                    // Check matches broadly for Sent vs Under Contract
+                                                    value={
+                                                        (contract.status === 'Out' || contract.status === 'Sent') ? 'Sent' :
+                                                            (contract.status === 'Marketing') ? 'Marketing' :
+                                                                (contract.status === 'Buyer Found') ? 'Buyer Found' :
+                                                                    (contract.status === 'Sold') ? 'Sold' :
+                                                                        'Under Contract'
+                                                    }
                                                     onChange={(e) => handleStatusChange(contract.id, e.target.value)}
                                                 >
-                                                    <option value="Out">Out</option>
-                                                    <option value="In">In</option>
-                                                    <option value="Signed">Signed</option>
+                                                    <option value="Sent">Sent</option>
+                                                    <option value="Under Contract">Under Contract</option>
+                                                    <option value="Marketing">Marketing</option>
+                                                    <option value="Buyer Found">Buyer Found</option>
+                                                    <option value="Sold">Sold</option>
                                                 </select>
                                                 <button
                                                     onClick={() => setBuyerPacketModal({
@@ -349,6 +421,8 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                     </tbody>
                 </table>
             </div >
+
+
 
             {/* Document Preview Modal */}
             {

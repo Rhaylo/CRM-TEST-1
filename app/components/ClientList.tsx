@@ -3,21 +3,32 @@ import Link from 'next/link';
 import styles from './ClientList.module.css';
 import SortSelect from './SortSelect';
 import ClientActions from './ClientActions';
+import { getCurrentUser } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 export default async function ClientList({
     searchParams,
 }: {
     searchParams: { [key: string]: string | string[] | undefined };
 }) {
+    const user = await getCurrentUser();
+    if (!user) {
+        redirect('/auth');
+    }
+
     const status = typeof searchParams.status === 'string' ? searchParams.status : 'Active';
     const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'newest';
 
-    let orderBy: any = { createdAt: 'desc' };
+    let orderBy: any = { updatedAt: 'desc' }; // Default to 'Recent Activity'
     if (sort === 'oldest') orderBy = { createdAt: 'asc' };
     if (sort === 'motivation') orderBy = { motivationScore: 'desc' };
 
     const clients = await prisma.client.findMany({
         where: {
+            OR: [
+                { userId: user.id },
+                { userId: null }
+            ],
             // @ts-ignore
             status: status === 'All' ? undefined : status, // Support 'All' or specific status
         },
@@ -46,6 +57,12 @@ export default async function ClientList({
                     </span>
                 </h1>
                 <div className={styles.controls}>
+                    <Link
+                        href="/clients/import"
+                        className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors mr-2"
+                    >
+                        Import CSV
+                    </Link>
                     <Link
                         href="/clients/new"
                         className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
@@ -77,6 +94,7 @@ export default async function ClientList({
                 </Link>
             </div>
 
+            {/* Desktop Table View */}
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>
@@ -228,6 +246,7 @@ export default async function ClientList({
                     </tbody>
                 </table>
             </div>
+
         </div>
     );
 }

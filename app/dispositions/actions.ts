@@ -83,18 +83,42 @@ export async function createDealForInvestor(investorId: number, formData: FormDa
     const stage = formData.get('stage') as string;
     const expectedCloseDate = formData.get('expectedCloseDate') ? new Date(formData.get('expectedCloseDate') as string) : null;
 
-    await prisma.deal.create({
-        data: {
-            clientId,
-            investorId,
-            amount,
-            assignmentFee,
-            stage,
-            expectedCloseDate,
-        },
+    // Check if there is already an active deal for this client
+    const existingDeal = await prisma.deal.findFirst({
+        where: {
+            clientId: clientId,
+            stage: { not: 'Complete' } // Assume we only want to link to active deals
+        }
     });
 
+    if (existingDeal) {
+        // Update existing deal instead of creating a duplicate
+        await prisma.deal.update({
+            where: { id: existingDeal.id },
+            data: {
+                investorId,
+                amount,
+                assignmentFee,
+                stage,
+                expectedCloseDate,
+            },
+        });
+    } else {
+        // Create new deal only if none exists
+        await prisma.deal.create({
+            data: {
+                clientId,
+                investorId,
+                amount,
+                assignmentFee,
+                stage,
+                expectedCloseDate,
+            },
+        });
+    }
+
     revalidatePath(`/dispositions/${investorId}`);
+    revalidatePath('/deals'); // Also refresh main pipeline
 }
 
 export async function updateDeal(dealId: number, investorId: number, formData: FormData) {
@@ -117,6 +141,11 @@ export async function updateDeal(dealId: number, investorId: number, formData: F
 }
 
 export async function deleteDeal(dealId: number, investorId: number) {
+    // Delete associated contracts first due to Foreign Key Constraint
+    await prisma.contract.deleteMany({
+        where: { dealId }
+    });
+
     await prisma.deal.delete({
         where: { id: dealId },
     });

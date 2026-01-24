@@ -41,6 +41,7 @@ export async function checkOverdueTasks() {
                 actionUrl: `/clients/${task.clientId}`,
                 taskId: task.id,
                 clientId: task.clientId,
+                userId: task.userId || ''
             });
         }
     }
@@ -88,6 +89,7 @@ export async function checkUpcomingTasks() {
                 actionUrl: `/clients/${task.clientId}`,
                 taskId: task.id,
                 clientId: task.clientId,
+                userId: task.userId || ''
             });
         }
     }

@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { ArrowLeft, Edit } from 'lucide-react';
 import DocumentList from './DocumentList';
 import UploadDropzone from './UploadDropzone';
-import Financials from './Financials';
+import Financials from './Financials'; // Keeping it if used elsewhere, or delete later
+import DealCalculator from './DealCalculator';
+import ClosingInfo from './ClosingInfo';
 
 export default async function DealDetailPage(props: { params: Promise<{ id: string }> }) {
     // Next.js 15: params is a Promise
@@ -17,8 +19,15 @@ export default async function DealDetailPage(props: { params: Promise<{ id: stri
             client: true,
             documents: {
                 orderBy: { createdAt: 'desc' }
-            }
+            },
+            titleCompany: true,
+            escrowAgent: true
         }
+    });
+
+    const titleCompanies = await prisma.titleCompany.findMany({
+        include: { escrowAgents: true },
+        orderBy: { name: 'asc' }
     });
 
     if (!deal) {
@@ -92,18 +101,16 @@ export default async function DealDetailPage(props: { params: Promise<{ id: stri
                 {/* Main Content */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
 
-                    {/* Financials Cards */}
-                    {/* Financials Section */}
-                    <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                        <Financials
-                            dealId={dealId}
-                            clientId={deal.clientId}
-                            initialArv={arv}
-                            initialRepairs={repairs}
-                            initialOurOffer={ourOffer}
-                            initialWholesalePrice={wholesalePrice}
-                            initialAssignmentFee={deal.assignmentFee}
-                        />
+                    {/* Financials Section -> Deal Calculator */}
+                    <div className="mb-8">
+                        <DealCalculator deal={{
+                            ...deal,
+                            documents: [] // Remove heavy/binary data not needed for calculator
+                        }} />
+                    </div>
+
+                    <div className="mb-8">
+                        <ClosingInfo deal={deal} titleCompanies={titleCompanies} />
                     </div>
 
                     {/* Documents Section */}

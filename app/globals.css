@@ -3,6 +3,21 @@
   --foreground: #0f172a;
 }
 
+/* Force light theme even if dark class is added by Neon */
+html.dark,
+.dark {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  color-scheme: light;
+}
+
+/* Ensure body background stays light */
+body,
+html.dark body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
 body {
   margin: 0;
   padding: 0;

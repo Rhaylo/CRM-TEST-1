@@ -1,4 +1,6 @@
 import { prisma } from '@/lib/prisma';
+import { getCurrentUser } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 import KPICards from './dashboard/KPICards';
 import KPIBoard from './dashboard/KPIBoard';
 import RevenueChart from './dashboard/RevenueChart';
@@ -8,41 +10,56 @@ import DashboardHeader from './dashboard/DashboardHeader';
 
 import styles from './dashboard/Dashboard.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
     // ... (data fetching logic remains unchanged) ...
     // Fetch data for KPIs
-    const [totalRevenue, activeDealsCount, totalClients, dealsWon, dealsByStage, settings] = await Promise.all([
+    // Fetch data for KPIs
+    // Get current user
+    const user = await getCurrentUser();
+
+    if (!user) {
+        redirect('/auth');
+    }
+
+    const userId = user.id;
+
+    // Fetch data for KPIs
+    const [totalRevenue, activeDealsCount, totalClients, dealsWon, dealsByStage, settings, kpiData] = await Promise.all([
         prisma.deal.aggregate({
             _sum: { amount: true },
-            where: { stage: 'Closed Won' }
+            where: { stage: 'Closed Won', userId }
         }),
         prisma.deal.count({
-            where: { stage: { notIn: ['Closed Won', 'Closed Lost'] } }
+            where: { stage: { notIn: ['Closed Won', 'Closed Lost'] }, userId }
         }),
-        prisma.client.count(),
+        prisma.client.count({ where: { userId } }),
         prisma.deal.count({
-            where: { stage: 'Closed Won' }
+            where: { stage: 'Closed Won', userId }
         }),
         prisma.deal.groupBy({
             by: ['stage'],
-            _count: { id: true }
+            _count: { id: true },
+            where: { userId }
         }),
         prisma.settings.findMany({
             where: {
                 key: {
-                    in: ['business_name', 'welcome_message']
-                }
+                    in: ['business_name', 'welcome_message', 'revenue_data']
+                },
+                userId
             }
-        })
+        }),
+        // KPIData fetching likely needs updating too, but we pass userId to it if we modify it
+        import('./dashboard/kpi-actions').then(mod => mod.getKPIData('30d', userId))
     ]);
 
     const businessName = settings.find(s => s.key === 'business_name')?.value || 'Xyre Holdings';
     const welcomeMessage = settings.find(s => s.key === 'welcome_message')?.value || "Welcome back! Here's what's happening today.";
 
     // Get revenue data from settings or use defaults
-    const revenueSettings = await prisma.settings.findUnique({
-        where: { key: 'revenue_data' }
-    });
+    const revenueSettings = settings.find(s => s.key === 'revenue_data');
 
     const revenueData = revenueSettings?.value
         ? JSON.parse(revenueSettings.value)
@@ -84,7 +101,7 @@ export default async function DashboardPage() {
                 initialWelcomeMessage={welcomeMessage}
             />
 
-            <KPIBoard />
+            <KPIBoard initialData={kpiData} />
 
             <KPICards
                 totalRevenue={totalRevenue._sum.amount || 0}

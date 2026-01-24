@@ -13,9 +13,12 @@ export async function updateAdminPassword(formData: FormData) {
     }
 
     // Verify current password
-    // Check DB first
-    const settings = await prisma.settings.findUnique({
-        where: { key: 'admin_password' },
+    // Check DB first using findFirst to handle compound key with null userId
+    const settings = await prisma.settings.findFirst({
+        where: {
+            key: 'admin_password',
+            userId: null
+        },
     });
     const storedPassword = settings?.value || process.env.ADMIN_PASSWORD || 'admin123';
 
@@ -24,13 +27,39 @@ export async function updateAdminPassword(formData: FormData) {
     }
 
     // Update password
-    await prisma.settings.upsert({
-        where: { key: 'admin_password' },
-        update: { value: newPassword },
-        create: { key: 'admin_password', value: newPassword },
-    });
+    if (settings) {
+        await prisma.settings.update({
+            where: { id: settings.id },
+            data: { value: newPassword }
+        });
+    } else {
+        await prisma.settings.create({
+            data: {
+                key: 'admin_password',
+                value: newPassword,
+                userId: null
+            },
+        });
+    }
 
     return { success: true };
+}
+
+async function setGlobalSetting(key: string, value: string) {
+    const existing = await prisma.settings.findFirst({
+        where: { key, userId: null }
+    });
+
+    if (existing) {
+        await prisma.settings.update({
+            where: { id: existing.id },
+            data: { value }
+        });
+    } else {
+        await prisma.settings.create({
+            data: { key, value, userId: null }
+        });
+    }
 }
 
 export async function updateGlobalSettings(formData: FormData) {
@@ -38,23 +67,9 @@ export async function updateGlobalSettings(formData: FormData) {
     const supportEmail = formData.get('supportEmail') as string;
     const themeColor = formData.get('themeColor') as string;
 
-    await prisma.settings.upsert({
-        where: { key: 'company_name' },
-        update: { value: companyName },
-        create: { key: 'company_name', value: companyName },
-    });
-
-    await prisma.settings.upsert({
-        where: { key: 'support_email' },
-        update: { value: supportEmail },
-        create: { key: 'support_email', value: supportEmail },
-    });
-
-    await prisma.settings.upsert({
-        where: { key: 'theme_color' },
-        update: { value: themeColor },
-        create: { key: 'theme_color', value: themeColor },
-    });
+    await setGlobalSetting('company_name', companyName);
+    await setGlobalSetting('support_email', supportEmail);
+    await setGlobalSetting('theme_color', themeColor);
 
     revalidatePath('/');
     return { success: true };

@@ -1,13 +1,14 @@
 import nodemailer from 'nodemailer';
 
-// Create reusable transporter using Zoho SMTP
+// Create reusable transporter using generic SMTP environment variables
+// Supports Zoho, Gmail, etc.
 const transporter = nodemailer.createTransport({
-    host: process.env.ZOHO_SMTP_HOST || 'smtp.zoho.com',
-    port: parseInt(process.env.ZOHO_SMTP_PORT || '465'),
+    host: process.env.SMTP_HOST || 'smtp.zoho.com',
+    port: parseInt(process.env.SMTP_PORT || '465'),
     secure: true, // use SSL
     auth: {
-        user: process.env.ZOHO_EMAIL || 'info@xyreholdings.com',
-        pass: process.env.ZOHO_APP_PASSWORD || '',
+        user: process.env.SMTP_USER || process.env.ZOHO_EMAIL,
+        pass: process.env.SMTP_PASSWORD || process.env.ZOHO_APP_PASSWORD,
     },
 });
 
@@ -19,12 +20,15 @@ export interface EmailOptions {
 }
 
 export async function sendEmail(options: EmailOptions) {
-    if (!process.env.ZOHO_APP_PASSWORD) {
-        throw new Error('ZOHO_APP_PASSWORD is not configured in environment variables');
+    const user = process.env.SMTP_USER || process.env.ZOHO_EMAIL;
+    const pass = process.env.SMTP_PASSWORD || process.env.ZOHO_APP_PASSWORD;
+
+    if (!user || !pass) {
+        throw new Error('SMTP credentials are not configured in environment variables');
     }
 
     const mailOptions = {
-        from: `Xyre Holdings <${process.env.ZOHO_EMAIL || 'info@xyreholdings.com'}>`,
+        from: `Xyre Holdings <${user}>`,
         to: options.to,
         subject: options.subject,
         text: options.text,

@@ -3,8 +3,11 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET() {
     try {
-        const settings = await prisma.settings.findUnique({
-            where: { key: 'revenue_data' }
+        const settings = await prisma.settings.findFirst({
+            where: {
+                key: 'revenue_data',
+                userId: null
+            }
         });
 
         if (settings?.value) {
@@ -31,11 +34,28 @@ export async function POST(request: NextRequest) {
     try {
         const data = await request.json();
 
-        await prisma.settings.upsert({
-            where: { key: 'revenue_data' },
-            update: { value: JSON.stringify(data) },
-            create: { key: 'revenue_data', value: JSON.stringify(data) }
+        // Robust update
+        const existing = await prisma.settings.findFirst({
+            where: {
+                key: 'revenue_data',
+                userId: null
+            }
         });
+
+        if (existing) {
+            await prisma.settings.update({
+                where: { id: existing.id },
+                data: { value: JSON.stringify(data) }
+            });
+        } else {
+            await prisma.settings.create({
+                data: {
+                    key: 'revenue_data',
+                    value: JSON.stringify(data),
+                    userId: null
+                }
+            });
+        }
 
         return NextResponse.json({ success: true });
     } catch (error: any) {

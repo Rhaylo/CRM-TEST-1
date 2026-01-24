@@ -39,16 +39,18 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
 
         const template = templates.find(t => t.id.toString() === templateId);
         if (template) {
-            setSubject(template.subject);
+            // Helper function for replacements
+            const replaceVariables = (text: string) => {
+                let result = text;
+                result = result.replace(/{{clientName}}/g, clientName);
+                result = result.replace(/{{companyName}}/g, clientCompanyName);
+                result = result.replace(/{{clientEmail}}/g, clientEmail);
+                result = result.replace(/{{myCompany}}/g, 'Xyre Holdings');
+                return result;
+            };
 
-            // Basic variable replacement
-            let body = template.body;
-            body = body.replace(/{{clientName}}/g, clientName);
-            body = body.replace(/{{companyName}}/g, clientCompanyName);
-            body = body.replace(/{{clientEmail}}/g, clientEmail);
-            body = body.replace(/{{myCompany}}/g, 'Xyre Holdings'); // Hardcoded for now based on context
-
-            setMessage(body);
+            setSubject(replaceVariables(template.subject));
+            setMessage(replaceVariables(template.body));
         }
     };
 

@@ -1,0 +1,52 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+System.Management.Automation.RemoteException
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 34.194.14.88:443...
+* schannel: disabled automatic use of client certificate
+* schannel: using IP address, SNI is not supported by OS.
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/1.1
+* Established connection to 34.194.14.88 (34.194.14.88 port 443) from 10.0.0.29 port 60751 
+* using HTTP/1.x
+> GET /neondb/auth/.well-known/openid-configuration HTTP/1.1
+System.Management.Automation.RemoteException
+> Host: ep-patient-mode-ahg1gxif.neonauth.us-east-1.aws.neon.tech
+System.Management.Automation.RemoteException
+> User-Agent: curl/8.16.0
+System.Management.Automation.RemoteException
+> Accept: */*
+System.Management.Automation.RemoteException
+> 
+System.Management.Automation.RemoteException
+* Request completely sent off
+* schannel: remote party requests renegotiation
+* schannel: renegotiating SSL/TLS connection
+* schannel: SSL/TLS connection renegotiated
+* schannel: remote party requests renegotiation
+* schannel: renegotiating SSL/TLS connection
+* schannel: SSL/TLS connection renegotiated
+< HTTP/1.1 404 Not Found
+System.Management.Automation.RemoteException
+< Date: Sun, 21 Dec 2025 21:16:47 GMT
+System.Management.Automation.RemoteException
+< Content-Type: text/html
+System.Management.Automation.RemoteException
+< Content-Length: 146
+System.Management.Automation.RemoteException
+< Connection: keep-alive
+System.Management.Automation.RemoteException
+< Strict-Transport-Security: max-age=31536000; includeSubDomains
+System.Management.Automation.RemoteException
+< 
+System.Management.Automation.RemoteException
+{ [146 bytes data]
+System.Management.Automation.RemoteException
+100   146  100   146    0     0    981      0 --:--:-- --:--:-- --:--:--   986
+* Connection #0 to host 34.194.14.88:443 left intact
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>

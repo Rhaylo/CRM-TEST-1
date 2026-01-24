@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { updateDealStage } from '../deals/actions';
 
 export async function updateContractStatus(id: number, status: string) {
     // Update the contract status
@@ -20,21 +21,27 @@ export async function updateContractStatus(id: number, status: string) {
     if (contract && contract.deal) {
         let newDealStage = contract.deal.stage;
 
-        if (status === 'Out') {
-            newDealStage = 'Contract Out';
-        } else if (status === 'In') {
-            newDealStage = 'Contract In';
-        } else if (status === 'Signed') {
-            newDealStage = 'Complete';
+        if (status === 'Sent') {
+            newDealStage = 'Contract Sent';
+        } else if (status === 'Under Contract') {
+            newDealStage = 'Under Contract';
+        } else if (status === 'Marketing') {
+            newDealStage = 'Marketing';
+        } else if (status === 'Buyer Found') {
+            newDealStage = 'Buyer Found';
+        } else if (status === 'Sold') {
+            newDealStage = 'Sold';
         }
+
+        // Legacy support
+        if (status === 'Out') newDealStage = 'Contract Sent';
+        if (status === 'In' || status === 'Signed') newDealStage = 'Under Contract';
+
 
         // Update the deal stage if it changed
         if (newDealStage !== contract.deal.stage) {
-            await prisma.deal.update({
-                where: { id: contract.dealId },
-                data: { stage: newDealStage },
-            });
-            revalidatePath('/deals');
+            // Use the comprehensive action to ensure notifications/automation run
+            await updateDealStage(contract.dealId, newDealStage);
         }
     }
 

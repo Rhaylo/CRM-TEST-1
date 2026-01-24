@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import SettingsForm from './SettingsForm';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SettingsPage() {
     // Fetch settings
     const settingsList = await prisma.settings.findMany();

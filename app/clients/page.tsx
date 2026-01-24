@@ -1,5 +1,7 @@
 import ClientList from '../components/ClientList';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home({
   searchParams,
 }: {

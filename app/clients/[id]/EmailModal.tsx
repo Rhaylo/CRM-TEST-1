@@ -33,22 +33,24 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
             .catch(err => console.error('Error fetching templates:', err));
     });
 
+    // Helper function for replacements
+    const replaceVariables = (text: string) => {
+        if (!text) return '';
+        let result = text;
+        // Case insensitive and allows spaces inside braces
+        result = result.replace(/{{\s*clientName\s*}}/gi, clientName || '');
+        result = result.replace(/{{\s*companyName\s*}}/gi, clientCompanyName || '');
+        result = result.replace(/{{\s*clientEmail\s*}}/gi, clientEmail || '');
+        result = result.replace(/{{\s*myCompany\s*}}/gi, 'Xyre Holdings');
+        return result;
+    };
+
     const handleTemplateChange = (templateId: string) => {
         setSelectedTemplateId(templateId);
         if (!templateId) return;
 
         const template = templates.find(t => t.id.toString() === templateId);
         if (template) {
-            // Helper function for replacements
-            const replaceVariables = (text: string) => {
-                let result = text;
-                result = result.replace(/{{clientName}}/g, clientName);
-                result = result.replace(/{{companyName}}/g, clientCompanyName);
-                result = result.replace(/{{clientEmail}}/g, clientEmail);
-                result = result.replace(/{{myCompany}}/g, 'Xyre Holdings');
-                return result;
-            };
-
             setSubject(replaceVariables(template.subject));
             setMessage(replaceVariables(template.body));
         }
@@ -63,14 +65,18 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
         setSending(true);
         setError('');
 
+        // Apply replacements one last time before sending to handle manual edits
+        const finalSubject = replaceVariables(subject);
+        const finalMessage = replaceVariables(message);
+
         try {
             const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     to: clientEmail,
-                    subject,
-                    message,
+                    subject: finalSubject,
+                    message: finalMessage,
                 }),
             });
 

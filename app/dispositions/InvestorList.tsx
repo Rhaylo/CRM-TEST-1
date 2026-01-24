@@ -188,9 +188,13 @@ export default function InvestorList({ initialInvestors }: { initialInvestors: I
                     </tbody>
                 </table>
             </div>
+<<<<<<< HEAD
 
 
 
         </div >
+=======
+        </div>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     );
 }

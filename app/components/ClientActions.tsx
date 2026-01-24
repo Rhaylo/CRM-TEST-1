@@ -1,6 +1,7 @@
 'use client';
 
 import { Briefcase, X } from 'lucide-react';
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { createDealFromClient } from './createDealAction';
@@ -9,12 +10,20 @@ import { updateClientStatus } from '@/app/clients/[id]/actions';
 export default function ClientActions({ clientId, clientName, status }: { clientId: number; clientName: string; status: string }) {
     const [showModal, setShowModal] = useState(false);
     const [mounted, setMounted] = useState(false);
+=======
+import { useState } from 'react';
+import { createDealFromClient } from './createDealAction';
+
+export default function ClientActions({ clientId, clientName }: { clientId: number; clientName: string }) {
+    const [showModal, setShowModal] = useState(false);
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     const handleSubmit = async (formData: FormData) => {
         await createDealFromClient(clientId, formData);
         setShowModal(false);
     };
 
+<<<<<<< HEAD
     const handleSnooze = async () => {
         if (confirm(`Are you sure you want to snooze ${clientName}? They will be moved to the Snoozed tab.`)) {
             await updateClientStatus(clientId, 'Snoozed');
@@ -68,6 +77,10 @@ export default function ClientActions({ clientId, clientName, status }: { client
                 <option value="Archived">Archived</option>
             </select>
 
+=======
+    return (
+        <>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             <button
                 onClick={() => setShowModal(true)}
                 style={{
@@ -89,6 +102,7 @@ export default function ClientActions({ clientId, clientName, status }: { client
                 Move to Deals
             </button>
 
+<<<<<<< HEAD
             {showModal && mounted && createPortal(
                 <div style={{
                     position: 'fixed',
@@ -134,11 +148,40 @@ export default function ClientActions({ clientId, clientName, status }: { client
                                     color: '#475569'
                                 }}
                             >
+=======
+            {showModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1000,
+                }}>
+                    <div style={{
+                        backgroundColor: 'white',
+                        padding: '2rem',
+                        borderRadius: '0.75rem',
+                        maxWidth: '500px',
+                        width: '90%',
+                        boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+                    }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                            <h3 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>
+                                Move {clientName} to Deals
+                            </h3>
+                            <button onClick={() => setShowModal(false)} style={{ cursor: 'pointer', border: 'none', background: 'none' }}>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 <X size={20} />
                             </button>
                         </div>
 
                         <form action={handleSubmit}>
+<<<<<<< HEAD
                             <div style={{ display: 'grid', gap: '0.9rem' }}>
                                 <div>
                                     <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '600', marginBottom: '0.4rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
@@ -205,14 +248,84 @@ export default function ClientActions({ clientId, clientName, status }: { client
                             </div>
 
                             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+=======
+                            <div style={{ marginBottom: '1rem' }}>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+                                    ARV (After Repair Value)
+                                </label>
+                                <input
+                                    name="arv"
+                                    type="number"
+                                    step="0.01"
+                                    required
+                                    placeholder="150000"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.5rem',
+                                        border: '1px solid #cbd5e1',
+                                        borderRadius: '0.375rem',
+                                        fontSize: '0.875rem',
+                                    }}
+                                />
+                            </div>
+
+                            <div style={{ marginBottom: '1rem' }}>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+                                    Repairs Estimate
+                                </label>
+                                <input
+                                    name="repairs"
+                                    type="number"
+                                    step="0.01"
+                                    required
+                                    placeholder="30000"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.5rem',
+                                        border: '1px solid #cbd5e1',
+                                        borderRadius: '0.375rem',
+                                        fontSize: '0.875rem',
+                                    }}
+                                />
+                            </div>
+
+                            <div style={{ marginBottom: '1.5rem' }}>
+                                <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+                                    Wholesale Offer
+                                </label>
+                                <input
+                                    name="wholesaleOffer"
+                                    type="number"
+                                    step="0.01"
+                                    required
+                                    placeholder="85000"
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.5rem',
+                                        border: '1px solid #cbd5e1',
+                                        borderRadius: '0.375rem',
+                                        fontSize: '0.875rem',
+                                    }}
+                                />
+                            </div>
+
+                            <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
                                     style={{
+<<<<<<< HEAD
                                         padding: '0.55rem 1rem',
                                         borderRadius: '999px',
                                         border: '1px solid #dbeafe',
                                         backgroundColor: '#f8fafc',
+=======
+                                        padding: '0.5rem 1rem',
+                                        borderRadius: '0.375rem',
+                                        border: '1px solid #cbd5e1',
+                                        backgroundColor: 'white',
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         cursor: 'pointer',
                                         fontWeight: '500',
                                     }}
@@ -222,10 +335,17 @@ export default function ClientActions({ clientId, clientName, status }: { client
                                 <button
                                     type="submit"
                                     style={{
+<<<<<<< HEAD
                                         padding: '0.55rem 1.1rem',
                                         borderRadius: '999px',
                                         border: 'none',
                                         background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
+=======
+                                        padding: '0.5rem 1rem',
+                                        borderRadius: '0.375rem',
+                                        border: 'none',
+                                        backgroundColor: '#3b82f6',
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         color: 'white',
                                         cursor: 'pointer',
                                         fontWeight: '500',
@@ -236,9 +356,15 @@ export default function ClientActions({ clientId, clientName, status }: { client
                             </div>
                         </form>
                     </div>
+<<<<<<< HEAD
                 </div>,
                 document.body
             )}
         </div>
+=======
+                </div>
+            )}
+        </>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     );
 }

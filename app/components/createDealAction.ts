@@ -17,6 +17,7 @@ export async function createDealFromClient(clientId: number, formData: FormData)
         throw new Error('Client not found');
     }
 
+<<<<<<< HEAD
     // Update client with latest figures
     await prisma.client.update({
         where: { id: clientId },
@@ -34,13 +35,19 @@ export async function createDealFromClient(clientId: number, formData: FormData)
     const ourOffer = client.ourOffer || 0;
     const assignmentFee = wholesaleOffer - ourOffer;
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     // Create the deal with client information
     await prisma.deal.create({
         data: {
             clientId,
             amount: wholesaleOffer,
+<<<<<<< HEAD
             assignmentFee: null, // Let the board calculate potential profit until we have a real buyer spread
             products: `${client.address || 'Property'}`,
+=======
+            products: `${client.address || 'Property'} - ARV: $${arv.toLocaleString()}, Repairs: $${repairs.toLocaleString()}`,
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             owner: 'Sales Team',
             stage: 'Pending',
         },

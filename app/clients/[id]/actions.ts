@@ -26,8 +26,11 @@ export async function updateClientDetails(clientId: number, formData: FormData) 
             askingPrice: askingPrice ? parseFloat(askingPrice) : null,
             ourOffer: ourOffer ? parseFloat(ourOffer) : null,
             arv: formData.get('arv') ? parseFloat(formData.get('arv') as string) : null,
+<<<<<<< HEAD
             titleCompanyId: formData.get('titleCompanyId') ? parseInt(formData.get('titleCompanyId') as string) : null,
             escrowAgentId: formData.get('escrowAgentId') ? parseInt(formData.get('escrowAgentId') as string) : null,
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
     });
 
@@ -79,18 +82,26 @@ export async function deleteClientNote(noteId: number) {
 
 
 
+<<<<<<< HEAD
 export async function updateMotivation(clientId: number, score: number, note: string, condition: string) {
+=======
+export async function updateMotivation(clientId: number, score: number, note: string) {
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     await prisma.client.update({
         where: { id: clientId },
         data: {
             motivationScore: score,
             motivationNote: note,
+<<<<<<< HEAD
             propertyCondition: condition,
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
     });
     revalidatePath(`/clients/${clientId}`);
 }
 
+<<<<<<< HEAD
 export async function updateClientStatus(clientId: number, status: string) {
     await prisma.client.update({
         where: { id: clientId },
@@ -148,5 +159,15 @@ export async function editSeller(clientId: number, sellerId: number, formData: F
         },
     });
 
+=======
+export async function updateManagementInfo(clientId: number, comments: string, tags: string) {
+    await prisma.client.update({
+        where: { id: clientId },
+        data: {
+            internalComments: comments,
+            internalTags: tags,
+        },
+    });
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     revalidatePath(`/clients/${clientId}`);
 }

@@ -2,8 +2,12 @@ import { prisma } from '@/lib/prisma';
 import styles from '../admin.module.css';
 import { Search, Filter, Trash2 } from 'lucide-react';
 
+<<<<<<< HEAD
 export default async function ExecutionLogsPage(props: { searchParams: Promise<{ q?: string; status?: string }> }) {
     const searchParams = await props.searchParams;
+=======
+export default async function ExecutionLogsPage({ searchParams }: { searchParams: { q?: string; status?: string } }) {
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const query = searchParams.q || '';
     const status = searchParams.status || '';
 

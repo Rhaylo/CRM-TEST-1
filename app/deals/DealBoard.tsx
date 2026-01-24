@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import styles from './page.module.css';
+<<<<<<< HEAD
 import Link from 'next/link';
 import { updateDealStage } from './actions';
 import { deleteDeal } from './deleteActions';
@@ -49,6 +50,17 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
     const [deals, setDeals] = useState(normalizedDeals);
     const [draggedDeal, setDraggedDeal] = useState<any>(null);
     const [activePipeline, setActivePipeline] = useState<'acquisitions' | 'dispositions'>('acquisitions');
+=======
+import { updateDealStage } from './actions';
+import { deleteDeal } from './deleteActions';
+import { Trash2 } from 'lucide-react';
+
+const STAGES = ['Pending', 'Contract Out', 'Contract In', 'Complete'];
+
+export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
+    const [deals, setDeals] = useState(initialDeals);
+    const [draggedDeal, setDraggedDeal] = useState<any>(null);
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     const handleDragStart = (deal: any) => {
         setDraggedDeal(deal);
@@ -77,6 +89,7 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
         await deleteDeal(dealId);
     };
 
+<<<<<<< HEAD
     const currentStages = PIPELINES[activePipeline].stages;
 
     return (
@@ -242,6 +255,61 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
                     );
                 })}
             </div>
+=======
+    return (
+        <div className={styles.board}>
+            {STAGES.map(stage => {
+                const stageDeals = deals.filter(d => d.stage === stage);
+                return (
+                    <div
+                        key={stage}
+                        className={styles.column}
+                        onDragOver={handleDragOver}
+                        onDrop={() => handleDrop(stage)}
+                    >
+                        <div className={styles.columnHeader}>
+                            <span>{stage}</span>
+                            <span className={styles.count}>{stageDeals.length}</span>
+                        </div>
+                        <div className={styles.columnContent}>
+                            {stageDeals.map(deal => {
+                                const isStale = (Date.now() - new Date(deal.updatedAt).getTime()) > (7 * 24 * 60 * 60 * 1000);
+                                return (
+                                    <div
+                                        key={deal.id}
+                                        className={`${styles.card} ${isStale ? styles.stale : ''}`}
+                                        draggable
+                                        onDragStart={() => handleDragStart(deal)}
+                                    >
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                                            <div style={{ flex: 1 }}>
+                                                <div className={styles.cardTitle}>{deal.products}</div>
+                                                <div className={styles.cardAmount}>${deal.amount.toLocaleString()}</div>
+                                                <div className={styles.cardClient}>{deal.client.companyName}</div>
+                                                {isStale && <span className={styles.staleBadge}>Stale ({'>'} 7 days)</span>}
+                                            </div>
+                                            <button
+                                                onClick={() => handleDelete(deal.id)}
+                                                style={{
+                                                    padding: '0.25rem',
+                                                    border: 'none',
+                                                    background: 'none',
+                                                    cursor: 'pointer',
+                                                    color: '#94a3b8',
+                                                }}
+                                                title="Delete deal"
+                                            >
+                                                <Trash2 size={14} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            })}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         </div>
     );
 }

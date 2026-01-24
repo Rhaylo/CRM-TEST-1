@@ -2,7 +2,10 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+<<<<<<< HEAD
 import { updateDealStage } from '../deals/actions';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
 export async function updateContractStatus(id: number, status: string) {
     // Update the contract status
@@ -21,6 +24,7 @@ export async function updateContractStatus(id: number, status: string) {
     if (contract && contract.deal) {
         let newDealStage = contract.deal.stage;
 
+<<<<<<< HEAD
         if (status === 'Sent') {
             newDealStage = 'Contract Sent';
         } else if (status === 'Under Contract') {
@@ -42,6 +46,23 @@ export async function updateContractStatus(id: number, status: string) {
         if (newDealStage !== contract.deal.stage) {
             // Use the comprehensive action to ensure notifications/automation run
             await updateDealStage(contract.dealId, newDealStage);
+=======
+        if (status === 'Out') {
+            newDealStage = 'Contract Out';
+        } else if (status === 'In') {
+            newDealStage = 'Contract In';
+        } else if (status === 'Signed') {
+            newDealStage = 'Complete';
+        }
+
+        // Update the deal stage if it changed
+        if (newDealStage !== contract.deal.stage) {
+            await prisma.deal.update({
+                where: { id: contract.dealId },
+                data: { stage: newDealStage },
+            });
+            revalidatePath('/deals');
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         }
     }
 
@@ -56,6 +77,7 @@ export async function uploadContractDocument(id: number, filename: string) {
     });
     revalidatePath('/contracts');
 }
+<<<<<<< HEAD
 
 export async function updateContractDocumentName(id: number, name: string) {
     await prisma.contract.update({
@@ -64,3 +86,5 @@ export async function updateContractDocumentName(id: number, name: string) {
     });
     revalidatePath('/contracts');
 }
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

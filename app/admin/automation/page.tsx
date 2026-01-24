@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import { Plus, Play, Edit, Trash2, Power } from 'lucide-react';

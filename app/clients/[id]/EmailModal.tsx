@@ -6,17 +6,25 @@ import { X, Send } from 'lucide-react';
 interface EmailModalProps {
     clientEmail: string;
     clientName: string;
+<<<<<<< HEAD
     clientCompanyName: string;
     onClose: () => void;
 }
 
 export default function EmailModal({ clientEmail, clientName, clientCompanyName, onClose }: EmailModalProps) {
+=======
+    onClose: () => void;
+}
+
+export default function EmailModal({ clientEmail, clientName, onClose }: EmailModalProps) {
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [sending, setSending] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+<<<<<<< HEAD
     // Templates state
     const [templates, setTemplates] = useState<any[]>([]);
     const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
@@ -57,6 +65,8 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
         }
     };
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const handleSend = async () => {
         if (!subject.trim() || !message.trim()) {
             setError('Please fill in both subject and message');
@@ -66,18 +76,26 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
         setSending(true);
         setError('');
 
+<<<<<<< HEAD
         // Apply replacements one last time before sending to handle manual edits
         const finalSubject = replaceVariables(subject);
         const finalMessage = replaceVariables(message);
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         try {
             const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     to: clientEmail,
+<<<<<<< HEAD
                     subject: finalSubject,
                     message: finalMessage,
+=======
+                    subject,
+                    message,
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 }),
             });
 
@@ -140,6 +158,7 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
                     </div>
                 ) : (
                     <>
+<<<<<<< HEAD
                         {/* Template Selector */}
                         {templates.length > 0 && (
                             <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f0f9ff', borderRadius: '0.5rem', border: '1px solid #bae6fd' }}>
@@ -166,6 +185,8 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
                             </div>
                         )}
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
                                 To:

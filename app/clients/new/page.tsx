@@ -27,6 +27,7 @@ export default function NewClientPage() {
 
                 <div className={styles.section}>
                     <h2 className={styles.sectionTitle}>Property Details</h2>
+<<<<<<< HEAD
                     <div className={styles.grid}>
                         <div className={`${styles.formGroup} ${styles.fullSpan}`}>
                             <label className={styles.label}>Address</label>
@@ -42,6 +43,21 @@ export default function NewClientPage() {
                         </div>
                     </div>
                     <div className={styles.priceGrid}>
+=======
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>Address</label>
+                        <input name="address" type="text" className={styles.input} placeholder="123 Main St, City, State" />
+                    </div>
+                    <div className={styles.grid}>
+                        <div className={styles.formGroup}>
+                            <label className={styles.label}>Property Condition</label>
+                            <textarea name="propertyCondition" className={styles.textarea} placeholder="Describe the condition of the property..." rows={3} />
+                        </div>
+                        <div className={styles.formGroup}>
+                            <label className={styles.label}>Property Link</label>
+                            <input name="propertyLink" type="url" className={styles.input} placeholder="https://zillow.com/..." />
+                        </div>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <div className={styles.formGroup}>
                             <label className={styles.label}>Asking Price</label>
                             <input name="askingPrice" type="number" step="0.01" className={styles.input} placeholder="150000" />

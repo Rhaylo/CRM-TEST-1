@@ -1,14 +1,20 @@
 'use server';
 
 import { prisma } from '@/lib/prisma';
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import { revalidatePath } from 'next/cache';
 import { triggerAutomation } from '@/app/lib/automation';
 import { createNotification } from '@/app/notifications/actions';
 
 export async function updateDealStage(dealId: number, stage: string) {
     // Update the deal stage
+<<<<<<< HEAD
     console.log(`[updateDealStage] Moving Deal ${dealId} to stage: ${stage}`);
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const updatedDeal = await prisma.deal.update({
         where: { id: dealId },
         data: { stage },
@@ -23,14 +29,22 @@ export async function updateDealStage(dealId: number, stage: string) {
         actionUrl: `/clients/${updatedDeal.clientId}`,
         dealId: dealId,
         clientId: updatedDeal.clientId,
+<<<<<<< HEAD
         userId: updatedDeal.userId || '',
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     });
 
     // Trigger automation
     await triggerAutomation('deal_stage_change', updatedDeal);
 
+<<<<<<< HEAD
     // If moving to "Contract Sent" (or legacy "Contract Out"), create a contract if one doesn't exist
     if (stage === 'Contract Sent' || stage === 'Contract Out') {
+=======
+    // If moving to "Contract Out", create a contract if one doesn't exist
+    if (stage === 'Contract Out') {
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         const deal = await prisma.deal.findUnique({
             where: { id: dealId },
             include: { contracts: true },
@@ -38,6 +52,7 @@ export async function updateDealStage(dealId: number, stage: string) {
 
         // Only create contract if one doesn't already exist for this deal
         if (deal && deal.contracts.length === 0) {
+<<<<<<< HEAD
             const user = await getCurrentUser();
             if (user) {
                 await prisma.contract.create({
@@ -74,12 +89,24 @@ export async function updateDealStage(dealId: number, stage: string) {
                 data: { status: stage }
             });
             revalidatePath('/contracts'); // Refresh contracts view
+=======
+            await prisma.contract.create({
+                data: {
+                    dealId: dealId,
+                    clientId: deal.clientId,
+                    status: 'Out',
+                    dateSent: new Date(),
+                },
+            });
+            revalidatePath('/contracts');
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         }
     }
 
     revalidatePath('/deals');
     revalidatePath('/clients');
 }
+<<<<<<< HEAD
 
 export async function updateDealAnalysis(dealId: number, data: { arv?: number, repairs?: number, fee?: number, titleCompanyId?: number | null, escrowAgentId?: number | null }) {
     // Use raw SQL to update fields safely, including new closing fields
@@ -118,3 +145,5 @@ export async function updateDealAnalysis(dealId: number, data: { arv?: number, r
     revalidatePath('/deals');
     revalidatePath('/clients');
 }
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

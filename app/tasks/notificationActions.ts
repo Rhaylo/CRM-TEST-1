@@ -41,7 +41,10 @@ export async function checkOverdueTasks() {
                 actionUrl: `/clients/${task.clientId}`,
                 taskId: task.id,
                 clientId: task.clientId,
+<<<<<<< HEAD
                 userId: task.userId || ''
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             });
         }
     }
@@ -89,7 +92,10 @@ export async function checkUpcomingTasks() {
                 actionUrl: `/clients/${task.clientId}`,
                 taskId: task.id,
                 clientId: task.clientId,
+<<<<<<< HEAD
                 userId: task.userId || ''
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             });
         }
     }

@@ -22,6 +22,7 @@ export default function RevenueDataEditor() {
         try {
             const response = await fetch('/api/revenue-data');
             const result = await response.json();
+<<<<<<< HEAD
 
             if (Array.isArray(result)) {
                 setData(result);
@@ -29,6 +30,9 @@ export default function RevenueDataEditor() {
                 console.warn('Revenue data API returned unexpected format:', result);
                 setData([]);
             }
+=======
+            setData(result);
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         } catch (error) {
             console.error('Error fetching revenue data:', error);
         } finally {

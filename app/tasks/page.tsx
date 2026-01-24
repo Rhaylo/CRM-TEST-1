@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import TasksPageClient from './TasksPageClient';
 
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
@@ -21,6 +22,12 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
                 { userId: null }
             ]
         },
+=======
+export default async function TasksPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+    const params = await searchParams;
+
+    const tasks = await prisma.task.findMany({
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         include: {
             client: true,
             notes: {
@@ -33,12 +40,15 @@ export default async function TasksPage({ searchParams }: { searchParams: Promis
     });
 
     const clients = await prisma.client.findMany({
+<<<<<<< HEAD
         where: {
             OR: [
                 { userId: user.id },
                 { userId: null }
             ]
         },
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         orderBy: {
             contactName: 'asc',
         },

@@ -5,11 +5,18 @@
 }
 
 .header {
+<<<<<<< HEAD
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9));
     padding: 2rem;
     border-radius: 1.25rem;
     border: 1px solid rgba(148, 163, 184, 0.25);
     box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.45);
+=======
+    background: white;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .headerTop {
@@ -18,6 +25,7 @@
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
+<<<<<<< HEAD
     border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     gap: 1.5rem;
 }
@@ -135,6 +143,9 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
+=======
+    border-bottom: 1px solid #e2e8f0;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .companyName {
@@ -142,6 +153,7 @@
     font-weight: bold;
     color: #0f172a;
     margin: 0;
+<<<<<<< HEAD
     letter-spacing: -0.02em;
 }
 
@@ -149,11 +161,20 @@
     background-color: rgba(147, 197, 253, 0.2);
     color: #1d4ed8;
     padding: 0.45rem 1rem;
+=======
+}
+
+.leadAge {
+    background-color: #f1f5f9;
+    color: #64748b;
+    padding: 0.5rem 1rem;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 500;
 }
 
+<<<<<<< HEAD
 .headerActions {
     display: flex;
     gap: 0.75rem;
@@ -250,12 +271,19 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
+=======
+.contactInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .infoItem {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+<<<<<<< HEAD
     background: white;
     border-radius: 0.9rem;
     padding: 1rem;
@@ -271,6 +299,10 @@
 .infoItem:nth-child(5) { animation-delay: 0.2s; }
 .infoItem:nth-child(6) { animation-delay: 0.24s; }
 
+=======
+}
+
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .label {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -285,6 +317,7 @@
     font-weight: 500;
 }
 
+<<<<<<< HEAD
 .valueRow {
     display: flex;
     align-items: center;
@@ -316,10 +349,13 @@
     letter-spacing: 0.06em;
 }
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .position {
     font-size: 0.875rem;
     color: #64748b;
     margin-left: 0.5rem;
+<<<<<<< HEAD
 }
 
 /* Additional Sellers Section */
@@ -515,3 +551,6 @@
         transform: translateY(0);
     }
 }
+=======
+}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

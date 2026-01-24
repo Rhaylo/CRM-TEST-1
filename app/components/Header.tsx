@@ -1,7 +1,5 @@
 'use client';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { Search, LogOut, Menu, Settings } from 'lucide-react';
 import styles from './Header.module.css';
 import { useRouter } from 'next/navigation';
@@ -18,39 +16,10 @@ export default function Header({ toggleSidebar }: HeaderProps) {
 
     const handleLogout = async () => {
         await signOut({ callbackUrl: '/auth' });
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-import { Search, LogOut } from 'lucide-react';
-import styles from './Header.module.css';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import NotificationBell from './NotificationBell';
-import { signOut } from 'next-auth/react';
-
-export default function Header() {
-    const router = useRouter();
-    const [query, setQuery] = useState('');
-
-    const handleSearch = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (query.trim()) {
-            router.push(`/search?q=${encodeURIComponent(query)}`);
-        }
-    };
-
-    const handleLogout = async () => {
-        await signOut({ callbackUrl: '/login' });
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     };
 
     return (
         <header className={styles.header}>
-<<<<<<< HEAD
-<<<<<<< HEAD
             {/* Mobile Menu Toggle - Visible only on mobile */}
             <button
                 onClick={toggleSidebar}
@@ -94,58 +63,20 @@ export default function Header() {
                 <button
                     onClick={handleLogout}
                     className="logout-btn"
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-            <div className={styles.searchContainer}>
-                <form onSubmit={handleSearch} className={styles.searchWrapper}>
-                    <Search className={styles.searchIcon} size={18} />
-                    <input
-                        type="text"
-                        placeholder="Search clients, deals, addresses..."
-                        className={styles.searchInput}
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                    />
-                </form>
-            </div>
-            <div className={styles.actions}>
-                <NotificationBell />
-                <button
-                    onClick={handleLogout}
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem',
                         padding: '0.5rem 1rem',
-<<<<<<< HEAD
-<<<<<<< HEAD
                         background: 'linear-gradient(135deg, #fb7185, #e11d48)',
                         color: 'white',
                         border: 'none',
                         borderRadius: '999px',
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-                        backgroundColor: '#ef4444',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '0.375rem',
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         fontSize: '0.875rem',
                         fontWeight: '500',
                         cursor: 'pointer',
                         transition: 'background-color 0.2s'
                     }}
-<<<<<<< HEAD
-<<<<<<< HEAD
                 >
                     <LogOut size={16} />
                     <span className="logout-text">Logout</span>
@@ -172,20 +103,6 @@ export default function Header() {
                     }
                 }
             `}</style>
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
-                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#ef4444'}
-                >
-                    <LogOut size={16} />
-                    Logout
-                </button>
-            </div>
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-        </header>
+        </header >
     );
 }

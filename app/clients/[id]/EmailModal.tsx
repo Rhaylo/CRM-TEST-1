@@ -38,7 +38,8 @@ export default function EmailModal({ clientEmail, clientName, clientCompanyName,
         if (!text) return '';
         let result = text;
         // Case insensitive and allows spaces inside braces
-        result = result.replace(/{{\s*clientName\s*}}/gi, clientName || '');
+        // Map common aliases to clientName
+        result = result.replace(/{{\s*(?:clientName|contactName|name)\s*}}/gi, clientName || '');
         result = result.replace(/{{\s*companyName\s*}}/gi, clientCompanyName || '');
         result = result.replace(/{{\s*clientEmail\s*}}/gi, clientEmail || '');
         result = result.replace(/{{\s*myCompany\s*}}/gi, 'Xyre Holdings');

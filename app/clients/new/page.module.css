@@ -1,0 +1,148 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.form {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9));
+    padding: 2rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.45);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.section:last-of-type {
+    border-bottom: none;
+}
+
+.sectionTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1f2937;
+    letter-spacing: -0.01em;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.fullSpan {
+    grid-column: 1 / -1;
+}
+
+.priceGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.input,
+.textarea,
+.select {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    background: #f8fafc;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.btn {
+    padding: 0.65rem 1.5rem;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    align-self: flex-end;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 28px -22px rgba(37, 99, 235, 0.5);
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .priceGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .form {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.7rem;
+    }
+
+    .section {
+        padding: 1rem;
+    }
+
+    .btn {
+        padding: 0.6rem 1.25rem;
+    }
+}

@@ -1,0 +1,409 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+model Client {
+  id              Int      @id @default(autoincrement())
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id])
+  
+  companyName     String
+  contactName     String
+  status          String   @default("Active") // Active, Snoozed, Archived
+  position        String?
+  phone           String?
+  email           String?
+  address         String?
+  lat             Float?
+  lng             Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Seller Motivation
+  motivationScore Int?     // 1-10
+  motivationNote  String?
+  
+  // Management
+  internalComments String?
+  internalTags     String? // Comma separated tags
+
+  // Property Details
+  propertyCondition String?
+  propertyLink      String?
+  askingPrice       Float?
+  ourOffer          Float?
+  arv               Float?
+  repairs           Float?
+
+  // Contract Generation Fields
+  seller2Name       String?   // Second seller name (optional)
+  closingDate       DateTime? // Expected closing date
+  purchasePrice     Float?    // Final purchase price
+  state             String?   // Property state
+
+  deals         Deal[]
+  notes         Note[]
+  contracts     Contract[]
+  tasks         Task[]
+  notifications Notification[]
+  
+  additionalSellers AdditionalSeller[]
+  
+  titleCompanyId Int?
+  titleCompany   TitleCompany? @relation(fields: [titleCompanyId], references: [id])
+  
+  escrowAgentId Int?
+  escrowAgent   EscrowAgent? @relation(fields: [escrowAgentId], references: [id])
+}
+
+model Deal {
+  id                Int       @id @default(autoincrement())
+  userId            String?
+  user              User?     @relation(fields: [userId], references: [id])
+
+  amount            Float
+  assignmentFee     Float?
+  arv               Float?
+  repairs           Float?
+  fee               Float?
+  products          String?
+  owner             String?
+  stage             String    // Pending, Contract In, Contract Out, Complete
+  expectedCloseDate DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+  
+  contracts     Contract[]
+  notes         Note[]
+  notifications Notification[]
+  
+  investorId Int?
+  investor   Investor? @relation(fields: [investorId], references: [id])
+  documents  Document[]
+  
+  titleCompanyId Int?
+  titleCompany   TitleCompany? @relation(fields: [titleCompanyId], references: [id])
+  
+  escrowAgentId Int?
+  escrowAgent   EscrowAgent? @relation(fields: [escrowAgentId], references: [id])
+}
+
+model Document {
+  id          Int      @id @default(autoincrement())
+  fileName    String
+  fileContent Bytes
+  category    String   @default("Other") // Contract, ID, Deed, Other
+  createdAt   DateTime @default(now())
+  
+  dealId      Int
+  deal        Deal     @relation(fields: [dealId], references: [id], onDelete: Cascade)
+}
+
+model Contract {
+  id           Int       @id @default(autoincrement())
+  userId       String?
+  user         User?     @relation(fields: [userId], references: [id])
+  
+  status       String    // In, Out, Signed
+  dateSent     DateTime?
+  dateReceived DateTime?
+  documentPath String?
+  documentContent Bytes?
+  documentName String?   // User-friendly display name
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  dealId Int
+  deal   Deal @relation(fields: [dealId], references: [id])
+  
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+
+  title       String
+  description String?
+  dueDate     DateTime
+  dueTime     String?
+  priority    String   @default("Medium") // Low, Medium, High
+  status      String   @default("Not Started") // Not Started, In Progress, Completed
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  clientId Int
+  client   Client @relation(fields: [clientId], references: [id])
+  
+  notes         Note[]
+  notifications Notification[]
+}
+
+model Note {
+  id        Int      @id @default(autoincrement())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  clientId Int?
+  client   Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  dealId Int?
+  deal   Deal? @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  
+  taskId Int?
+  task   Task? @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  investorId Int?
+  investor   Investor? @relation(fields: [investorId], references: [id], onDelete: Cascade)
+}
+
+model AutomationRule {
+  id          Int      @id @default(autoincrement())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+
+  name        String
+  description String?
+  enabled     Boolean  @default(true)
+  triggerType String   // "task_created", "task_completed", "deal_stage_change", "schedule"
+  conditions  String   // JSON string of conditions
+  actions     String   // JSON string of actions to perform
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  
+  executions AutomationExecution[]
+}
+
+model AutomationExecution {
+  id          Int      @id @default(autoincrement())
+  ruleId      Int?
+  rule        AutomationRule? @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+  status      String   // "success", "failed", "pending"
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  duration    Int?     // Duration in milliseconds
+  error       String?
+  metadata    String?  // JSON string of execution details
+}
+
+model ScheduledTask {
+  id          Int      @id @default(autoincrement())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+
+  name        String
+  description String?
+  schedule    String   // Cron expression
+  action      String   // JSON string of action to perform
+  enabled     Boolean  @default(true)
+  lastRun     DateTime?
+  nextRun     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+}
+
+model Settings {
+  id        Int      @id @default(autoincrement())
+  userId    String?
+  key       String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@unique([userId, key])
+}
+
+model Investor {
+  id              Int      @id @default(autoincrement())
+  userId          String?
+  user            User?    @relation(fields: [userId], references: [id])
+
+  companyName     String?
+  contactName     String
+  email           String?
+  phone           String?
+  status          String   @default("Active") // Active, Inactive, Do Not Contact
+  buyingCriteria  String?  // Text description of what they buy
+  state           String?  // e.g. GA, FL
+  zone            String?  // e.g. Atlanta, Metro Area
+  notes           Note[]
+  deals           Deal[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+
+  title       String
+  message     String
+  type        String   // 'task', 'deal', 'automation', 'system'
+  read        Boolean  @default(false)
+  actionUrl   String?  // URL to navigate when clicked
+  createdAt   DateTime @default(now())
+  
+  // Optional relations
+  clientId    Int?
+  client      Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  taskId      Int?
+  task        Task? @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  
+  dealId      Int?
+  deal        Deal? @relation(fields: [dealId], references: [id], onDelete: Cascade)
+}
+
+model EmailTemplate {
+  id        Int      @id @default(autoincrement())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+
+  name      String
+  subject   String
+  body      String
+  variables String?  // JSON string of fields like ["{{contactName}}", "{{companyName}}"]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model KPIRecord {
+  id           Int      @id @default(autoincrement())
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
+
+  date         DateTime 
+  calls        Int      @default(0)
+  offers       Int      @default(0)
+  leads        Int      @default(0)
+  appointments Int      @default(0)
+  conversations Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  @@unique([userId, date])
+}
+
+// NextAuth Models
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          String    @default("USER") // ADMIN, USER
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  clients        Client[]
+  deals          Deal[]
+  tasks          Task[]
+  notes          Note[]
+  investors      Investor[]
+  notifications  Notification[]
+  automationRules AutomationRule[]
+  scheduledTasks ScheduledTask[]
+  emailTemplates EmailTemplate[]
+  kpiRecords     KPIRecord[]
+  contracts      Contract[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model TitleCompany {
+  id          Int      @id @default(autoincrement())
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  website     String?
+  contactName String?
+  state       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  escrowAgents EscrowAgent[]
+  clients      Client[]
+  deals        Deal[]
+}
+
+model EscrowAgent {
+  id             Int      @id @default(autoincrement())
+  name           String
+  email          String?
+  phone          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  titleCompanyId Int
+  titleCompany   TitleCompany @relation(fields: [titleCompanyId], references: [id], onDelete: Cascade)
+  
+  clients        Client[]
+  deals          Deal[]
+}
+
+model AdditionalSeller {
+  id           Int      @id @default(autoincrement())
+  clientId     Int
+  client       Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  name         String
+  email        String?
+  phone        String?
+  relationship String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

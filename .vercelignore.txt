@@ -1,0 +1,28 @@
+# Carpetas de build y escritorio
+dist-electron
+out
+release
+build
+
+# Dependencias y cachés
+node_modules
+.next
+.cache
+dist
+
+# Control de versiones y Vercel interno
+.git
+.vercel
+
+# Logs y archivos grandes comunes
+*.log
+*.zip
+*.rar
+*.7z
+*.bak
+*.sqlite
+*.db
+
+# Prisma caches
+node_modules\.prisma
+node_modules\.cache

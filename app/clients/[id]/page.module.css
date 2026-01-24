@@ -1,0 +1,517 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.header {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9));
+    padding: 2rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.45);
+}
+
+.headerTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    gap: 1.5rem;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.editTitleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.editNameInput {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #0f172a;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    border-radius: 0.85rem;
+    padding: 0.5rem 0.75rem;
+    background: #f8fafc;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.editActions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.editActionButton {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editActionButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.35);
+}
+
+.editActionPrimary {
+    background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.editActionSecondary {
+    background: rgba(248, 113, 113, 0.15);
+    color: #dc2626;
+    border: 1px solid rgba(248, 113, 113, 0.35);
+}
+
+.editInput {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    font-size: 0.85rem;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.editInput:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.editSection {
+    grid-column: 1 / -1;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.editSectionTitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.75rem;
+}
+
+.editGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+@media (max-width: 720px) {
+    .editGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.headerIntro {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.headerRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.companyName {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.leadAge {
+    background-color: rgba(147, 197, 253, 0.2);
+    color: #1d4ed8;
+    padding: 0.45rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.headerActions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+    .header {
+        padding: 1.5rem;
+        border-radius: 1rem;
+    }
+
+    .headerTop {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .headerIntro {
+        width: 100%;
+    }
+
+    .headerActions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .navWrap {
+        order: 2;
+    }
+
+    .leadAge {
+        order: 1;
+    }
+
+    .companyName {
+        font-size: 1.6rem;
+    }
+
+    .contactInfo {
+        grid-template-columns: 1fr;
+    }
+
+    .infoItem {
+        padding: 0.9rem;
+    }
+}
+
+.navWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(226, 232, 240, 0.7);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.navButton {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(147, 197, 253, 0.4);
+    color: #1d4ed8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.navButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.navButton:not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px -14px rgba(37, 99, 235, 0.5);
+}
+
+.navCounter {
+    min-width: 44px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.contactInfo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.infoItem {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: white;
+    border-radius: 0.9rem;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 16px 28px -26px rgba(15, 23, 42, 0.35);
+    animation: infoReveal 0.5s ease both;
+}
+
+.infoItem:nth-child(1) { animation-delay: 0.04s; }
+.infoItem:nth-child(2) { animation-delay: 0.08s; }
+.infoItem:nth-child(3) { animation-delay: 0.12s; }
+.infoItem:nth-child(4) { animation-delay: 0.16s; }
+.infoItem:nth-child(5) { animation-delay: 0.2s; }
+.infoItem:nth-child(6) { animation-delay: 0.24s; }
+
+.label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.value {
+    font-size: 1rem;
+    color: #334155;
+    font-weight: 500;
+}
+
+.valueRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.infoAction {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    background: rgba(147, 197, 253, 0.25);
+    color: #1d4ed8;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.statusBadge {
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.position {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-left: 0.5rem;
+}
+
+/* Additional Sellers Section */
+.sellersSection {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.sellersHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.sectionTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.addSellerButton {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    background-color: rgba(147, 197, 253, 0.25);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.addSellerButton:hover {
+    background-color: rgba(147, 197, 253, 0.35);
+}
+
+.sellersList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sellerCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.sellerName {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.sellerDetails {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #64748b;
+    align-items: center;
+}
+
+.sellerTag {
+    background-color: #f1f5f9;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    color: #475569;
+}
+
+.deleteSellerBtn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0.375rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+}
+
+.deleteSellerBtn:hover {
+    color: #ef4444;
+    background-color: #fef2f2;
+}
+
+.editSellerBtn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0.375rem;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+}
+
+.editSellerBtn:hover {
+    color: #3b82f6;
+    background-color: #eff6ff;
+}
+
+.actionButtons {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.addForm {
+    background-color: rgba(248, 250, 252, 0.95);
+    padding: 1rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    margin-bottom: 1rem;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 640px) {
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.input {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    font-size: 0.875rem;
+    outline: none;
+    background: #fff;
+}
+
+.input:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.cancelBtn {
+    background: #f8fafc;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    color: #64748b;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+}
+
+.saveBtn {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.saveBtn:hover {
+    filter: brightness(0.98);
+}
+
+@keyframes infoReveal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

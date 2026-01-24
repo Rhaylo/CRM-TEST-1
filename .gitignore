@@ -1,0 +1,30 @@
+# Dependencias
+node_modules/
+.npm/
+
+# Next.js build
+.next/
+out/
+
+# Electron builds
+dist-electron/
+dist/
+*.exe
+*.asar
+
+# Prisma
+prisma/dev.db
+prisma/*.db-journal
+
+# Entorno
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.vercel

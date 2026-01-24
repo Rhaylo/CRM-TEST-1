@@ -1,0 +1,27 @@
+{
+    "appId": "com.xyreholdings.wholesale-crm",
+    "productName": "Wholesale CRM",
+    "directories": {
+        "output": "dist-electron"
+    },
+    "files": [
+        ".next/**/*",
+        "public/**/*",
+        "prisma/**/*",
+        "node_modules/**/*",
+        "package.json",
+        "electron-main.js"
+    ],
+    "win": {
+        "target": [
+            "nsis"
+        ],
+        "icon": "public/icon.ico"
+    },
+    "nsis": {
+        "oneClick": false,
+        "allowToChangeInstallationDirectory": true,
+        "createDesktopShortcut": true,
+        "createStartMenuShortcut": true
+    }
+}

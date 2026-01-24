@@ -3,6 +3,7 @@ import DealBoard from './DealBoard';
 import styles from './page.module.css';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
@@ -22,6 +23,11 @@ export default async function DealsPage() {
             ]
         },
         include: { client: true, investor: true },
+=======
+export default async function DealsPage() {
+    const deals = await prisma.deal.findMany({
+        include: { client: true },
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 export default async function DealsPage() {
     const deals = await prisma.deal.findMany({

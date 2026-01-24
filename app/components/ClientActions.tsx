@@ -2,6 +2,7 @@
 
 import { Briefcase, X } from 'lucide-react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { createDealFromClient } from './createDealAction';
@@ -11,11 +12,16 @@ export default function ClientActions({ clientId, clientName, status }: { client
     const [showModal, setShowModal] = useState(false);
     const [mounted, setMounted] = useState(false);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import { useState } from 'react';
 import { createDealFromClient } from './createDealAction';
 
 export default function ClientActions({ clientId, clientName }: { clientId: number; clientName: string }) {
     const [showModal, setShowModal] = useState(false);
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     const handleSubmit = async (formData: FormData) => {
@@ -23,6 +29,7 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
         setShowModal(false);
     };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const handleSnooze = async () => {
         if (confirm(`Are you sure you want to snooze ${clientName}? They will be moved to the Snoozed tab.`)) {
@@ -81,6 +88,10 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
     return (
         <>
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+    return (
+        <>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             <button
                 onClick={() => setShowModal(true)}
                 style={{
@@ -102,6 +113,7 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                 Move to Deals
             </button>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             {showModal && mounted && createPortal(
                 <div style={{
@@ -149,6 +161,8 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                                 }}
                             >
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             {showModal && (
                 <div style={{
                     position: 'fixed',
@@ -175,12 +189,16 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                                 Move {clientName} to Deals
                             </h3>
                             <button onClick={() => setShowModal(false)} style={{ cursor: 'pointer', border: 'none', background: 'none' }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 <X size={20} />
                             </button>
                         </div>
 
                         <form action={handleSubmit}>
+<<<<<<< HEAD
 <<<<<<< HEAD
                             <div style={{ display: 'grid', gap: '0.9rem' }}>
                                 <div>
@@ -249,6 +267,8 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
 
                             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             <div style={{ marginBottom: '1rem' }}>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
                                     ARV (After Repair Value)
@@ -310,21 +330,30 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                             </div>
 
                             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
                                     style={{
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         padding: '0.55rem 1rem',
                                         borderRadius: '999px',
                                         border: '1px solid #dbeafe',
                                         backgroundColor: '#f8fafc',
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         padding: '0.5rem 1rem',
                                         borderRadius: '0.375rem',
                                         border: '1px solid #cbd5e1',
                                         backgroundColor: 'white',
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         cursor: 'pointer',
                                         fontWeight: '500',
@@ -336,15 +365,21 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                                     type="submit"
                                     style={{
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         padding: '0.55rem 1.1rem',
                                         borderRadius: '999px',
                                         border: 'none',
                                         background: 'linear-gradient(135deg, #2563eb, #60a5fa)',
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         padding: '0.5rem 1rem',
                                         borderRadius: '0.375rem',
                                         border: 'none',
                                         backgroundColor: '#3b82f6',
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         color: 'white',
                                         cursor: 'pointer',
@@ -357,10 +392,16 @@ export default function ClientActions({ clientId, clientName }: { clientId: numb
                         </form>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 </div>,
                 document.body
             )}
         </div>
+=======
+                </div>
+            )}
+        </>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                 </div>
             )}

@@ -27,8 +27,11 @@ export async function updateClientDetails(clientId: number, formData: FormData) 
             ourOffer: ourOffer ? parseFloat(ourOffer) : null,
             arv: formData.get('arv') ? parseFloat(formData.get('arv') as string) : null,
 <<<<<<< HEAD
+<<<<<<< HEAD
             titleCompanyId: formData.get('titleCompanyId') ? parseInt(formData.get('titleCompanyId') as string) : null,
             escrowAgentId: formData.get('escrowAgentId') ? parseInt(formData.get('escrowAgentId') as string) : null,
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
@@ -83,7 +86,11 @@ export async function deleteClientNote(noteId: number) {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export async function updateMotivation(clientId: number, score: number, note: string, condition: string) {
+=======
+export async function updateMotivation(clientId: number, score: number, note: string) {
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 export async function updateMotivation(clientId: number, score: number, note: string) {
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -93,7 +100,10 @@ export async function updateMotivation(clientId: number, score: number, note: st
             motivationScore: score,
             motivationNote: note,
 <<<<<<< HEAD
+<<<<<<< HEAD
             propertyCondition: condition,
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
@@ -101,6 +111,7 @@ export async function updateMotivation(clientId: number, score: number, note: st
     revalidatePath(`/clients/${clientId}`);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export async function updateClientStatus(clientId: number, status: string) {
     await prisma.client.update({
@@ -160,6 +171,8 @@ export async function editSeller(clientId: number, sellerId: number, formData: F
     });
 
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 export async function updateManagementInfo(clientId: number, comments: string, tags: string) {
     await prisma.client.update({
         where: { id: clientId },
@@ -168,6 +181,9 @@ export async function updateManagementInfo(clientId: number, comments: string, t
             internalTags: tags,
         },
     });
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     revalidatePath(`/clients/${clientId}`);
 }

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { Manrope, Sora } from 'next/font/google';
@@ -8,10 +9,14 @@ import KPIBoard from './dashboard/KPIBoard';
 =======
 import KPICards from './dashboard/KPICards';
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+import KPICards from './dashboard/KPICards';
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import RevenueChart from './dashboard/RevenueChart';
 import DealPipeline from './dashboard/DealPipeline';
 import RecentActivity from './dashboard/RecentActivity';
 import DashboardHeader from './dashboard/DashboardHeader';
+<<<<<<< HEAD
 <<<<<<< HEAD
 import DashboardHighlights from './dashboard/DashboardHighlights';
 
@@ -53,6 +58,8 @@ export default async function DashboardPage() {
             _count: { id: true },
             where: { userId }
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
 export default async function DashboardPage() {
     // Fetch data for KPIs
@@ -71,11 +78,15 @@ export default async function DashboardPage() {
         prisma.deal.groupBy({
             by: ['stage'],
             _count: { id: true }
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         }),
         prisma.settings.findMany({
             where: {
                 key: {
+<<<<<<< HEAD
 <<<<<<< HEAD
                     in: ['business_name', 'welcome_message', 'revenue_data']
                 },
@@ -85,10 +96,15 @@ export default async function DashboardPage() {
         // KPIData fetching likely needs updating too, but we pass userId to it if we modify it
         import('./dashboard/kpi-actions').then(mod => mod.getKPIData('30d', userId))
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     in: ['business_name', 'welcome_message']
                 }
             }
         })
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     ]);
 
@@ -97,7 +113,13 @@ export default async function DashboardPage() {
 
     // Get revenue data from settings or use defaults
 <<<<<<< HEAD
+<<<<<<< HEAD
     const revenueSettings = settings.find(s => s.key === 'revenue_data');
+=======
+    const revenueSettings = await prisma.settings.findUnique({
+        where: { key: 'revenue_data' }
+    });
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     const revenueSettings = await prisma.settings.findUnique({
         where: { key: 'revenue_data' }
@@ -119,6 +141,7 @@ export default async function DashboardPage() {
     // Process pipeline data
     const pipelineColors: Record<string, string> = {
 <<<<<<< HEAD
+<<<<<<< HEAD
         'Complete': '#22c55e',
         'Contract In': '#60a5fa',
         'Contract Out': '#3b82f6',
@@ -130,12 +153,17 @@ export default async function DashboardPage() {
         'Under Contract': '#4ade80',
         'Closed Won': '#16a34a',
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         'Lead': '#94a3b8',
         'Contact Made': '#60a5fa',
         'Proposal Sent': '#818cf8',
         'Negotiation': '#c084fc',
         'Under Contract': '#f472b6',
         'Closed Won': '#34d399',
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         'Closed Lost': '#f87171',
     };
@@ -147,6 +175,7 @@ export default async function DashboardPage() {
     }));
 
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
         <div className={`${styles.container} ${sora.variable} ${manrope.variable}`}>
             <div className={styles.containerInner}>
@@ -189,6 +218,8 @@ export default async function DashboardPage() {
                     <RecentActivity />
                 </div>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         <div style={{ padding: '2rem', maxWidth: '1400px', margin: '0 auto' }}>
             <DashboardHeader
                 initialBusinessName={businessName}
@@ -209,6 +240,9 @@ export default async function DashboardPage() {
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
                 <RecentActivity />
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             </div>
         </div>

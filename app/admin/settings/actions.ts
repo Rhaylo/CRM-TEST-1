@@ -14,12 +14,18 @@ export async function updateAdminPassword(formData: FormData) {
 
     // Verify current password
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Check DB first using findFirst to handle compound key with null userId
     const settings = await prisma.settings.findFirst({
         where: {
             key: 'admin_password',
             userId: null
         },
+=======
+    // Check DB first
+    const settings = await prisma.settings.findUnique({
+        where: { key: 'admin_password' },
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     // Check DB first
     const settings = await prisma.settings.findUnique({
@@ -33,6 +39,7 @@ export async function updateAdminPassword(formData: FormData) {
     }
 
     // Update password
+<<<<<<< HEAD
 <<<<<<< HEAD
     if (settings) {
         await prisma.settings.update({
@@ -68,6 +75,8 @@ async function setGlobalSetting(key: string, value: string) {
         });
     }
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     await prisma.settings.upsert({
         where: { key: 'admin_password' },
         update: { value: newPassword },
@@ -75,6 +84,9 @@ async function setGlobalSetting(key: string, value: string) {
     });
 
     return { success: true };
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
@@ -84,10 +96,13 @@ export async function updateGlobalSettings(formData: FormData) {
     const themeColor = formData.get('themeColor') as string;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     await setGlobalSetting('company_name', companyName);
     await setGlobalSetting('support_email', supportEmail);
     await setGlobalSetting('theme_color', themeColor);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     await prisma.settings.upsert({
         where: { key: 'company_name' },
         update: { value: companyName },
@@ -105,6 +120,9 @@ export async function updateGlobalSettings(formData: FormData) {
         update: { value: themeColor },
         create: { key: 'theme_color', value: themeColor },
     });
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     revalidatePath('/');

@@ -1,7 +1,10 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styles from './Dashboard.module.css';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
@@ -13,6 +16,7 @@ export default async function RecentActivity() {
     });
 
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
         <div className={styles.card}>
             <div className={styles.cardHeader}>
@@ -36,6 +40,8 @@ export default async function RecentActivity() {
                             </div>
                             <span className={styles.activityDate}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
                 <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1e293b' }}>Recent Activity</h3>
@@ -57,6 +63,9 @@ export default async function RecentActivity() {
                                 </p>
                             </div>
                             <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 {new Date(deal.updatedAt).toLocaleDateString()}
                             </span>

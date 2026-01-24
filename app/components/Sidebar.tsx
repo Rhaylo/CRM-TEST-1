@@ -1,6 +1,7 @@
 'use client';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -106,6 +107,8 @@ export default function Sidebar({ isCollapsed = false, toggleSidebar, closeMobil
             <nav className={styles.nav}>
                 {displayItems.map((item) => {
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Users, Briefcase, FileText, CheckSquare, Settings, LayoutDashboard, Calendar } from 'lucide-react';
@@ -141,6 +144,9 @@ export default function Sidebar() {
             </div>
             <nav className={styles.nav}>
                 {navItems.map((item) => {
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     const Icon = item.icon;
                     const isActive = pathname === item.href;
@@ -148,6 +154,7 @@ export default function Sidebar() {
                         <Link
                             key={item.href}
                             href={item.href}
+<<<<<<< HEAD
 <<<<<<< HEAD
                             className={`${styles.link} ${isActive ? styles.active : ''} ${isCollapsed ? styles.linkCollapsed : ''}`}
                             title={isCollapsed ? item.name : ''}
@@ -163,15 +170,21 @@ export default function Sidebar() {
                                 </span>
                             )}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             className={`${styles.link} ${isActive ? styles.active : ''}`}
                         >
                             <Icon size={20} />
                             <span className="font-medium">{item.name}</span>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         </Link>
                     );
                 })}
             </nav>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 
@@ -242,6 +255,8 @@ export default function Sidebar() {
                     </div>
                 </div>
             )}
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         </aside>

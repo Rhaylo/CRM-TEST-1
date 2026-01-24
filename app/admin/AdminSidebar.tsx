@@ -2,11 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-<<<<<<< HEAD
 import { LayoutDashboard, Zap, Clock, FileText, Settings, LogOut, Mail } from 'lucide-react';
-=======
-import { LayoutDashboard, Zap, Clock, FileText, Settings, LogOut } from 'lucide-react';
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import styles from './admin.module.css';
 
 export default function AdminSidebar() {
@@ -17,13 +13,11 @@ export default function AdminSidebar() {
         { href: '/admin/revenue', icon: LayoutDashboard, label: 'Revenue Data' },
         { href: '/admin/automation', icon: Zap, label: 'Automation Rules' },
         { href: '/admin/scheduler', icon: Clock, label: 'Scheduled Tasks' },
-<<<<<<< HEAD
         { href: '/admin/email-templates', icon: Mail, label: 'Email Templates' },
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         { href: '/admin/logs', icon: FileText, label: 'Execution Logs' },
         { href: '/admin/settings', icon: Settings, label: 'Settings' },
     ];
+
 
     const handleLogout = () => {
         sessionStorage.removeItem('admin_authenticated');

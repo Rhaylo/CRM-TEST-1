@@ -18,6 +18,7 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
 
     // Filter tasks
 <<<<<<< HEAD
+<<<<<<< HEAD
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -34,12 +35,22 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
         if (activeTab === 'active' && task.status === 'Completed') return false;
         if (activeTab === 'completed' && task.status !== 'Completed') return false;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+    let filteredTasks = tasks.filter(task => {
+        if (activeTab === 'active' && task.status === 'Completed') return false;
+        if (activeTab === 'completed' && task.status !== 'Completed') return false;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
         if (filters.client && task.clientId !== parseInt(filters.client)) return false;
         if (filters.status && task.status !== filters.status) return false;
 
         if (filters.state) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -74,6 +85,7 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     const completedTodayCount = tasks.filter(task => {
         if (task.status !== 'Completed') return false;
         const completedDate = new Date(task.updatedAt);
@@ -81,6 +93,8 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
         return completedDate.getTime() === today.getTime();
     }).length;
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     return (
@@ -105,7 +119,11 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
                     onClick={() => setActiveTab('completed')}
                 >
 <<<<<<< HEAD
+<<<<<<< HEAD
                     Completed Today ({completedTodayCount})
+=======
+                    Completed Tasks ({tasks.filter(t => t.status === 'Completed').length})
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     Completed Tasks ({tasks.filter(t => t.status === 'Completed').length})
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

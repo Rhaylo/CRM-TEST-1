@@ -4,9 +4,12 @@ import styles from './ClientList.module.css';
 import SortSelect from './SortSelect';
 import ClientActions from './ClientActions';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import ClientSearch from './ClientSearch';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
@@ -15,6 +18,7 @@ export default async function ClientList({
 }: {
     searchParams: { [key: string]: string | string[] | undefined };
 }) {
+<<<<<<< HEAD
 <<<<<<< HEAD
     const user = await getCurrentUser();
     if (!user) {
@@ -52,6 +56,8 @@ export default async function ClientList({
     const clients = await prisma.client.findMany({
         where,
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'newest';
 
     let orderBy: any = { createdAt: 'desc' };
@@ -59,6 +65,9 @@ export default async function ClientList({
     if (sort === 'motivation') orderBy = { motivationScore: 'desc' };
 
     const clients = await prisma.client.findMany({
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         orderBy,
         include: {
@@ -73,6 +82,7 @@ export default async function ClientList({
                 <h1 className={styles.title}>
                     Clients
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <span className={styles.countBadge}>{clients.length}</span>
                 </h1>
                 <div className={styles.controls}>
@@ -81,6 +91,8 @@ export default async function ClientList({
                     </div>
                     <Link href="/clients/new" className={styles.addButton}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     <span style={{
                         fontSize: '1rem',
                         fontWeight: 'normal',
@@ -98,6 +110,9 @@ export default async function ClientList({
                         href="/clients/new"
                         className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"
                     >
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         + Add Client
                     </Link>
@@ -105,6 +120,7 @@ export default async function ClientList({
                 </div>
             </div>
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             <div className={styles.tabs}>
                 <Link
@@ -264,6 +280,8 @@ export default async function ClientList({
                                                             fontWeight: '700',
                                                             border: '1px solid rgba(248, 113, 113, 0.6)'
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>
@@ -394,12 +412,16 @@ export default async function ClientList({
                                                             justifyContent: 'center',
                                                             fontSize: '0.65rem',
                                                             fontWeight: '700',
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                                         }}
                                                     >
                                                         {taskCount}
                                                     </span>
                                                 )}
+<<<<<<< HEAD
 <<<<<<< HEAD
                                                 </Link>
                                                 <Link href={`/clients/${client.id}`} className={styles.link}>
@@ -538,6 +560,8 @@ export default async function ClientList({
             </div>
 
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             </Link>
                                             <Link href={`/clients/${client.id}`} className={styles.link}>
                                                 View
@@ -550,6 +574,9 @@ export default async function ClientList({
                     </tbody>
                 </table>
             </div>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         </div>
     );

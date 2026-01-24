@@ -2,10 +2,14 @@
     display: flex;
     flex-direction: column;
 <<<<<<< HEAD
+<<<<<<< HEAD
     gap: 1.75rem;
     max-width: 1400px;
     margin: 0 auto;
     animation: fadeInUp 0.55s ease both;
+=======
+    gap: 1.5rem;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     gap: 1.5rem;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -16,6 +20,7 @@
     justify-content: space-between;
     align-items: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
     gap: 1.5rem;
     padding: 1.5rem 1.75rem;
     border-radius: 1.25rem;
@@ -24,11 +29,14 @@
     box-shadow: 0 20px 40px -32px rgba(15, 23, 42, 0.45);
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .title {
     font-size: 1.875rem;
     font-weight: bold;
+<<<<<<< HEAD
 <<<<<<< HEAD
     color: #0f172a;
     margin: 0;
@@ -47,11 +55,16 @@
     color: #1e293b;
     margin: 0;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+    color: #1e293b;
+    margin: 0;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .controls {
     display: flex;
     gap: 1rem;
+<<<<<<< HEAD
 <<<<<<< HEAD
     flex-wrap: wrap;
     align-items: center;
@@ -81,6 +94,8 @@
     box-shadow: 0 20px 30px -20px rgba(37, 99, 235, 0.45);
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .select {
@@ -92,6 +107,7 @@
     outline: none;
     cursor: pointer;
     transition: border-color 0.2s;
+<<<<<<< HEAD
 <<<<<<< HEAD
     box-shadow: 0 10px 20px -20px rgba(15, 23, 42, 0.35);
 }
@@ -131,15 +147,21 @@
     background: rgba(147, 197, 253, 0.35);
     box-shadow: 0 8px 20px -16px rgba(37, 99, 235, 0.45);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .select:hover {
     border-color: #94a3b8;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .tableContainer {
     background: white;
+<<<<<<< HEAD
 <<<<<<< HEAD
     border-radius: 1rem;
     box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.45);
@@ -150,10 +172,15 @@
 .tableDesktop {
     display: block;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     border-radius: 0.75rem;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
     overflow: hidden;
     border: 1px solid #e2e8f0;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
@@ -164,7 +191,11 @@
 
 .th {
 <<<<<<< HEAD
+<<<<<<< HEAD
     background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(226, 232, 240, 0.9));
+=======
+    background-color: #f8fafc;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     background-color: #f8fafc;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -175,8 +206,12 @@
     text-transform: uppercase;
     color: #64748b;
 <<<<<<< HEAD
+<<<<<<< HEAD
     border-bottom: 1px solid rgba(148, 163, 184, 0.3);
     letter-spacing: 0.08em;
+=======
+    border-bottom: 1px solid #e2e8f0;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     border-bottom: 1px solid #e2e8f0;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -185,8 +220,13 @@
 .td {
     padding: 1rem;
 <<<<<<< HEAD
+<<<<<<< HEAD
     border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     color: #1f2937;
+=======
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     border-bottom: 1px solid #e2e8f0;
     color: #334155;
@@ -196,6 +236,7 @@
 }
 
 .tr:hover {
+<<<<<<< HEAD
 <<<<<<< HEAD
     background-color: rgba(239, 246, 255, 0.6);
 }
@@ -211,6 +252,11 @@
 .tr:nth-child(4) { animation-delay: 0.16s; }
 .tr:nth-child(5) { animation-delay: 0.2s; }
 
+=======
+    background-color: #f8fafc;
+}
+
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     background-color: #f8fafc;
 }
@@ -241,7 +287,11 @@
 
 .link {
 <<<<<<< HEAD
+<<<<<<< HEAD
     color: #1d4ed8;
+=======
+    color: #2563eb;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     color: #2563eb;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -251,6 +301,7 @@
 
 .link:hover {
     text-decoration: underline;
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -404,6 +455,9 @@
         transform: translateY(0);
     }
 }
+=======
+}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 }
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

@@ -2,9 +2,14 @@
 
 import { useState } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useRouter } from 'next/navigation';
 import styles from './ClientTabs.module.css';
 import { updateMotivation } from './actions';
+=======
+import styles from './ClientTabs.module.css';
+import { updateMotivation, updateManagementInfo } from './actions';
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 import styles from './ClientTabs.module.css';
 import { updateMotivation, updateManagementInfo } from './actions';
@@ -19,6 +24,7 @@ export default function ClientTabs({ client }: { client: any }) {
     // Motivation State
     const [motivationScore, setMotivationScore] = useState(client.motivationScore || 5);
     const [motivationNote, setMotivationNote] = useState(client.motivationNote || '');
+<<<<<<< HEAD
 <<<<<<< HEAD
     const [condition, setCondition] = useState(client.propertyCondition || '');
 
@@ -37,6 +43,8 @@ export default function ClientTabs({ client }: { client: any }) {
     };
 
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     // Management State
     const [internalComments, setInternalComments] = useState(client.internalComments || '');
@@ -51,6 +59,9 @@ export default function ClientTabs({ client }: { client: any }) {
         await updateManagementInfo(client.id, internalComments, internalTags);
         alert('Management info updated!');
     };
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     return (
@@ -70,8 +81,13 @@ export default function ClientTabs({ client }: { client: any }) {
             <div className={styles.tabContent}>
                 {activeTab === 'overview' && (
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <div className={`${styles.grid} ${styles.gridSingle}`}>
                         <div className={styles.sectionCard}>
+=======
+                    <div className={styles.grid}>
+                        <div>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     <div className={styles.grid}>
                         <div>
@@ -99,6 +115,7 @@ export default function ClientTabs({ client }: { client: any }) {
                                 />
                             </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <div className={styles.formGroup}>
                                 <label className={styles.label}>Property Condition</label>
                                 <textarea
@@ -111,6 +128,8 @@ export default function ClientTabs({ client }: { client: any }) {
                             </div>
                             <button className={styles.btn} onClick={handleUpdateMotivation}>Update Motivation</button>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             <button className={styles.btn} onClick={handleUpdateMotivation}>Update Motivation</button>
                         </div>
 
@@ -136,6 +155,9 @@ export default function ClientTabs({ client }: { client: any }) {
                                 />
                             </div>
                             <button className={styles.btn} onClick={handleUpdateManagement}>Update Info</button>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         </div>
                     </div>
@@ -144,7 +166,11 @@ export default function ClientTabs({ client }: { client: any }) {
                 {activeTab === 'tasks' && (
                     <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+=======
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -154,7 +180,11 @@ export default function ClientTabs({ client }: { client: any }) {
                         <TaskList tasks={client.tasks || []} clientId={client.id} />
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <div style={{ marginTop: '2rem' }}>
+=======
+                        <div style={{ marginTop: '2rem', borderTop: '1px solid #e2e8f0', paddingTop: '2rem' }}>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                         <div style={{ marginTop: '2rem', borderTop: '1px solid #e2e8f0', paddingTop: '2rem' }}>
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -203,7 +233,11 @@ export default function ClientTabs({ client }: { client: any }) {
                             ))
                         ) : (
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <p className="text-slate-500">No previous contracts found.</p>
+=======
+                            <p className="text-slate-500">No contracts found.</p>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                             <p className="text-slate-500">No contracts found.</p>
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

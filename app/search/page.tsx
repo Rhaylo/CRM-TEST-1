@@ -2,10 +2,13 @@ import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import styles from './page.module.css';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
@@ -15,11 +18,14 @@ export default async function SearchPage({
     searchParams: Promise<{ q: string }>;
 }) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const user = await getCurrentUser();
     if (!user) {
         redirect('/auth');
     }
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const { q } = await searchParams;
@@ -34,6 +40,7 @@ export default async function SearchPage({
         );
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Check if we are likely using Postgres (Vercel) vs SQLite (Local)
     // 'mode' is only supported in Postgres, so we conditionally add it.
@@ -60,6 +67,8 @@ export default async function SearchPage({
                 }
             ]
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const clients = await prisma.client.findMany({
         where: {
             OR: [
@@ -69,6 +78,9 @@ export default async function SearchPage({
                 { phone: { contains: query } },
                 { address: { contains: query } },
             ],
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
     });
@@ -142,9 +154,14 @@ export default async function SearchPage({
                     ))}
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             )
             }
         </div >
+=======
+            )}
+        </div>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
             )}
         </div>

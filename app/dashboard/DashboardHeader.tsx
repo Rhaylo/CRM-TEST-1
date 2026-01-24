@@ -3,7 +3,10 @@
 import { useState } from 'react';
 import { Pencil, Save, X } from 'lucide-react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styles from './Dashboard.module.css';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
@@ -46,23 +49,32 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
 
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div className={styles.header}>
             <div className={styles.headerContent}>
                 {isEditing ? (
                     <div className={styles.headerEdit}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div style={{ flex: 1 }}>
                 {isEditing ? (
                     <>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <input
                             type="text"
                             value={businessName}
                             onChange={(e) => setBusinessName(e.target.value)}
 <<<<<<< HEAD
+<<<<<<< HEAD
                             className={styles.headerInput}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             style={{
                                 fontSize: '1.875rem',
                                 fontWeight: 'bold',
@@ -74,11 +86,15 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                                 width: '100%',
                                 maxWidth: '500px'
                             }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         />
                         <textarea
                             value={welcomeMessage}
                             onChange={(e) => setWelcomeMessage(e.target.value)}
+<<<<<<< HEAD
 <<<<<<< HEAD
                             className={styles.headerTextarea}
                             rows={2}
@@ -93,6 +109,8 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
             </div>
             <div className={styles.headerActions}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             style={{
                                 color: '#64748b',
                                 border: '2px solid #3b82f6',
@@ -115,6 +133,9 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                 )}
             </div>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 {isEditing ? (
                     <>
@@ -122,8 +143,11 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                             onClick={handleSave}
                             disabled={saving}
 <<<<<<< HEAD
+<<<<<<< HEAD
                             className={`${styles.actionButton} ${styles.primaryButton}`}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -137,6 +161,9 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                                 fontSize: '0.875rem',
                                 fontWeight: '500'
                             }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         >
                             <Save size={16} />
@@ -145,8 +172,11 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                         <button
                             onClick={handleCancel}
 <<<<<<< HEAD
+<<<<<<< HEAD
                             className={`${styles.actionButton} ${styles.dangerButton}`}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -160,6 +190,9 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                                 fontSize: '0.875rem',
                                 fontWeight: '500'
                             }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         >
                             <X size={16} />
@@ -170,8 +203,11 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                     <button
                         onClick={() => setIsEditing(true)}
 <<<<<<< HEAD
+<<<<<<< HEAD
                         className={`${styles.actionButton} ${styles.primaryButton}`}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -185,6 +221,9 @@ export default function DashboardHeader({ initialBusinessName, initialWelcomeMes
                             fontSize: '0.875rem',
                             fontWeight: '500'
                         }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     >
                         <Pencil size={16} />

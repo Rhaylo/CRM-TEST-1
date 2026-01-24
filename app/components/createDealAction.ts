@@ -18,6 +18,7 @@ export async function createDealFromClient(clientId: number, formData: FormData)
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Update client with latest figures
     await prisma.client.update({
         where: { id: clientId },
@@ -37,14 +38,20 @@ export async function createDealFromClient(clientId: number, formData: FormData)
 
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     // Create the deal with client information
     await prisma.deal.create({
         data: {
             clientId,
             amount: wholesaleOffer,
 <<<<<<< HEAD
+<<<<<<< HEAD
             assignmentFee: null, // Let the board calculate potential profit until we have a real buyer spread
             products: `${client.address || 'Property'}`,
+=======
+            products: `${client.address || 'Property'} - ARV: $${arv.toLocaleString()}, Repairs: $${repairs.toLocaleString()}`,
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
             products: `${client.address || 'Property'} - ARV: $${arv.toLocaleString()}, Repairs: $${repairs.toLocaleString()}`,
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

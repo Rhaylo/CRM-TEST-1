@@ -6,16 +6,22 @@
 
 .header {
 <<<<<<< HEAD
+<<<<<<< HEAD
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9));
     padding: 2rem;
     border-radius: 1.25rem;
     border: 1px solid rgba(148, 163, 184, 0.25);
     box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.45);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     background: white;
     padding: 2rem;
     border-radius: 0.75rem;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
@@ -25,6 +31,7 @@
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
+<<<<<<< HEAD
 <<<<<<< HEAD
     border-bottom: 1px solid rgba(148, 163, 184, 0.2);
     gap: 1.5rem;
@@ -146,6 +153,9 @@
 =======
     border-bottom: 1px solid #e2e8f0;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+    border-bottom: 1px solid #e2e8f0;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .companyName {
@@ -153,6 +163,7 @@
     font-weight: bold;
     color: #0f172a;
     margin: 0;
+<<<<<<< HEAD
 <<<<<<< HEAD
     letter-spacing: -0.02em;
 }
@@ -162,18 +173,24 @@
     color: #1d4ed8;
     padding: 0.45rem 1rem;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .leadAge {
     background-color: #f1f5f9;
     color: #64748b;
     padding: 0.5rem 1rem;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 500;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .headerActions {
     display: flex;
@@ -272,10 +289,15 @@
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .contactInfo {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
@@ -283,6 +305,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+<<<<<<< HEAD
 <<<<<<< HEAD
     background: white;
     border-radius: 0.9rem;
@@ -303,6 +326,10 @@
 }
 
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+}
+
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .label {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -317,6 +344,7 @@
     font-weight: 500;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .valueRow {
     display: flex;
@@ -351,10 +379,13 @@
 
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .position {
     font-size: 0.875rem;
     color: #64748b;
     margin-left: 0.5rem;
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 
@@ -551,6 +582,9 @@
         transform: translateY(0);
     }
 }
+=======
+}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 }
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

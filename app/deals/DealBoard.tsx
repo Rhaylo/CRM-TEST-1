@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Link from 'next/link';
 import { updateDealStage } from './actions';
 import { deleteDeal } from './deleteActions';
@@ -51,6 +52,8 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
     const [draggedDeal, setDraggedDeal] = useState<any>(null);
     const [activePipeline, setActivePipeline] = useState<'acquisitions' | 'dispositions'>('acquisitions');
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import { updateDealStage } from './actions';
 import { deleteDeal } from './deleteActions';
 import { Trash2 } from 'lucide-react';
@@ -60,6 +63,9 @@ const STAGES = ['Pending', 'Contract Out', 'Contract In', 'Complete'];
 export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
     const [deals, setDeals] = useState(initialDeals);
     const [draggedDeal, setDraggedDeal] = useState<any>(null);
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     const handleDragStart = (deal: any) => {
@@ -89,6 +95,7 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
         await deleteDeal(dealId);
     };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const currentStages = PIPELINES[activePipeline].stages;
 
@@ -256,6 +263,8 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
                 })}
             </div>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     return (
         <div className={styles.board}>
             {STAGES.map(stage => {
@@ -309,6 +318,9 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
                     </div>
                 );
             })}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         </div>
     );

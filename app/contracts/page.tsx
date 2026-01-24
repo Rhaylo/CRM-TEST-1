@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import ContractList from './ContractList';
 import styles from './page.module.css';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
@@ -41,12 +42,17 @@ export default async function ContractsPage() {
                 }
             }
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
 export default async function ContractsPage() {
     const contracts = await prisma.contract.findMany({
         include: {
             client: true,
             deal: true
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
         orderBy: { updatedAt: 'desc' },

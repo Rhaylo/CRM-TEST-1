@@ -10,7 +10,10 @@
     align-items: center;
     margin-bottom: 2rem;
 <<<<<<< HEAD
+<<<<<<< HEAD
     gap: 1.5rem;
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
@@ -23,23 +26,30 @@
 
 .addButton {
 <<<<<<< HEAD
+<<<<<<< HEAD
     padding: 0.6rem 1.4rem;
     background: linear-gradient(135deg, #2563eb, #60a5fa);
     color: white;
     border: none;
     border-radius: 999px;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     padding: 0.75rem 1.5rem;
     background-color: #3b82f6;
     color: white;
     border: none;
     border-radius: 0.5rem;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     cursor: pointer;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+<<<<<<< HEAD
 <<<<<<< HEAD
     box-shadow: 0 16px 26px -20px rgba(37, 99, 235, 0.45);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -83,6 +93,8 @@
     background: rgba(147, 197, 253, 0.35);
     box-shadow: 0 8px 20px -16px rgba(37, 99, 235, 0.45);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     transition: background-color 0.2s;
 }
 
@@ -117,6 +129,9 @@
 .activeTab {
     color: #3b82f6;
     border-bottom-color: #3b82f6;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
@@ -127,10 +142,13 @@
     flex-wrap: wrap;
     align-items: flex-end;
 <<<<<<< HEAD
+<<<<<<< HEAD
     padding: 1rem;
     border-radius: 1rem;
     background: rgba(248, 250, 252, 0.95);
     border: 1px solid rgba(148, 163, 184, 0.2);
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
@@ -142,6 +160,7 @@
 }
 
 .filterLabel {
+<<<<<<< HEAD
 <<<<<<< HEAD
     font-size: 0.75rem;
     font-weight: 600;
@@ -260,6 +279,8 @@
 .link:hover {
     text-decoration: underline;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     font-size: 0.875rem;
     font-weight: 500;
     color: #475569;
@@ -354,13 +375,20 @@
 .taskDescription {
     font-size: 0.75rem;
     color: #64748b;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .stateBadge {
     padding: 0.25rem 0.75rem;
 <<<<<<< HEAD
+<<<<<<< HEAD
     border-radius: 999px;
+=======
+    border-radius: 0.375rem;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     border-radius: 0.375rem;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -372,7 +400,11 @@
 .statusBadge {
     padding: 0.25rem 0.75rem;
 <<<<<<< HEAD
+<<<<<<< HEAD
     border-radius: 999px;
+=======
+    border-radius: 0.375rem;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     border-radius: 0.375rem;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -383,7 +415,11 @@
 .priorityBadge {
     padding: 0.25rem 0.75rem;
 <<<<<<< HEAD
+<<<<<<< HEAD
     border-radius: 999px;
+=======
+    border-radius: 0.375rem;
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     border-radius: 0.375rem;
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -392,6 +428,7 @@
     color: white;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .notesBadge {
     padding: 0.25rem 0.75rem;
@@ -405,6 +442,8 @@
 
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .actions {
     display: flex;
     gap: 0.5rem;
@@ -413,15 +452,21 @@
 
 .actionButton {
 <<<<<<< HEAD
+<<<<<<< HEAD
     padding: 0.4rem 0.75rem;
     border: 1px solid rgba(148, 163, 184, 0.35);
     background-color: white;
     border-radius: 0.5rem;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     padding: 0.375rem 0.75rem;
     border: 1px solid #cbd5e1;
     background-color: white;
     border-radius: 0.375rem;
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     cursor: pointer;
     font-size: 0.75rem;
@@ -457,6 +502,7 @@
     text-align: center;
     padding: 3rem;
     color: #94a3b8;
+<<<<<<< HEAD
 <<<<<<< HEAD
     border-radius: 1rem;
     background: rgba(248, 250, 252, 0.9);
@@ -507,6 +553,9 @@
         grid-template-columns: 1fr;
     }
 }
+=======
+}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 }
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

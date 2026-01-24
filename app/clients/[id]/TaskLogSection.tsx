@@ -5,7 +5,10 @@ import { useState, useMemo } from 'react';
 import { editClientNote, deleteClientNote, addNote } from './actions';
 import { Trash2, Pencil } from 'lucide-react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styles from './TaskSection.module.css';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
@@ -52,8 +55,14 @@ export default function TaskLogSection({ client }: { client: any }) {
 
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div className={styles.logSection}>
             <div className={styles.filters}>
+=======
+        <div style={{ padding: '1rem' }}>
+            {/* Filters */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
         <div style={{ padding: '1rem' }}>
             {/* Filters */}
@@ -65,7 +74,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                     onChange={(e) => setDateFrom(e.target.value)}
                     placeholder="From"
 <<<<<<< HEAD
+<<<<<<< HEAD
                     className={styles.filterInput}
+=======
+                    style={{ padding: '0.25rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     style={{ padding: '0.25rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -76,7 +89,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                     onChange={(e) => setDateTo(e.target.value)}
                     placeholder="To"
 <<<<<<< HEAD
+<<<<<<< HEAD
                     className={styles.filterInput}
+=======
+                    style={{ padding: '0.25rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     style={{ padding: '0.25rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -85,7 +102,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                     value={type}
                     onChange={(e) => setType(e.target.value)}
 <<<<<<< HEAD
+<<<<<<< HEAD
                     className={styles.filterSelect}
+=======
+                    style={{ padding: '0.25rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     style={{ padding: '0.25rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -98,6 +119,7 @@ export default function TaskLogSection({ client }: { client: any }) {
             </div>
 
             {/* Task Log */}
+<<<<<<< HEAD
 <<<<<<< HEAD
             <h3 className={styles.logTitle}>Task Log</h3>
             {completedTasks.length === 0 ? (
@@ -117,6 +139,8 @@ export default function TaskLogSection({ client }: { client: any }) {
                             </div>
                             <div className={styles.logDetails}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>Task Log</h3>
             {completedTasks.length === 0 ? (
                 <p style={{ color: '#64748b' }}>No completed tasks for the selected filters.</p>
@@ -140,6 +164,9 @@ export default function TaskLogSection({ client }: { client: any }) {
                                 </span>
                             </div>
                             <div style={{ marginTop: '0.25rem', fontSize: '0.875rem' }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 {/* Placeholder for responsible team member and follow‑up actions */}
                                 <span>Responsible: {client.contactName}</span>
@@ -151,6 +178,7 @@ export default function TaskLogSection({ client }: { client: any }) {
                 </ul>
             )}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
             <div className={styles.notesWrap}>
                 <h3 className={styles.logTitle}>Client Notes</h3>
@@ -176,6 +204,8 @@ export default function TaskLogSection({ client }: { client: any }) {
                     {client.notes.map((note: any) => (
                         <div key={note.id} className={styles.noteCard}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             {/* Notes Section */}
             <h3 style={{ fontSize: '1.25rem', marginTop: '1.5rem', marginBottom: '0.5rem' }}>Client Notes</h3>
 
@@ -221,6 +251,9 @@ export default function TaskLogSection({ client }: { client: any }) {
                             backgroundColor: '#fff',
                         }}
                     >
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         {editingNoteId === note.id ? (
                             <div>
@@ -229,7 +262,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                                     onChange={(e) => setEditContent(e.target.value)}
                                     rows={3}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     className={styles.noteInput}
+=======
+                                    style={{ width: '100%', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                                     style={{ width: '100%', padding: '0.5rem', border: '1px solid #cbd5e1', borderRadius: '0.25rem' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -238,7 +275,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                                     <button
                                         onClick={() => handleEditSave(note.id)}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         className={styles.noteButton}
+=======
+                                        style={{ padding: '0.25rem 0.5rem', backgroundColor: '#3b82f6', color: 'white', border: 'none', borderRadius: '0.25rem' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                                         style={{ padding: '0.25rem 0.5rem', backgroundColor: '#3b82f6', color: 'white', border: 'none', borderRadius: '0.25rem' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -248,7 +289,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                                     <button
                                         onClick={() => setEditingNoteId(null)}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         className={styles.cancelButton}
+=======
+                                        style={{ padding: '0.25rem 0.5rem', backgroundColor: '#e5e7eb', color: '#374151', border: 'none', borderRadius: '0.25rem' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                                         style={{ padding: '0.25rem 0.5rem', backgroundColor: '#e5e7eb', color: '#374151', border: 'none', borderRadius: '0.25rem' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -266,7 +311,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                                     </span>
                                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 <div className={styles.noteActions}>
+=======
+                                <div style={{ display: 'flex', gap: '0.25rem' }}>
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                                 <div style={{ display: 'flex', gap: '0.25rem' }}>
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -277,7 +326,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                                         }}
                                         title="Edit note"
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         className={styles.noteActionButton}
+=======
+                                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#3b82f6' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                                         style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#3b82f6' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -293,7 +346,11 @@ export default function TaskLogSection({ client }: { client: any }) {
                                         }}
                                         title="Delete note"
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         className={`${styles.noteActionButton} ${styles.noteDeleteButton}`}
+=======
+                                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444' }}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                                         style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444' }}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -304,9 +361,14 @@ export default function TaskLogSection({ client }: { client: any }) {
                             </div>
                         )}
 <<<<<<< HEAD
+<<<<<<< HEAD
                         </div>
                     ))}
                 </div>
+=======
+                    </div>
+                ))}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     </div>
                 ))}

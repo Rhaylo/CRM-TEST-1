@@ -4,7 +4,11 @@ export const ASSIGNMENT_CONTRACT = `
 ASSIGNMENT OF CONTRACT OF SALE
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 In consideration of the final sales price of {{FINAL_SALES_PRICE_WORDS}} (\${{ FINAL_SALES_PRICE }}) 
+=======
+In consideration of the final sales price of {{FINAL_SALES_PRICE_WORDS}} (${{ FINAL_SALES_PRICE }}) 
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 In consideration of the final sales price of {{FINAL_SALES_PRICE_WORDS}} (${{ FINAL_SALES_PRICE }}) 
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -49,7 +53,11 @@ attached fixtures and any other utility fixtures, if any.
 
 2. Purchase Price. The purchase price (the "Purchase Price") which the Buyer shall pay to the Seller 
 <<<<<<< HEAD
+<<<<<<< HEAD
 for the Property shall be {{PURCHASE_PRICE_WORDS}} (\${{ PURCHASE_PRICE }}). 
+=======
+for the Property shall be {{PURCHASE_PRICE_WORDS}} (${{ PURCHASE_PRICE }}). 
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 for the Property shall be {{PURCHASE_PRICE_WORDS}} (${{ PURCHASE_PRICE }}). 
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -172,7 +180,11 @@ attached fixtures and any other utility fixtures, if any.
 
 2. Purchase Price. The purchase price (the "Purchase Price") which the Buyer shall pay to the Seller 
 <<<<<<< HEAD
+<<<<<<< HEAD
 for the Property shall be {{PURCHASE_PRICE_WORDS}} (\${{ PURCHASE_PRICE }}). 
+=======
+for the Property shall be {{PURCHASE_PRICE_WORDS}} (${{ PURCHASE_PRICE }}). 
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 for the Property shall be {{PURCHASE_PRICE_WORDS}} (${{ PURCHASE_PRICE }}). 
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

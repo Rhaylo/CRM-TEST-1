@@ -35,6 +35,7 @@ export default function TaskTable({ tasks, clients }: { tasks: any[]; clients: a
     return (
         <>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className={styles.cardsGrid}>
                 {tasks.map((task) => {
                     const state = getTaskState(new Date(task.dueDate), task.status);
@@ -114,6 +115,8 @@ export default function TaskTable({ tasks, clients }: { tasks: any[]; clients: a
                                         className={styles.statusBadge}
                                         style={{
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             <div className={styles.tableContainer}>
                 <table className={styles.table}>
                     <thead>
@@ -166,11 +169,15 @@ export default function TaskTable({ tasks, clients }: { tasks: any[]; clients: a
                                     </td>
                                     <td className={styles.td}>
                                         <span className={styles.statusBadge} style={{
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             backgroundColor: task.status === 'Completed' ? '#dcfce7' :
                                                 task.status === 'In Progress' ? '#dbeafe' : '#f1f5f9',
                                             color: task.status === 'Completed' ? '#166534' :
                                                 task.status === 'In Progress' ? '#1e40af' : '#64748b',
+<<<<<<< HEAD
 <<<<<<< HEAD
                                         }}
                                     >
@@ -197,6 +204,8 @@ export default function TaskTable({ tasks, clients }: { tasks: any[]; clients: a
                     );
                 })}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         }}>
                                             {task.status}
                                         </span>
@@ -253,6 +262,9 @@ export default function TaskTable({ tasks, clients }: { tasks: any[]; clients: a
                         })}
                     </tbody>
                 </table>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             </div>
 

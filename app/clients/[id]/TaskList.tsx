@@ -4,7 +4,10 @@ import { useState } from 'react';
 import { toggleTaskComplete, deleteTask } from './taskActions';
 import { Trash2, CheckCircle, Circle } from 'lucide-react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import styles from './TaskSection.module.css';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
@@ -29,12 +32,15 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
 
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div className={styles.taskList}>
             <div className={styles.tabs}>
                 <button
                     onClick={() => setActiveTab('due')}
                     className={`${styles.tabButton} ${activeTab === 'due' ? styles.tabActive : ''}`}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         <div>
             {/* Tabs */}
             <div style={{
@@ -57,6 +63,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                         marginBottom: '-2px',
                         transition: 'all 0.2s',
                     }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 >
                     Tasks Due ({dueTasks.length})
@@ -64,8 +73,11 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                 <button
                     onClick={() => setActiveTab('overdue')}
 <<<<<<< HEAD
+<<<<<<< HEAD
                     className={`${styles.tabButton} ${styles.tabOverdue} ${activeTab === 'overdue' ? styles.tabActive : ''}`}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     style={{
                         padding: '0.5rem 1rem',
                         border: 'none',
@@ -78,6 +90,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                         marginBottom: '-2px',
                         transition: 'all 0.2s',
                     }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 >
                     Tasks Overdue ({overdueTasks.length})
@@ -86,10 +101,13 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
 
             {/* Task List */}
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div className={styles.tasksList}>
                 {displayedTasks.length === 0 ? (
                     <div className={styles.emptyState}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {displayedTasks.length === 0 ? (
                     <div style={{
@@ -99,6 +117,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                         backgroundColor: '#f8fafc',
                         borderRadius: '0.5rem',
                     }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         No {activeTab === 'due' ? 'upcoming' : 'overdue'} tasks
                     </div>
@@ -110,6 +131,7 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                         return (
                             <div
                                 key={task.id}
+<<<<<<< HEAD
 <<<<<<< HEAD
                                 className={`${styles.taskCard} ${isOverdue ? styles.taskCardOverdue : styles.taskCardDue}`}
                             >
@@ -127,6 +149,8 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                             style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
                                         >
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                 style={{
                                     padding: '1rem',
                                     backgroundColor: isOverdue ? '#fef2f2' : '#f8fafc',
@@ -157,24 +181,34 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                             fontWeight: '600',
                                             textDecoration: task.completed ? 'line-through' : 'none',
                                         }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             {task.title}
                                         </h4>
                                     </div>
                                     {task.description && (
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         <p className={styles.taskDescription}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         <p style={{
                                             margin: '0.25rem 0 0 1.75rem',
                                             fontSize: '0.75rem',
                                             color: '#64748b',
                                         }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             {task.description}
                                         </p>
                                     )}
                                     {task.notes && task.notes.length > 0 && (
+<<<<<<< HEAD
 <<<<<<< HEAD
                                         <div className={styles.taskNotesWrap}>
                                             <div className={styles.taskNotesHeader}>
@@ -193,6 +227,8 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                                                 </p>
                                                                 <span className={styles.taskNoteDate}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         <div style={{
                                             marginTop: '0.5rem',
                                             marginLeft: '1.75rem',
@@ -246,6 +282,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                                                     fontSize: '0.65rem',
                                                                     color: '#94a3b8',
                                                                 }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                                                     {new Date(note.createdAt).toLocaleString()}
                                                                 </span>
@@ -258,8 +297,11 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                                                     }
                                                                 }}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                                 className={`${styles.iconButton} ${styles.iconButtonDanger}`}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                                                 style={{
                                                                     border: 'none',
                                                                     background: 'none',
@@ -269,6 +311,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                                                     display: 'flex',
                                                                     alignItems: 'center',
                                                                 }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                                                 title="Delete note"
                                                             >
@@ -281,10 +326,13 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                         </div>
                                     )}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     <div
                                         className={`${styles.taskMeta} ${isOverdue ? styles.taskMetaOverdue : ''}`}
                                     >
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                     <div style={{
                                         marginTop: '0.5rem',
                                         marginLeft: '1.75rem',
@@ -292,6 +340,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                         color: isOverdue ? '#dc2626' : '#64748b',
                                         fontWeight: isOverdue ? '600' : '400',
                                     }}>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                         Due: {dueDate.toLocaleDateString()} {dueDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     </div>
@@ -299,8 +350,11 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                 <button
                                     onClick={() => handleDelete(task.id)}
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     className={styles.iconButton}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                     style={{
                                         padding: '0.25rem',
                                         border: 'none',
@@ -308,6 +362,9 @@ export default function TaskList({ tasks, clientId }: { tasks: any[]; clientId: 
                                         cursor: 'pointer',
                                         color: '#94a3b8',
                                     }}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                     title="Delete task"
                                 >

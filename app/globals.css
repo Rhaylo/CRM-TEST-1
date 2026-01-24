@@ -4,6 +4,7 @@
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* Force light theme even if dark class is added by Neon */
 html.dark,
 .dark {
@@ -24,10 +25,15 @@ body {
   padding: 0;
   background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 45%, #f8fafc 100%);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 body {
   margin: 0;
   padding: 0;
   background-color: var(--background);
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
@@ -47,12 +53,15 @@ body {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @media (max-width: 1024px) {
   .main-content {
     margin-left: 0;
   }
 }
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .page-content {
@@ -89,7 +98,11 @@ body {
 .btn-primary:hover {
   background-color: #1d4ed8;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 }
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

@@ -7,16 +7,22 @@ interface EmailModalProps {
     clientEmail: string;
     clientName: string;
 <<<<<<< HEAD
+<<<<<<< HEAD
     clientCompanyName: string;
     onClose: () => void;
 }
 
 export default function EmailModal({ clientEmail, clientName, clientCompanyName, onClose }: EmailModalProps) {
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     onClose: () => void;
 }
 
 export default function EmailModal({ clientEmail, clientName, onClose }: EmailModalProps) {
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
@@ -24,6 +30,7 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Templates state
     const [templates, setTemplates] = useState<any[]>([]);
@@ -67,6 +74,8 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
 
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const handleSend = async () => {
         if (!subject.trim() || !message.trim()) {
             setError('Please fill in both subject and message');
@@ -77,10 +86,13 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
         setError('');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Apply replacements one last time before sending to handle manual edits
         const finalSubject = replaceVariables(subject);
         const finalMessage = replaceVariables(message);
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         try {
@@ -90,8 +102,13 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
                 body: JSON.stringify({
                     to: clientEmail,
 <<<<<<< HEAD
+<<<<<<< HEAD
                     subject: finalSubject,
                     message: finalMessage,
+=======
+                    subject,
+                    message,
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     subject,
                     message,
@@ -159,6 +176,7 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
                 ) : (
                     <>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         {/* Template Selector */}
                         {templates.length > 0 && (
                             <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f0f9ff', borderRadius: '0.5rem', border: '1px solid #bae6fd' }}>
@@ -185,6 +203,8 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
                             </div>
                         )}
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <div style={{ marginBottom: '1rem' }}>

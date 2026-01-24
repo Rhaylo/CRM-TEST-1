@@ -2,7 +2,10 @@
 
 import { prisma } from '@/lib/prisma';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import { revalidatePath } from 'next/cache';
@@ -12,7 +15,10 @@ import { createNotification } from '@/app/notifications/actions';
 export async function updateDealStage(dealId: number, stage: string) {
     // Update the deal stage
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log(`[updateDealStage] Moving Deal ${dealId} to stage: ${stage}`);
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const updatedDeal = await prisma.deal.update({
@@ -30,7 +36,10 @@ export async function updateDealStage(dealId: number, stage: string) {
         dealId: dealId,
         clientId: updatedDeal.clientId,
 <<<<<<< HEAD
+<<<<<<< HEAD
         userId: updatedDeal.userId || '',
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     });
@@ -39,8 +48,13 @@ export async function updateDealStage(dealId: number, stage: string) {
     await triggerAutomation('deal_stage_change', updatedDeal);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // If moving to "Contract Sent" (or legacy "Contract Out"), create a contract if one doesn't exist
     if (stage === 'Contract Sent' || stage === 'Contract Out') {
+=======
+    // If moving to "Contract Out", create a contract if one doesn't exist
+    if (stage === 'Contract Out') {
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     // If moving to "Contract Out", create a contract if one doesn't exist
     if (stage === 'Contract Out') {
@@ -52,6 +66,7 @@ export async function updateDealStage(dealId: number, stage: string) {
 
         // Only create contract if one doesn't already exist for this deal
         if (deal && deal.contracts.length === 0) {
+<<<<<<< HEAD
 <<<<<<< HEAD
             const user = await getCurrentUser();
             if (user) {
@@ -90,6 +105,8 @@ export async function updateDealStage(dealId: number, stage: string) {
             });
             revalidatePath('/contracts'); // Refresh contracts view
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             await prisma.contract.create({
                 data: {
                     dealId: dealId,
@@ -99,6 +116,9 @@ export async function updateDealStage(dealId: number, stage: string) {
                 },
             });
             revalidatePath('/contracts');
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         }
     }
@@ -106,6 +126,7 @@ export async function updateDealStage(dealId: number, stage: string) {
     revalidatePath('/deals');
     revalidatePath('/clients');
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 export async function updateDealAnalysis(dealId: number, data: { arv?: number, repairs?: number, fee?: number, titleCompanyId?: number | null, escrowAgentId?: number | null }) {
@@ -145,5 +166,7 @@ export async function updateDealAnalysis(dealId: number, data: { arv?: number, r
     revalidatePath('/deals');
     revalidatePath('/clients');
 }
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

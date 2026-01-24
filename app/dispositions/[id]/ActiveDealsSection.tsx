@@ -9,8 +9,13 @@ export default function ActiveDealsSection({ investorId, deals, clients }: { inv
     const [isAdding, setIsAdding] = useState(false);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     const activeDeals = deals.filter(d => d.stage !== 'Complete' && d.stage !== 'Sold');
     const pastDeals = deals.filter(d => d.stage === 'Complete' || d.stage === 'Sold');
+=======
+    const activeDeals = deals.filter(d => d.stage !== 'Complete');
+    const pastDeals = deals.filter(d => d.stage === 'Complete');
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
     const activeDeals = deals.filter(d => d.stage !== 'Complete');
     const pastDeals = deals.filter(d => d.stage === 'Complete');
@@ -178,15 +183,21 @@ function EditDealForm({ deal, investorId, onCancel }: { deal: any, investorId: n
                     <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500' }}>Stage</label>
                     <select name="stage" defaultValue={deal.stage} style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #cbd5e1' }}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <option value="Under Contract">Under Contract</option>
                         <option value="Marketing">Marketing</option>
                         <option value="Buyer Found">Buyer Found</option>
                         <option value="Sold">Sold</option>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <option value="Pending">Pending</option>
                         <option value="Contract In">Contract In</option>
                         <option value="Contract Out">Contract Out</option>
                         <option value="Complete">Complete</option>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     </select>
                 </div>
@@ -249,15 +260,21 @@ function AddDealForm({ investorId, clients, onCancel }: { investorId: number, cl
                     <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: '500' }}>Stage</label>
                     <select name="stage" style={{ width: '100%', padding: '0.5rem', borderRadius: '0.375rem', border: '1px solid #cbd5e1' }}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                         <option value="Under Contract">Under Contract</option>
                         <option value="Marketing">Marketing</option>
                         <option value="Buyer Found">Buyer Found</option>
                         <option value="Sold">Sold</option>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <option value="Pending">Pending</option>
                         <option value="Contract In">Contract In</option>
                         <option value="Contract Out">Contract Out</option>
                         <option value="Complete">Complete</option>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     </select>
                 </div>

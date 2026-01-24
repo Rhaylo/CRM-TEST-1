@@ -4,6 +4,10 @@ import styles from './page.module.css';
 import ClientTabs from './ClientTabs';
 import ClientInfo from './ClientInfo';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import ClientNavigation from './ClientNavigation';
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 import ClientNavigation from './ClientNavigation';
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -30,6 +34,7 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
                 orderBy: { dueDate: 'asc' },
             },
 <<<<<<< HEAD
+<<<<<<< HEAD
             additionalSellers: true, // Use proper relation now that schema is fixed
             titleCompany: true,
             escrowAgent: true,
@@ -55,6 +60,11 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
     });
 
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+        },
+    });
+
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     if (!client) notFound();
 
     // Get all client IDs for navigation
@@ -67,6 +77,7 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
     const prevClientId = currentIndex > 0 ? allClients[currentIndex - 1].id : null;
     const nextClientId = currentIndex < allClients.length - 1 ? allClients[currentIndex + 1].id : null;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Sanitize client object to remove Uint8Array (documentContent) before passing to Client Components
     const clientAny = client as any;
@@ -89,13 +100,23 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
         <div className={styles.container}>
             <ClientNavigation
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+    return (
+        <div className={styles.container}>
+            <ClientNavigation
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 prevClientId={prevClientId}
                 nextClientId={nextClientId}
                 currentIndex={currentIndex + 1}
                 totalClients={allClients.length}
             />
 <<<<<<< HEAD
+<<<<<<< HEAD
             <ClientTabs client={serializedClient} />
+=======
+            <ClientInfo client={client} />
+            <ClientTabs client={client} />
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
             <ClientInfo client={client} />
             <ClientTabs client={client} />

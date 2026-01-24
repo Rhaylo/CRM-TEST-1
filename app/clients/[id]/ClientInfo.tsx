@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import { updateClientDetails, addSeller, deleteSeller, editSeller } from './actions';
@@ -31,6 +32,8 @@ export default function ClientInfo({
     const leadAge = Math.floor((Date.now() - new Date(client.createdAt).getTime()) / (1000 * 60 * 60 * 24));
     const router = useRouter();
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import styles from './page.module.css';
 import { updateClientDetails } from './actions';
 import { deleteClient } from './deleteActions';
@@ -43,6 +46,9 @@ export default function ClientInfo({ client }: { client: any }) {
     const [isEditing, setIsEditing] = useState(false);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const leadAge = Math.floor((Date.now() - new Date(client.createdAt).getTime()) / (1000 * 60 * 60 * 24));
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     const handleSubmit = async (formData: FormData) => {
@@ -50,6 +56,7 @@ export default function ClientInfo({ client }: { client: any }) {
         setIsEditing(false);
     };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const handleAddSeller = async (formData: FormData) => {
         await addSeller(client.id, formData);
@@ -64,6 +71,8 @@ export default function ClientInfo({ client }: { client: any }) {
         setEditingSellerId(null);
     };
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     if (isEditing) {
         return (
             <form action={handleSubmit} className={styles.header}>
@@ -121,11 +130,15 @@ export default function ClientInfo({ client }: { client: any }) {
             </form>
         );
     }
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     return (
         <div className={styles.header}>
             <div className={styles.headerTop}>
+<<<<<<< HEAD
 <<<<<<< HEAD
                 {/* ... (Existing Header Logic - Kept concise, assuming simple replace handles it if context matches) ... */}
                 {/* Actually, I need to restore the full header if I'm replacing the whole component or block. */}
@@ -481,6 +494,8 @@ export default function ClientInfo({ client }: { client: any }) {
                     }
                 </>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 <div className="flex items-center gap-4">
                     <h1 className={styles.companyName}>{client.contactName}</h1>
                     {client.deals && client.deals.length > 0 ? (
@@ -617,6 +632,9 @@ export default function ClientInfo({ client }: { client: any }) {
                     clientName={client.contactName}
                     onClose={() => setShowEmailModal(false)}
                 />
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             )}
         </div>

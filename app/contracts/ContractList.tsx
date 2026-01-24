@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import styles from './page.module.css';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { updateContractStatus, uploadContractDocument, updateContractDocumentName } from './actions';
 import { deleteContract } from './deleteActions';
 import { Trash2, Eye, Pencil, Check, X } from 'lucide-react';
@@ -35,6 +36,8 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
         setTempDocName('');
     };
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 import { updateContractStatus, uploadContractDocument } from './actions';
 import { deleteContract } from './deleteActions';
 import { Trash2, Eye } from 'lucide-react';
@@ -43,6 +46,9 @@ import DownloadContractButton from './DownloadContractButton';
 export default function ContractList({ contracts }: { contracts: any[] }) {
     const [previewDoc, setPreviewDoc] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<'sent' | 'received'>('sent');
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
     const handleStatusChange = async (id: number, status: string) => {
@@ -51,6 +57,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
 
     const handleFileUpload = async (id: number, e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
+<<<<<<< HEAD
 <<<<<<< HEAD
             const file = e.target.files[0];
             const formData = new FormData();
@@ -137,17 +144,23 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
     });
 
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             await uploadContractDocument(id, e.target.files[0].name);
             alert('Document uploaded (mock)!');
         }
     };
 
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const handleDelete = async (id: number) => {
         await deleteContract(id);
     };
 
     // Separate contracts by status
+<<<<<<< HEAD
 <<<<<<< HEAD
     const sentContracts = contracts.filter(c => c.status === 'Out' || c.status === 'Sent');
     const underContractContracts = contracts.filter(c => c.status === 'In' || c.status === 'Received' || c.status === 'Signed' || c.status === 'Under Contract');
@@ -171,6 +184,8 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
             />
 
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const sentContracts = contracts.filter(c => c.status === 'Out');
     const receivedContracts = contracts.filter(c => c.status === 'In' || c.status === 'Signed');
 
@@ -178,6 +193,9 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
 
     return (
         <>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             {/* Tabs */}
             <div style={{
@@ -205,7 +223,11 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                 </button>
                 <button
 <<<<<<< HEAD
+<<<<<<< HEAD
                     onClick={() => setActiveTab('under_contract')}
+=======
+                    onClick={() => setActiveTab('received')}
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                     onClick={() => setActiveTab('received')}
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
@@ -217,8 +239,13 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                         fontSize: '1rem',
                         fontWeight: '600',
 <<<<<<< HEAD
+<<<<<<< HEAD
                         color: activeTab === 'under_contract' ? '#3b82f6' : '#64748b',
                         borderBottom: activeTab === 'under_contract' ? '3px solid #3b82f6' : '3px solid transparent',
+=======
+                        color: activeTab === 'received' ? '#3b82f6' : '#64748b',
+                        borderBottom: activeTab === 'received' ? '3px solid #3b82f6' : '3px solid transparent',
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
                         color: activeTab === 'received' ? '#3b82f6' : '#64748b',
                         borderBottom: activeTab === 'received' ? '3px solid #3b82f6' : '3px solid transparent',
@@ -227,6 +254,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                         transition: 'all 0.2s',
                     }}
                 >
+<<<<<<< HEAD
 <<<<<<< HEAD
                     Under Contract ({underContractContracts.length})
                 </button>
@@ -283,6 +311,9 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
 =======
                     Documents Received ({receivedContracts.length})
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
+                    Documents Received ({receivedContracts.length})
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 </button>
             </div>
 
@@ -319,6 +350,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                         <td className={styles.td}>${contract.deal.amount.toLocaleString()}</td>
                                         <td className={styles.td}>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <span className={`${styles.statusBadge} ${(contract.status === 'Out' || contract.status === 'Sent') ? styles.statusOut :
                                                 (contract.status === 'Marketing') ? styles.statusWarning :
                                                     (contract.status === 'Buyer Found') ? styles.statusSuccess :
@@ -329,10 +361,15 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                                     (contract.status === 'In' || contract.status === 'Received' || contract.status === 'Signed' || contract.status === 'Under Contract') ? 'Under Contract' :
                                                         contract.status}
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             <span className={`${styles.statusBadge} ${contract.status === 'In' ? styles.statusIn :
                                                 contract.status === 'Out' ? styles.statusOut : styles.statusSigned
                                                 }`}>
                                                 {contract.status}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             </span>
                                             {isStale && <span className={styles.staleText}>Overdue ({'>'} 7 days)</span>}
@@ -340,6 +377,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                         <td className={styles.td}>{contract.dateSent ? new Date(contract.dateSent).toLocaleDateString() : '-'}</td>
                                         <td className={styles.td}>
                                             {contract.documentPath ? (
+<<<<<<< HEAD
 <<<<<<< HEAD
                                                 <div className="flex flex-col gap-1">
                                                     {editingDocId === contract.id ? (
@@ -386,6 +424,8 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                             ) : (
                                                 <span className="text-gray-400">-</span>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                                                     <span className="text-green-600 text-sm">📄 {contract.documentPath.split('/').pop()}</span>
                                                     <button
@@ -413,12 +453,16 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                                         onChange={(e) => handleFileUpload(contract.id, e)}
                                                     />
                                                 </label>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             )}
                                         </td>
                                         <td className={styles.td}>
                                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                                                 <select
+<<<<<<< HEAD
 <<<<<<< HEAD
                                                     // Check matches broadly for Sent vs Under Contract
                                                     value={
@@ -473,6 +517,8 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                                     Deal Summary
                                                 </button>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                                     className="p-1 border rounded text-sm"
                                                     value={contract.status}
                                                     onChange={(e) => handleStatusChange(contract.id, e.target.value)}
@@ -482,6 +528,9 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                                                     <option value="Signed">Signed</option>
                                                 </select>
                                                 <DownloadContractButton contract={contract} />
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                                             </div>
                                         </td>
@@ -511,6 +560,7 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                         )}
                     </tbody>
                 </table>
+<<<<<<< HEAD
 <<<<<<< HEAD
             </div >
 
@@ -553,6 +603,8 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                 )
             }
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             </div>
 
             {/* Document Preview Modal */}
@@ -591,6 +643,9 @@ export default function ContractList({ contracts }: { contracts: any[] }) {
                     </div>
                 </div>
             )}
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         </>
     );

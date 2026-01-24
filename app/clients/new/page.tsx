@@ -28,6 +28,7 @@ export default function NewClientPage() {
                 <div className={styles.section}>
                     <h2 className={styles.sectionTitle}>Property Details</h2>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <div className={styles.grid}>
                         <div className={`${styles.formGroup} ${styles.fullSpan}`}>
                             <label className={styles.label}>Address</label>
@@ -44,6 +45,8 @@ export default function NewClientPage() {
                     </div>
                     <div className={styles.priceGrid}>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     <div className={styles.formGroup}>
                         <label className={styles.label}>Address</label>
                         <input name="address" type="text" className={styles.input} placeholder="123 Main St, City, State" />
@@ -57,6 +60,9 @@ export default function NewClientPage() {
                             <label className={styles.label}>Property Link</label>
                             <input name="propertyLink" type="url" className={styles.input} placeholder="https://zillow.com/..." />
                         </div>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <div className={styles.formGroup}>
                             <label className={styles.label}>Asking Price</label>

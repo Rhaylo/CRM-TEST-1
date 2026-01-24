@@ -2,9 +2,15 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import AuthProvider from './components/AuthProvider';
 import NeonAuthProvider from './components/NeonAuthProvider';
 import ClientLayout from './components/ClientLayout';
+=======
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import AuthProvider from './components/AuthProvider';
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
@@ -25,6 +31,7 @@ export default function RootLayout({
 }) {
   return (
 <<<<<<< HEAD
+<<<<<<< HEAD
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <NeonAuthProvider>
@@ -33,6 +40,8 @@ export default function RootLayout({
           </ClientLayout>
         </NeonAuthProvider>
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     <html lang="en">
       <body className={inter.className}>
         <AuthProvider>
@@ -46,6 +55,9 @@ export default function RootLayout({
             </div>
           </div>
         </AuthProvider>
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
       </body>
     </html>

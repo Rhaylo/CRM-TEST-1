@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Create reusable transporter using generic SMTP environment variables
 // Supports Zoho, Gmail, etc.
 const transporter = nodemailer.createTransport({
@@ -11,6 +12,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.SMTP_USER || process.env.ZOHO_EMAIL,
         pass: process.env.SMTP_PASSWORD || process.env.ZOHO_APP_PASSWORD,
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 // Create reusable transporter using Zoho SMTP
 const transporter = nodemailer.createTransport({
     host: process.env.ZOHO_SMTP_HOST || 'smtp.zoho.com',
@@ -19,6 +22,9 @@ const transporter = nodemailer.createTransport({
     auth: {
         user: process.env.ZOHO_EMAIL || 'info@xyreholdings.com',
         pass: process.env.ZOHO_APP_PASSWORD || '',
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     },
 });
@@ -32,6 +38,7 @@ export interface EmailOptions {
 
 export async function sendEmail(options: EmailOptions) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const user = process.env.SMTP_USER || process.env.ZOHO_EMAIL;
     const pass = process.env.SMTP_PASSWORD || process.env.ZOHO_APP_PASSWORD;
 
@@ -42,12 +49,17 @@ export async function sendEmail(options: EmailOptions) {
     const mailOptions = {
         from: `Xyre Holdings <${user}>`,
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     if (!process.env.ZOHO_APP_PASSWORD) {
         throw new Error('ZOHO_APP_PASSWORD is not configured in environment variables');
     }
 
     const mailOptions = {
         from: `Xyre Holdings <${process.env.ZOHO_EMAIL || 'info@xyreholdings.com'}>`,
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         to: options.to,
         subject: options.subject,

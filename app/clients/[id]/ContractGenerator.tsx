@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 'use client';
 
@@ -52,6 +53,8 @@ const ContractGenerator: React.FC<{ deal: any, client: any }> = ({ deal, client 
         } finally {
             setGenerating(false);
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 'use client';
 
 import { useState } from 'react';
@@ -140,11 +143,15 @@ export default function ContractGenerator({ clientId, clientName }: ContractGene
             printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.print();
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         }
     };
 
     return (
+<<<<<<< HEAD
 <<<<<<< HEAD
         <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
             <div className="flex items-start justify-between mb-4">
@@ -206,6 +213,8 @@ export default function ContractGenerator({ clientId, clientName }: ContractGene
 
 export default ContractGenerator;
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         <>
             <button
                 onClick={() => setIsOpen(true)}
@@ -502,4 +511,7 @@ export default ContractGenerator;
         </>
     );
 }
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

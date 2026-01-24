@@ -84,6 +84,7 @@ export async function createDealForInvestor(investorId: number, formData: FormDa
     const expectedCloseDate = formData.get('expectedCloseDate') ? new Date(formData.get('expectedCloseDate') as string) : null;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Check if there is already an active deal for this client
     const existingDeal = await prisma.deal.findFirst({
         where: {
@@ -121,6 +122,8 @@ export async function createDealForInvestor(investorId: number, formData: FormDa
     revalidatePath(`/dispositions/${investorId}`);
     revalidatePath('/deals'); // Also refresh main pipeline
 =======
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     await prisma.deal.create({
         data: {
             clientId,
@@ -133,6 +136,9 @@ export async function createDealForInvestor(investorId: number, formData: FormDa
     });
 
     revalidatePath(`/dispositions/${investorId}`);
+<<<<<<< HEAD
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+=======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
@@ -157,11 +163,14 @@ export async function updateDeal(dealId: number, investorId: number, formData: F
 
 export async function deleteDeal(dealId: number, investorId: number) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Delete associated contracts first due to Foreign Key Constraint
     await prisma.contract.deleteMany({
         where: { dealId }
     });
 
+=======
+>>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 =======
 >>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     await prisma.deal.delete({

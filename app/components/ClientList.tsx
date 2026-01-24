@@ -5,6 +5,7 @@ import SortSelect from './SortSelect';
 import ClientActions from './ClientActions';
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import ClientSearch from './ClientSearch';
 
 export default async function ClientList({
     searchParams,
@@ -18,20 +19,34 @@ export default async function ClientList({
 
     const status = typeof searchParams.status === 'string' ? searchParams.status : 'Active';
     const sort = typeof searchParams.sort === 'string' ? searchParams.sort : 'newest';
+    const query = typeof searchParams.q === 'string' ? searchParams.q : undefined;
 
     let orderBy: any = { updatedAt: 'desc' }; // Default to 'Recent Activity'
     if (sort === 'oldest') orderBy = { createdAt: 'asc' };
     if (sort === 'motivation') orderBy = { motivationScore: 'desc' };
 
-    const clients = await prisma.client.findMany({
-        where: {
+    const where: any = {
+        OR: [
+            { userId: user.id },
+            { userId: null }
+        ],
+        // @ts-ignore
+        status: status === 'All' ? undefined : status, // Support 'All' or specific status
+    };
+
+    if (query) {
+        where.AND = where.AND || [];
+        where.AND.push({
             OR: [
-                { userId: user.id },
-                { userId: null }
+                { contactName: { contains: query } },
+                { email: { contains: query } },
+                { phone: { contains: query } },
             ],
-            // @ts-ignore
-            status: status === 'All' ? undefined : status, // Support 'All' or specific status
-        },
+        });
+    }
+
+    const clients = await prisma.client.findMany({
+        where,
         orderBy,
         include: {
             deals: { orderBy: { createdAt: 'desc' } },
@@ -43,7 +58,7 @@ export default async function ClientList({
         <div className={styles.container}>
             <div className={styles.header}>
                 <h1 className={styles.title}>
-                    {status} Clients
+                    Clients
                     <span style={{
                         fontSize: '1rem',
                         fontWeight: 'normal',
@@ -56,13 +71,10 @@ export default async function ClientList({
                         {clients.length}
                     </span>
                 </h1>
-                <div className={styles.controls}>
-                    <Link
-                        href="/clients/import"
-                        className="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors mr-2"
-                    >
-                        Import CSV
-                    </Link>
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    <div style={{ width: '250px' }}>
+                        <ClientSearch />
+                    </div>
                     <Link
                         href="/clients/new"
                         className="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors"

@@ -7,6 +7,10 @@ import { updateDealStage } from './actions';
 import { deleteDeal } from './deleteActions';
 import { Trash2, ExternalLink, RefreshCw, ArrowRight } from 'lucide-react';
 
+type CSSVars = React.CSSProperties & {
+    '--stage-color'?: string;
+};
+
 const PIPELINES = {
     acquisitions: {
         title: 'Acquisitions (Buy)',
@@ -111,7 +115,7 @@ export default function DealBoard({ initialDeals }: { initialDeals: any[] }) {
                             className={styles.column}
                             onDragOver={handleDragOver}
                             onDrop={() => handleDrop(stage)}
-                            style={{ ...bridgeStyle, '--stage-color': color } as React.CSSProperties}
+                            style={{ ...bridgeStyle, '--stage-color': color } as CSSVars}
                         >
                             <div className={styles.columnHeader}>
                                 <span className={styles.columnTitle}>

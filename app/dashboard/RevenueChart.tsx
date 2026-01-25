@@ -8,7 +8,8 @@ interface RevenueChartProps {
 }
 
 export default function RevenueChart({ data }: RevenueChartProps) {
-    const GlassBar = ({ x, y, width, height }: { x?: number; y?: number; width?: number; height?: number }) => {
+    const GlassBar = (props: any) => {
+        const { x, y, width, height } = props as { x?: number; y?: number; width?: number; height?: number };
         if (x === undefined || y === undefined || width === undefined || height === undefined) return null;
         const radius = Math.min(12, width / 2);
         const glossHeight = Math.max(height * 0.45, 10);
@@ -57,7 +58,7 @@ export default function RevenueChart({ data }: RevenueChartProps) {
                             cursor={{ fill: 'rgba(148, 163, 184, 0.12)' }}
                             contentStyle={{ borderRadius: '0.75rem', border: '1px solid rgba(15, 23, 42, 0.06)', backgroundColor: 'rgba(255, 255, 255, 0.96)', boxShadow: '0 18px 30px -20px rgba(15, 23, 42, 0.35)' }}
                         />
-                        <Bar dataKey="revenue" shape={GlassBar} barSize={40} />
+                        <Bar dataKey="revenue" shape={GlassBar as any} barSize={40} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>

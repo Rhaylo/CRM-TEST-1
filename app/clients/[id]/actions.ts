@@ -26,14 +26,8 @@ export async function updateClientDetails(clientId: number, formData: FormData) 
             askingPrice: askingPrice ? parseFloat(askingPrice) : null,
             ourOffer: ourOffer ? parseFloat(ourOffer) : null,
             arv: formData.get('arv') ? parseFloat(formData.get('arv') as string) : null,
-<<<<<<< HEAD
-<<<<<<< HEAD
             titleCompanyId: formData.get('titleCompanyId') ? parseInt(formData.get('titleCompanyId') as string) : null,
             escrowAgentId: formData.get('escrowAgentId') ? parseInt(formData.get('escrowAgentId') as string) : null,
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
     });
 
@@ -59,21 +53,17 @@ export async function deleteNote(noteId: number, clientId: number) {
     revalidatePath(`/clients/${clientId}`);
 }
 
-// Edit an existing client note
 export async function editClientNote(noteId: number, content: string) {
     if (!content.trim()) return;
-    // Update note content
     const note = await prisma.note.update({
         where: { id: noteId },
         data: { content: content.trim() },
     });
-    // Revalidate the client page using the note's clientId
     if (note.clientId) {
         revalidatePath(`/clients/${note.clientId}`);
     }
 }
 
-// Delete a client note (wrapper without needing clientId)
 export async function deleteClientNote(noteId: number) {
     const note = await prisma.note.findUnique({ where: { id: noteId } });
     if (!note) return;
@@ -83,36 +73,18 @@ export async function deleteClientNote(noteId: number) {
     }
 }
 
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 export async function updateMotivation(clientId: number, score: number, note: string, condition: string) {
-=======
-export async function updateMotivation(clientId: number, score: number, note: string) {
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-export async function updateMotivation(clientId: number, score: number, note: string) {
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     await prisma.client.update({
         where: { id: clientId },
         data: {
             motivationScore: score,
             motivationNote: note,
-<<<<<<< HEAD
-<<<<<<< HEAD
             propertyCondition: condition,
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
     });
     revalidatePath(`/clients/${clientId}`);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 export async function updateClientStatus(clientId: number, status: string) {
     await prisma.client.update({
         where: { id: clientId },
@@ -121,9 +93,6 @@ export async function updateClientStatus(clientId: number, status: string) {
     revalidatePath(`/clients/${clientId}`);
 }
 
-// Additional Sellers Management
-// Additional Sellers Management (Raw SQL Workaround)
-// Additional Sellers Management
 export async function addSeller(clientId: number, formData: FormData) {
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
@@ -170,20 +139,5 @@ export async function editSeller(clientId: number, sellerId: number, formData: F
         },
     });
 
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-export async function updateManagementInfo(clientId: number, comments: string, tags: string) {
-    await prisma.client.update({
-        where: { id: clientId },
-        data: {
-            internalComments: comments,
-            internalTags: tags,
-        },
-    });
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     revalidatePath(`/clients/${clientId}`);
 }

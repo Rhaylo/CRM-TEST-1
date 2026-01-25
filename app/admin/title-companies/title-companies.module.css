@@ -1,6 +1,6 @@
 .container {
-    padding: 2rem;
-    color: #e2e8f0;
+    padding: 2.5rem;
+    color: #0f172a;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -9,45 +9,121 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1.5rem;
     margin-bottom: 2rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9));
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 22px 40px -32px rgba(15, 23, 42, 0.45);
+}
+
+.headerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
 }
 
 .title {
     font-size: 1.875rem;
     font-weight: 700;
-    color: #f8fafc;
+    color: #0f172a;
+    margin: 0;
+}
+
+.subtitle {
+    color: #64748b;
+    margin: 0;
+}
+
+.filterBar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.searchWrap {
+    position: relative;
+    flex: 1;
+    min-width: 240px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.6rem 0.75rem 0.6rem 2.5rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.75rem;
+    background: white;
+    color: #0f172a;
+    outline: none;
+}
+
+.filterSelect {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.75rem;
+    background: white;
+    color: #0f172a;
+    min-width: 180px;
+}
+
+.countBadge {
+    margin-left: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    background: rgba(147, 197, 253, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
 }
 
 .addButton {
-    background-color: #3b82f6;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
     color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: background-color 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: none;
     cursor: pointer;
 }
 
 .addButton:hover {
-    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 16px 26px -20px rgba(37, 99, 235, 0.5);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
 .card {
-    background-color: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 0.75rem;
+    background: white;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
     padding: 1.5rem;
-    transition: all 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 18px 30px -26px rgba(15, 23, 42, 0.35);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 36px -26px rgba(15, 23, 42, 0.45);
 }
 
 .cardHeader {
@@ -60,10 +136,16 @@
 .companyName {
     font-size: 1.25rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: #0f172a;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+}
+
+.contactName {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 400;
 }
 
 .companyDetails {
@@ -71,8 +153,11 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     margin-bottom: 1.5rem;
-    color: #94a3b8;
+    color: #64748b;
     font-size: 0.9rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .detailItem {
@@ -81,66 +166,117 @@
     gap: 0.5rem;
 }
 
+.stateBadge {
+    margin-left: auto;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: rgba(226, 232, 240, 0.8);
+    color: #475569;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.detailLink {
+    color: #2563eb;
+    text-decoration: none;
+}
+
 .sectionTitle {
     font-size: 0.875rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #64748b;
+    color: #94a3b8;
     margin-bottom: 0.75rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.sectionToggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.75rem;
+    background: rgba(241, 245, 249, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+}
+
 .agentsList {
-    background-color: #0f172a;
-    border-radius: 0.5rem;
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 0.75rem;
     overflow: hidden;
-    border: 1px solid #334155;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .agentItem {
     padding: 0.75rem 1rem;
-    border-bottom: 1px solid #334155;
+    border: 1px solid rgba(148, 163, 184, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 0.9rem;
+    border-radius: 0.65rem;
+    background: white;
 }
 
 .agentItem:last-child {
-    border-bottom: none;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
 .agentInfo {
     display: flex;
     gap: 1rem;
     align-items: center;
+    color: #0f172a;
+    flex-wrap: wrap;
+}
+
+.agentName {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.agentMeta {
+    color: #64748b;
+    font-size: 0.85rem;
 }
 
 .deleteButton {
     color: #ef4444;
-    background: none;
+    background: rgba(248, 113, 113, 0.12);
     border: none;
     cursor: pointer;
     padding: 0.25rem;
-    border-radius: 0.25rem;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+    border-radius: 999px;
+    transition: transform 0.2s ease;
 }
 
 .deleteButton:hover {
-    opacity: 1;
-    background-color: rgba(239, 68, 68, 0.1);
+    transform: translateY(-1px);
 }
 
 .form {
-    background-color: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 0.75rem;
+    background: white;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    box-shadow: 0 18px 30px -26px rgba(15, 23, 42, 0.35);
 }
 
 .formGrid {
@@ -159,15 +295,15 @@
 .label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: #cbd5e1;
+    color: #64748b;
 }
 
 .input {
-    background-color: #0f172a;
-    border: 1px solid #334155;
-    border-radius: 0.375rem;
-    padding: 0.5rem 0.75rem;
-    color: white;
+    background-color: #f8fafc;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    color: #0f172a;
     font-size: 0.9rem;
 }
 
@@ -185,50 +321,71 @@
 
 .cancelButton {
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background: transparent;
-    border: 1px solid #475569;
-    color: #cbd5e1;
+    border-radius: 999px;
+    background: white;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: #475569;
     cursor: pointer;
 }
 
 .submitButton {
     padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background: #3b82f6;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
     border: none;
     color: white;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
 }
 
 .agentForm {
     padding: 1rem;
-    background-color: #0f172a;
-    border-top: 1px solid #334155;
+    background-color: rgba(248, 250, 252, 0.9);
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr auto;
     gap: 0.75rem;
     align-items: center;
+    border-radius: 0.75rem;
 }
 
 .miniInput {
-    background-color: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 0.25rem;
-    padding: 0.4rem 0.6rem;
-    color: white;
+    background-color: white;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.6rem;
+    color: #0f172a;
     font-size: 0.85rem;
     width: 100%;
 }
 
 .miniButton {
     padding: 0.4rem 0.8rem;
-    border-radius: 0.25rem;
-    background: #3b82f6;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
     border: none;
     color: white;
     font-size: 0.85rem;
     cursor: pointer;
     white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .addButton {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .agentForm {
+        grid-template-columns: 1fr;
+    }
+
+    .filterSelect {
+        width: 100%;
+    }
 }

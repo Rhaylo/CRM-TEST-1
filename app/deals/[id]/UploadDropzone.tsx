@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { Upload, X, CheckCircle, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import styles from './Documents.module.css';
 
 interface UploadDropzoneProps {
     dealId: number;
@@ -72,46 +73,33 @@ export default function UploadDropzone({ dealId }: UploadDropzoneProps) {
 
     if (selectedFile) {
         return (
-            <div style={{
-                padding: '1.5rem',
-                backgroundColor: '#f0f9ff',
-                borderRadius: '0.5rem',
-                border: '1px solid #bae6fd',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1rem'
-            }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div className={styles.uploadCard}>
+                <div className={styles.fileRow}>
+                    <div className={styles.fileMeta}>
                         <CheckCircle size={20} color="#0284c7" />
-                        <span style={{ fontWeight: '500', color: '#0369a1' }}>{selectedFile.name}</span>
-                        <span style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                        <span>{selectedFile.name}</span>
+                        <span className={styles.fileSize}>
                             ({(selectedFile.size / 1024 / 1024).toFixed(2)} MB)
                         </span>
                     </div>
                     <button
                         onClick={() => setSelectedFile(null)}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#64748b' }}
+                        className={styles.iconButton}
                         disabled={isUploading}
+                        type="button"
                     >
-                        <X size={20} />
+                        <X size={18} />
                     </button>
                 </div>
 
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                <div className={styles.uploadActions}>
                     <select
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
                         disabled={isUploading}
-                        style={{
-                            padding: '0.5rem',
-                            borderRadius: '0.25rem',
-                            border: '1px solid #cbd5e1',
-                            backgroundColor: 'white',
-                            color: '#334155'
-                        }}
+                        className={styles.select}
                     >
-                        {CATEGORIES.map(cat => (
+                        {CATEGORIES.map((cat) => (
                             <option key={cat} value={cat}>{cat}</option>
                         ))}
                     </select>
@@ -119,20 +107,8 @@ export default function UploadDropzone({ dealId }: UploadDropzoneProps) {
                     <button
                         onClick={handleUpload}
                         disabled={isUploading}
-                        style={{
-                            flex: 1,
-                            padding: '0.5rem 1rem',
-                            backgroundColor: '#0284c7',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '0.25rem',
-                            fontWeight: '500',
-                            cursor: isUploading ? 'not-allowed' : 'pointer',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            gap: '0.5rem'
-                        }}
+                        className={styles.uploadButton}
+                        type="button"
                     >
                         {isUploading ? (
                             <>
@@ -152,15 +128,7 @@ export default function UploadDropzone({ dealId }: UploadDropzoneProps) {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            style={{
-                border: `2px dashed ${isDragging ? '#3b82f6' : '#cbd5e1'}`,
-                borderRadius: '0.5rem',
-                padding: '3rem',
-                textAlign: 'center',
-                backgroundColor: isDragging ? '#eff6ff' : '#f8fafc',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-            }}
+            className={`${styles.dropzone} ${isDragging ? styles.dropzoneActive : ''}`}
         >
             <input
                 type="file"
@@ -168,23 +136,13 @@ export default function UploadDropzone({ dealId }: UploadDropzoneProps) {
                 onChange={handleFileSelect}
                 style={{ display: 'none' }}
             />
-            <div style={{
-                width: '48px',
-                height: '48px',
-                backgroundColor: '#e2e8f0',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 1rem auto',
-                color: '#64748b'
-            }}>
+            <div className={styles.dropzoneIcon}>
                 <Upload size={24} />
             </div>
-            <p style={{ fontWeight: '500', color: '#334155', marginBottom: '0.25rem' }}>
+            <p className={styles.dropzoneTitle}>
                 Click to upload or drag and drop
             </p>
-            <p style={{ fontSize: '0.875rem', color: '#64748b' }}>
+            <p className={styles.dropzoneHint}>
                 PDF, Images, Documents up to 10MB
             </p>
         </div>

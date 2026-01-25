@@ -80,8 +80,6 @@ export default async function DashboardPage() {
 
     // Process pipeline data
     const pipelineColors: Record<string, string> = {
-<<<<<<< HEAD
-<<<<<<< HEAD
         'Complete': '#22c55e',
         'Contract In': '#60a5fa',
         'Contract Out': '#3b82f6',

@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import styles from '../admin.module.css';
-import { Search, Filter, Trash2 } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default async function ExecutionLogsPage(props: { searchParams: Promise<{ q?: string; status?: string }> }) {
     const searchParams = await props.searchParams;
@@ -26,44 +26,35 @@ export default async function ExecutionLogsPage(props: { searchParams: Promise<{
     return (
         <div>
             <div className={styles.pageHeader}>
-                <h1 className={styles.pageTitle}>Execution Logs</h1>
-                <p className={styles.pageDescription}>History of all automation runs</p>
+                <div>
+                    <h1 className={styles.pageTitle}>
+                        Execution Logs
+                        <span className={styles.countBadge}>{logs.length}</span>
+                    </h1>
+                    <p className={styles.pageDescription}>History of all automation runs</p>
+                </div>
             </div>
 
             <div className={styles.card}>
-                <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem' }}>
-                    <div style={{ position: 'relative', flex: 1 }}>
-                        <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                <form className={styles.filterBar}>
+                    <div className={styles.searchWrap}>
+                        <Search size={18} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                         <input
                             type="text"
+                            name="q"
                             placeholder="Search logs..."
                             defaultValue={query}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem 0.75rem 0.75rem 3rem',
-                                borderRadius: '0.5rem',
-                                border: '1px solid #334155',
-                                backgroundColor: '#0f172a',
-                                color: 'white'
-                            }}
+                            className={styles.searchInput}
                         />
                     </div>
-                    <select
-                        defaultValue={status}
-                        style={{
-                            padding: '0.75rem',
-                            borderRadius: '0.5rem',
-                            border: '1px solid #334155',
-                            backgroundColor: '#0f172a',
-                            color: 'white'
-                        }}
-                    >
+                    <select name="status" defaultValue={status} className={styles.selectField}>
                         <option value="">All Statuses</option>
                         <option value="success">Success</option>
                         <option value="failed">Failed</option>
                         <option value="pending">Pending</option>
                     </select>
-                </div>
+                    <button type="submit" className={styles.btn}>Apply</button>
+                </form>
 
                 <table className={styles.table}>
                     <thead>

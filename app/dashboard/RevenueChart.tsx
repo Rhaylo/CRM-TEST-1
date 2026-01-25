@@ -1,21 +1,13 @@
 'use client';
 
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-<<<<<<< HEAD
-<<<<<<< HEAD
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import styles from './Dashboard.module.css';
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
 interface RevenueChartProps {
     data: { month: string; revenue: number }[];
 }
 
 export default function RevenueChart({ data }: RevenueChartProps) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     const GlassBar = ({ x, y, width, height }: { x?: number; y?: number; width?: number; height?: number }) => {
         if (x === undefined || y === undefined || width === undefined || height === undefined) return null;
         const radius = Math.min(12, width / 2);
@@ -66,27 +58,6 @@ export default function RevenueChart({ data }: RevenueChartProps) {
                             contentStyle={{ borderRadius: '0.75rem', border: '1px solid rgba(15, 23, 42, 0.06)', backgroundColor: 'rgba(255, 255, 255, 0.96)', boxShadow: '0 18px 30px -20px rgba(15, 23, 42, 0.35)' }}
                         />
                         <Bar dataKey="revenue" shape={GlassBar} barSize={40} />
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-    return (
-        <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', height: '100%' }}>
-            <h3 style={{ fontSize: '1.125rem', fontWeight: '600', color: '#1e293b', marginBottom: '1.5rem' }}>Revenue Overview</h3>
-            <div style={{ height: '300px' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} dy={10} />
-                        <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} tickFormatter={(value) => `$${value / 1000}k`} />
-                        <Tooltip
-                            cursor={{ fill: '#f1f5f9' }}
-                            contentStyle={{ borderRadius: '0.375rem', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-                        />
-                        <Bar dataKey="revenue" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={40} />
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                     </BarChart>
                 </ResponsiveContainer>
             </div>

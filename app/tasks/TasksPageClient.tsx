@@ -6,7 +6,15 @@ import TaskTable from './TaskTable';
 import AddTaskModal from './AddTaskModal';
 import { Plus } from 'lucide-react';
 
-export default function TasksPageClient({ tasks, clients, searchParams }: { tasks: any[]; clients: any[]; searchParams: any }) {
+export default function TasksPageClient({
+    tasks,
+    clients,
+    searchParams,
+}: {
+    tasks: any[];
+    clients: any[];
+    searchParams: any;
+}) {
     const [showAddModal, setShowAddModal] = useState(false);
     const [activeTab, setActiveTab] = useState<'active' | 'completed'>('active');
     const [filters, setFilters] = useState({
@@ -16,13 +24,10 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
     });
     const [sortBy, setSortBy] = useState(searchParams.sort || 'dueDate');
 
-    // Filter tasks
-<<<<<<< HEAD
-<<<<<<< HEAD
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    let filteredTasks = tasks.filter(task => {
+    let filteredTasks = tasks.filter((task) => {
         if (activeTab === 'active' && task.status === 'Completed') return false;
         if (activeTab === 'completed') {
             if (task.status !== 'Completed') return false;
@@ -30,31 +35,11 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
             completedDate.setHours(0, 0, 0, 0);
             if (completedDate.getTime() !== today.getTime()) return false;
         }
-=======
-    let filteredTasks = tasks.filter(task => {
-        if (activeTab === 'active' && task.status === 'Completed') return false;
-        if (activeTab === 'completed' && task.status !== 'Completed') return false;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    let filteredTasks = tasks.filter(task => {
-        if (activeTab === 'active' && task.status === 'Completed') return false;
-        if (activeTab === 'completed' && task.status !== 'Completed') return false;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
         if (filters.client && task.clientId !== parseInt(filters.client)) return false;
         if (filters.status && task.status !== filters.status) return false;
 
         if (filters.state) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
             const due = new Date(task.dueDate);
             due.setHours(0, 0, 0, 0);
 
@@ -66,7 +51,6 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
         return true;
     });
 
-    // Sort tasks
     filteredTasks.sort((a, b) => {
         if (sortBy === 'dueDate') {
             return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
@@ -84,19 +68,13 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
         setSortBy('dueDate');
     };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    const completedTodayCount = tasks.filter(task => {
+    const completedTodayCount = tasks.filter((task) => {
         if (task.status !== 'Completed') return false;
         const completedDate = new Date(task.updatedAt);
         completedDate.setHours(0, 0, 0, 0);
         return completedDate.getTime() === today.getTime();
     }).length;
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -112,21 +90,13 @@ export default function TasksPageClient({ tasks, clients, searchParams }: { task
                     className={`${styles.tab} ${activeTab === 'active' ? styles.activeTab : ''}`}
                     onClick={() => setActiveTab('active')}
                 >
-                    Active Tasks ({tasks.filter(t => t.status !== 'Completed').length})
+                    Active Tasks ({tasks.filter((t) => t.status !== 'Completed').length})
                 </button>
                 <button
                     className={`${styles.tab} ${activeTab === 'completed' ? styles.activeTab : ''}`}
                     onClick={() => setActiveTab('completed')}
                 >
-<<<<<<< HEAD
-<<<<<<< HEAD
                     Completed Today ({completedTodayCount})
-=======
-                    Completed Tasks ({tasks.filter(t => t.status === 'Completed').length})
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-                    Completed Tasks ({tasks.filter(t => t.status === 'Completed').length})
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 </button>
             </div>
 

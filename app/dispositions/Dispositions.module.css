@@ -1,0 +1,42 @@
+.container {
+    padding: 2.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: 1.25rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.9));
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 22px 40px -32px rgba(15, 23, 42, 0.45);
+}
+
+.title {
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.countBadge {
+    margin-left: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1d4ed8;
+    background: rgba(147, 197, 253, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin: 0.35rem 0 0;
+}

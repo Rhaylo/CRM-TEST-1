@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Edit } from 'lucide-react';
 import DocumentList from './DocumentList';
 import UploadDropzone from './UploadDropzone';
+import documentStyles from './Documents.module.css';
 import Financials from './Financials'; // Keeping it if used elsewhere, or delete later
 import DealCalculator from './DealCalculator';
 import ClosingInfo from './ClosingInfo';
@@ -11,7 +12,10 @@ import ClosingInfo from './ClosingInfo';
 export default async function DealDetailPage(props: { params: Promise<{ id: string }> }) {
     // Next.js 15: params is a Promise
     const params = await props.params;
-    const dealId = parseInt(params.id);
+    const dealId = Number(params?.id);
+    if (!params?.id || Number.isNaN(dealId)) {
+        notFound();
+    }
 
     const deal = await prisma.deal.findUnique({
         where: { id: dealId },
@@ -34,11 +38,16 @@ export default async function DealDetailPage(props: { params: Promise<{ id: stri
         notFound();
     }
 
+    const sanitizedDeal = {
+        ...deal,
+        documents: deal.documents.map(({ fileContent, ...doc }) => doc),
+    };
+
     // Calculate financials
     // Calculate financials
-    const arv = deal.client.arv || 0;
-    const repairs = deal.client.repairs || 0;
-    const ourOffer = deal.client.ourOffer || 0;
+    const arv = sanitizedDeal.client.arv || 0;
+    const repairs = sanitizedDeal.client.repairs || 0;
+    const ourOffer = sanitizedDeal.client.ourOffer || 0;
     const wholesalePrice = deal.amount;
 
     // MAO & Potential
@@ -104,29 +113,31 @@ export default async function DealDetailPage(props: { params: Promise<{ id: stri
                     {/* Financials Section -> Deal Calculator */}
                     <div className="mb-8">
                         <DealCalculator deal={{
-                            ...deal,
+                            ...sanitizedDeal,
                             documents: [] // Remove heavy/binary data not needed for calculator
                         }} />
                     </div>
 
                     <div className="mb-8">
-                        <ClosingInfo deal={deal} titleCompanies={titleCompanies} />
+                        <ClosingInfo deal={sanitizedDeal} titleCompanies={titleCompanies} />
                     </div>
 
                     {/* Documents Section */}
-                    <div style={{ backgroundColor: 'white', padding: '1.5rem', borderRadius: '0.75rem', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-                        <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#1e293b', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div className={documentStyles.documentsCard}>
+                        <h2 className={documentStyles.documentsHeader}>
                             <Edit size={20} />
                             Documents
                         </h2>
 
-                        <div style={{ marginBottom: '2rem' }}>
+                        <div style={{ marginBottom: '1.75rem' }}>
                             <UploadDropzone dealId={dealId} />
                         </div>
 
                         <div>
-                            <h3 style={{ fontSize: '1rem', fontWeight: '600', color: '#475569', marginBottom: '1rem' }}>Uploaded Files ({deal.documents.length})</h3>
-                            <DocumentList documents={deal.documents.map(d => ({
+                            <h3 className={documentStyles.documentsSubhead}>
+                                Uploaded Files ({sanitizedDeal.documents.length})
+                            </h3>
+                            <DocumentList documents={sanitizedDeal.documents.map(d => ({
                                 id: d.id,
                                 fileName: d.fileName,
                                 category: d.category,

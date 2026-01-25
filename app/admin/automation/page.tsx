@@ -2,10 +2,9 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
-import { Plus, Play, Edit, Trash2, Power } from 'lucide-react';
+import { Plus, Play, Edit, Trash2 } from 'lucide-react';
 import styles from '../admin.module.css';
 import { toggleAutomationRule, deleteAutomationRule, executeAutomationRule } from './actions';
-import { revalidatePath } from 'next/cache';
 
 export default async function AutomationRulesPage() {
     const rules = await prisma.automationRule.findMany({
@@ -35,18 +34,19 @@ export default async function AutomationRulesPage() {
     return (
         <div>
             <div className={styles.pageHeader}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                        <h1 className={styles.pageTitle}>Automation Rules</h1>
-                        <p className={styles.pageDescription}>Manage automated workflows and triggers</p>
-                    </div>
-                    <Link href="/admin/automation/new">
-                        <button className={styles.btn}>
-                            <Plus size={16} style={{ display: 'inline', marginRight: '0.5rem' }} />
-                            Create Rule
-                        </button>
-                    </Link>
+                <div>
+                    <h1 className={styles.pageTitle}>
+                        Automation Rules
+                        <span className={styles.countBadge}>{rules.length}</span>
+                    </h1>
+                    <p className={styles.pageDescription}>Manage automated workflows and triggers</p>
                 </div>
+                <Link href="/admin/automation/new">
+                    <button className={styles.btn}>
+                        <Plus size={16} style={{ display: 'inline', marginRight: '0.5rem' }} />
+                        Create Rule
+                    </button>
+                </Link>
             </div>
 
             <div className={styles.card}>

@@ -1,0 +1,361 @@
+.documentsCard {
+    background: white;
+    padding: 1.75rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 18px 30px -26px rgba(15, 23, 42, 0.35);
+}
+
+.documentsHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+}
+
+.documentsSubhead {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 1rem;
+}
+
+.dropzone {
+    border: 2px dashed rgba(148, 163, 184, 0.45);
+    border-radius: 0.9rem;
+    padding: 2.75rem 1.5rem;
+    text-align: center;
+    background: rgba(248, 250, 252, 0.95);
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dropzoneActive {
+    border-color: #60a5fa;
+    background: rgba(239, 246, 255, 0.95);
+    box-shadow: 0 18px 30px -26px rgba(37, 99, 235, 0.35);
+}
+
+.dropzoneIcon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    background: rgba(226, 232, 240, 0.8);
+    color: #64748b;
+}
+
+.dropzoneTitle {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.35rem;
+}
+
+.dropzoneHint {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.uploadCard {
+    padding: 1.25rem;
+    border-radius: 0.9rem;
+    border: 1px solid rgba(125, 211, 252, 0.6);
+    background: rgba(240, 249, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.fileRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.fileMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    color: #0369a1;
+    font-weight: 600;
+}
+
+.fileSize {
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.iconButton {
+    border: none;
+    background: rgba(148, 163, 184, 0.2);
+    color: #475569;
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.uploadActions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.select {
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.65rem;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    background: white;
+    color: #334155;
+    min-width: 180px;
+}
+
+.uploadButton {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #0284c7, #38bdf8);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.uploadButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.documentsList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.emptyState {
+    padding: 1.5rem;
+    text-align: center;
+    color: #94a3b8;
+    border: 1px dashed rgba(148, 163, 184, 0.5);
+    border-radius: 0.75rem;
+    background: rgba(248, 250, 252, 0.8);
+}
+
+.docItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(248, 250, 252, 0.9);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.docInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.docIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.6rem;
+    background: rgba(224, 242, 254, 0.9);
+    color: #0284c7;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.docTitle {
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.2rem;
+}
+
+.docMeta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.docTag {
+    padding: 0.15rem 0.5rem;
+    background: rgba(226, 232, 240, 0.7);
+    border-radius: 999px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.docActions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.docButton {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: none;
+    background: white;
+    color: #3b82f6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 18px -16px rgba(15, 23, 42, 0.35);
+}
+
+.docButtonDanger {
+    color: #ef4444;
+}
+
+.previewButton {
+    color: #0f172a;
+    background: rgba(219, 234, 254, 0.7);
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 9999;
+}
+
+.modal {
+    background: white;
+    border-radius: 1rem;
+    width: min(960px, 100%);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 28px 45px -30px rgba(15, 23, 42, 0.45);
+}
+
+.modalHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem 0.75rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.modalTitle {
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+}
+
+.modalMeta {
+    font-size: 0.8rem;
+    color: #64748b;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.modalBody {
+    padding: 1.25rem 1.5rem;
+    overflow: auto;
+    background: rgba(248, 250, 252, 0.9);
+    flex: 1;
+}
+
+.previewFrame {
+    width: 100%;
+    height: 70vh;
+    border: none;
+    border-radius: 0.75rem;
+    background: white;
+}
+
+.previewImage {
+    max-width: 100%;
+    max-height: 70vh;
+    display: block;
+    margin: 0 auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 18px 32px -26px rgba(15, 23, 42, 0.45);
+}
+
+.previewFallback {
+    padding: 2rem;
+    text-align: center;
+    color: #64748b;
+}
+
+.modalActions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    padding: 0.75rem 1.5rem 1.25rem;
+    border-top: 1px solid rgba(148, 163, 184, 0.2);
+    background: white;
+}
+
+.actionButton {
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: white;
+    color: #334155;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.actionPrimary {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    border: none;
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .docItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .docActions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .uploadActions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .uploadButton {
+        width: 100%;
+    }
+}

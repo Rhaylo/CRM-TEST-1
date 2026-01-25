@@ -5,8 +5,6 @@
 }
 
 .tabsList {
-<<<<<<< HEAD
-<<<<<<< HEAD
     display: inline-flex;
     gap: 0.5rem;
     padding: 0.4rem;
@@ -37,59 +35,16 @@
     color: #1d4ed8;
     background: rgba(147, 197, 253, 0.35);
     box-shadow: 0 8px 20px -16px rgba(37, 99, 235, 0.45);
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-    display: flex;
-    gap: 0.5rem;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.tab {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #64748b;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.tab:hover {
-    color: #0f172a;
-}
-
-.activeTab {
-    color: #2563eb;
-    border-bottom-color: #2563eb;
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .tabContent {
     background: white;
     padding: 2rem;
-<<<<<<< HEAD
-<<<<<<< HEAD
     border-radius: 1.25rem;
     border: 1px solid rgba(148, 163, 184, 0.25);
     box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.45);
     min-height: 400px;
     animation: tabContentReveal 0.45s ease both;
-=======
-    border-radius: 0.75rem;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    min-height: 400px;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    border-radius: 0.75rem;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    min-height: 400px;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .sectionTitle {
@@ -99,8 +54,6 @@
     margin-bottom: 1.5rem;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .sectionCard {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(226, 232, 240, 0.85));
     border: 1px solid rgba(148, 163, 184, 0.25);
@@ -109,26 +62,16 @@
     box-shadow: 0 18px 30px -26px rgba(15, 23, 42, 0.35);
 }
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .gridSingle {
     grid-template-columns: 1fr;
 }
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 .formGroup {
     display: flex;
     flex-direction: column;
@@ -137,69 +80,31 @@
 }
 
 .label {
-<<<<<<< HEAD
-<<<<<<< HEAD
     font-size: 0.8rem;
     font-weight: 600;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-=======
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #475569;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: #475569;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .input,
 .textarea,
 .select {
     padding: 0.75rem;
-<<<<<<< HEAD
-<<<<<<< HEAD
     border: 1px solid rgba(148, 163, 184, 0.35);
     border-radius: 0.75rem;
-=======
-    border: 1px solid #cbd5e1;
-    border-radius: 0.5rem;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    border: 1px solid #cbd5e1;
-    border-radius: 0.5rem;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     font-size: 0.875rem;
     outline: none;
     transition: border-color 0.2s;
     width: 100%;
-<<<<<<< HEAD
-<<<<<<< HEAD
     background: #f8fafc;
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .input:focus,
 .textarea:focus,
 .select:focus {
-<<<<<<< HEAD
-<<<<<<< HEAD
     border-color: #93c5fd;
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
-=======
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .textarea {
@@ -208,8 +113,6 @@
 }
 
 .btn {
-<<<<<<< HEAD
-<<<<<<< HEAD
     padding: 0.6rem 1.4rem;
     background: linear-gradient(135deg, #2563eb, #60a5fa);
     color: white;
@@ -218,35 +121,12 @@
     font-weight: 600;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-    padding: 0.75rem 1.5rem;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     align-self: flex-start;
 }
 
 .btn:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
     transform: translateY(-1px);
     box-shadow: 0 16px 26px -20px rgba(37, 99, 235, 0.4);
-=======
-    background-color: #1d4ed8;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    background-color: #1d4ed8;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .notesList {
@@ -259,18 +139,8 @@
 .noteItem {
     padding: 1rem;
     background-color: #f8fafc;
-<<<<<<< HEAD
-<<<<<<< HEAD
     border-radius: 0.75rem;
     border: 1px solid rgba(148, 163, 184, 0.2);
-=======
-    border-radius: 0.5rem;
-    border: 1px solid #e2e8f0;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    border-radius: 0.5rem;
-    border: 1px solid #e2e8f0;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 }
 
 .noteHeader {
@@ -289,18 +159,8 @@
 
 .dealItem {
     padding: 1rem;
-<<<<<<< HEAD
-<<<<<<< HEAD
     border: 1px solid rgba(148, 163, 184, 0.2);
     border-radius: 0.75rem;
-=======
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
@@ -314,8 +174,6 @@
     font-weight: 500;
     background-color: #e0f2fe;
     color: #0369a1;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
 @keyframes tabContentReveal {
@@ -356,9 +214,3 @@
         padding: 1.5rem;
     }
 }
-=======
-}
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-}
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e

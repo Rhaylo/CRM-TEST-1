@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, Filter } from 'lucide-react';
+import { Search } from 'lucide-react';
+import styles from './InvestorList.module.css';
 
 interface Investor {
     id: number;
@@ -43,39 +44,22 @@ export default function InvestorList({ initialInvestors }: { initialInvestors: I
 
     return (
         <div>
-            {/* Filters Section */}
-            <div style={{
-                backgroundColor: 'white',
-                padding: '1rem',
-                borderRadius: '0.5rem',
-                marginBottom: '1.5rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                display: 'flex',
-                gap: '1rem',
-                flexWrap: 'wrap',
-                alignItems: 'center'
-            }}>
-                <div style={{ position: 'relative', flex: 1, minWidth: '200px' }}>
+            <div className={styles.filters}>
+                <div className={styles.searchWrap}>
                     <Search size={18} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                     <input
                         type="text"
                         placeholder="Search investors..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        style={{
-                            width: '100%',
-                            padding: '0.5rem 0.75rem 0.5rem 2.25rem',
-                            border: '1px solid #e2e8f0',
-                            borderRadius: '0.375rem',
-                            outline: 'none'
-                        }}
+                        className={styles.searchInput}
                     />
                 </div>
 
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
-                    style={{ padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem', minWidth: '150px' }}
+                    className={styles.select}
                 >
                     <option value="All">All Statuses</option>
                     <option value="Active">Active</option>
@@ -86,7 +70,7 @@ export default function InvestorList({ initialInvestors }: { initialInvestors: I
                 <select
                     value={stateFilter}
                     onChange={(e) => setStateFilter(e.target.value)}
-                    style={{ padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem', minWidth: '150px' }}
+                    className={styles.select}
                 >
                     <option value="All">All States</option>
                     {states.map(state => (
@@ -97,7 +81,7 @@ export default function InvestorList({ initialInvestors }: { initialInvestors: I
                 <select
                     value={zoneFilter}
                     onChange={(e) => setZoneFilter(e.target.value)}
-                    style={{ padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '0.375rem', minWidth: '150px' }}
+                    className={styles.select}
                 >
                     <option value="All">All Zones</option>
                     {zones.map(zone => (
@@ -106,79 +90,66 @@ export default function InvestorList({ initialInvestors }: { initialInvestors: I
                 </select>
             </div>
 
-            {/* Table */}
-            <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
+            <div className={styles.tableContainer}>
+                <table className={styles.table}>
+                    <thead>
                         <tr>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#475569' }}>Contact</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#475569' }}>Location</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#475569' }}>Status</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#475569' }}>Buying Criteria</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.875rem', fontWeight: '600', color: '#475569' }}>Deals Closed</th>
-                            <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.875rem', fontWeight: '600', color: '#475569' }}>Actions</th>
+                            <th className={styles.th}>Contact</th>
+                            <th className={styles.th}>Location</th>
+                            <th className={styles.th}>Status</th>
+                            <th className={styles.th}>Buying Criteria</th>
+                            <th className={styles.th}>Deals Closed</th>
+                            <th className={styles.th} style={{ textAlign: 'right' }}>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredInvestors.length === 0 ? (
                             <tr>
-                                <td colSpan={6} style={{ padding: '3rem', textAlign: 'center', color: '#64748b' }}>
+                                <td colSpan={6} className={styles.td} style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
                                     No investors found matching your filters.
                                 </td>
                             </tr>
                         ) : (
                             filteredInvestors.map((investor) => (
-                                <tr key={investor.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                                    <td style={{ padding: '1rem' }}>
-                                        <Link href={`/dispositions/${investor.id}`} style={{ fontWeight: '500', color: '#2563eb', textDecoration: 'none' }}>
+                                <tr key={investor.id} className={styles.row}>
+                                    <td className={styles.td}>
+                                        <Link href={`/dispositions/${investor.id}`} className={styles.nameLink}>
                                             {investor.contactName}
                                         </Link>
-                                        <div style={{ fontSize: '0.875rem', color: '#64748b' }}>{investor.companyName}</div>
-                                        <div style={{ fontSize: '0.875rem', color: '#64748b' }}>{investor.email}</div>
+                                        <div className={styles.subText}>{investor.companyName}</div>
+                                        <div className={styles.subText}>{investor.email}</div>
                                     </td>
-                                    <td style={{ padding: '1rem', color: '#1e293b' }}>
+                                    <td className={styles.td}>
                                         {investor.state || investor.zone ? (
                                             <div>
-                                                {investor.zone && <div style={{ fontWeight: '500' }}>{investor.zone}</div>}
-                                                {investor.state && <div style={{ fontSize: '0.875rem', color: '#64748b' }}>{investor.state}</div>}
+                                                {investor.zone && <div style={{ fontWeight: 600 }}>{investor.zone}</div>}
+                                                {investor.state && <div className={styles.subText}>{investor.state}</div>}
                                             </div>
                                         ) : '-'}
                                     </td>
-                                    <td style={{ padding: '1rem' }}>
-                                        <span style={{
-                                            padding: '0.25rem 0.75rem',
-                                            borderRadius: '9999px',
-                                            fontSize: '0.75rem',
-                                            fontWeight: '600',
-                                            backgroundColor: investor.status === 'Active' ? '#dcfce7' : '#f1f5f9',
-                                            color: investor.status === 'Active' ? '#166534' : '#64748b',
-                                        }}>
+                                    <td className={styles.td}>
+                                        <span
+                                            className={`${styles.statusBadge} ${
+                                                investor.status === 'Active'
+                                                    ? styles.statusActive
+                                                    : investor.status === 'Do Not Contact'
+                                                        ? styles.statusNoContact
+                                                        : styles.statusInactive
+                                            }`}
+                                        >
                                             {investor.status}
                                         </span>
                                     </td>
-                                    <td style={{ padding: '1rem', color: '#475569', maxWidth: '300px' }}>
+                                    <td className={styles.td}>
                                         {investor.buyingCriteria ? (
-                                            <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                            <div className={styles.criteriaText}>
                                                 {investor.buyingCriteria}
                                             </div>
                                         ) : '-'}
                                     </td>
-                                    <td style={{ padding: '1rem', color: '#1e293b' }}>{investor.deals.length}</td>
-                                    <td style={{ padding: '1rem', textAlign: 'right' }}>
-                                        <Link
-                                            href={`/dispositions/${investor.id}`}
-                                            style={{
-                                                display: 'inline-block',
-                                                padding: '0.5rem 1rem',
-                                                backgroundColor: 'white',
-                                                border: '1px solid #e2e8f0',
-                                                borderRadius: '0.375rem',
-                                                color: '#475569',
-                                                fontSize: '0.875rem',
-                                                textDecoration: 'none',
-                                                fontWeight: '500'
-                                            }}
-                                        >
+                                    <td className={styles.td}>{investor.deals.length}</td>
+                                    <td className={styles.td} style={{ textAlign: 'right' }}>
+                                        <Link href={`/dispositions/${investor.id}`} className={styles.actionButton}>
                                             View Profile
                                         </Link>
                                     </td>
@@ -188,17 +159,6 @@ export default function InvestorList({ initialInvestors }: { initialInvestors: I
                     </tbody>
                 </table>
             </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
-
-        </div >
-=======
         </div>
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-        </div>
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     );
 }

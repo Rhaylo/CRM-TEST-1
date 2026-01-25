@@ -6,7 +6,6 @@ import { createNotification } from '@/app/notifications/actions';
 export async function checkOverdueTasks() {
     const now = new Date();
 
-    // Find tasks that are overdue and not completed
     const overdueTasks = await prisma.task.findMany({
         where: {
             completed: false,
@@ -19,9 +18,9 @@ export async function checkOverdueTasks() {
         },
     });
 
-    // Create notifications for overdue tasks
     for (const task of overdueTasks) {
-        // Check if notification already exists for this task
+        if (!task.userId) continue;
+
         const existingNotification = await prisma.notification.findFirst({
             where: {
                 taskId: task.id,
@@ -32,7 +31,6 @@ export async function checkOverdueTasks() {
             },
         });
 
-        // Only create if doesn't exist
         if (!existingNotification) {
             await createNotification({
                 title: 'Tarea Vencida',
@@ -41,13 +39,7 @@ export async function checkOverdueTasks() {
                 actionUrl: `/clients/${task.clientId}`,
                 taskId: task.id,
                 clientId: task.clientId,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                userId: task.userId || ''
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+                userId: task.userId,
             });
         }
     }
@@ -60,7 +52,6 @@ export async function checkUpcomingTasks() {
     const tomorrow = new Date(now);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    // Find tasks due within 24 hours
     const upcomingTasks = await prisma.task.findMany({
         where: {
             completed: false,
@@ -74,9 +65,9 @@ export async function checkUpcomingTasks() {
         },
     });
 
-    // Create notifications for upcoming tasks
     for (const task of upcomingTasks) {
-        // Check if notification already exists
+        if (!task.userId) continue;
+
         const existingNotification = await prisma.notification.findFirst({
             where: {
                 taskId: task.id,
@@ -95,13 +86,7 @@ export async function checkUpcomingTasks() {
                 actionUrl: `/clients/${task.clientId}`,
                 taskId: task.id,
                 clientId: task.clientId,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                userId: task.userId || ''
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
+                userId: task.userId,
             });
         }
     }

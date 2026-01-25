@@ -1,59 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { X, Send } from 'lucide-react';
 
 interface EmailModalProps {
     clientEmail: string;
     clientName: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
     clientCompanyName: string;
     onClose: () => void;
 }
 
 export default function EmailModal({ clientEmail, clientName, clientCompanyName, onClose }: EmailModalProps) {
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-    onClose: () => void;
-}
-
-export default function EmailModal({ clientEmail, clientName, onClose }: EmailModalProps) {
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [sending, setSending] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // Templates state
     const [templates, setTemplates] = useState<any[]>([]);
     const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
 
-    // Fetch templates on mount
-    useState(() => {
+    useEffect(() => {
         fetch('/api/email-templates')
-            .then(res => res.json())
-            .then(data => {
+            .then((res) => res.json())
+            .then((data) => {
                 if (Array.isArray(data)) {
                     setTemplates(data);
                 }
             })
-            .catch(err => console.error('Error fetching templates:', err));
-    });
+            .catch((err) => console.error('Error fetching templates:', err));
+    }, []);
 
-    // Helper function for replacements
     const replaceVariables = (text: string) => {
         if (!text) return '';
         let result = text;
-        // Case insensitive and allows spaces inside braces
-        // Map common aliases to clientName
         result = result.replace(/{{\s*(?:clientName|contactName|name)\s*}}/gi, clientName || '');
         result = result.replace(/{{\s*companyName\s*}}/gi, clientCompanyName || '');
         result = result.replace(/{{\s*clientEmail\s*}}/gi, clientEmail || '');
@@ -65,17 +44,13 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
         setSelectedTemplateId(templateId);
         if (!templateId) return;
 
-        const template = templates.find(t => t.id.toString() === templateId);
+        const template = templates.find((item) => item.id.toString() === templateId);
         if (template) {
             setSubject(replaceVariables(template.subject));
             setMessage(replaceVariables(template.body));
         }
     };
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const handleSend = async () => {
         if (!subject.trim() || !message.trim()) {
             setError('Please fill in both subject and message');
@@ -85,34 +60,17 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
         setSending(true);
         setError('');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        // Apply replacements one last time before sending to handle manual edits
         const finalSubject = replaceVariables(subject);
         const finalMessage = replaceVariables(message);
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         try {
             const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     to: clientEmail,
-<<<<<<< HEAD
-<<<<<<< HEAD
                     subject: finalSubject,
                     message: finalMessage,
-=======
-                    subject,
-                    message,
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-                    subject,
-                    message,
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                 }),
             });
 
@@ -175,9 +133,6 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
                     </div>
                 ) : (
                     <>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        {/* Template Selector */}
                         {templates.length > 0 && (
                             <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f0f9ff', borderRadius: '0.5rem', border: '1px solid #bae6fd' }}>
                                 <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#0369a1', marginBottom: '0.5rem' }}>
@@ -196,17 +151,13 @@ export default function EmailModal({ clientEmail, clientName, onClose }: EmailMo
                                     }}
                                 >
                                     <option value="">-- Select a template to autofill --</option>
-                                    {templates.map(t => (
-                                        <option key={t.id} value={t.id}>{t.name}</option>
+                                    {templates.map((template) => (
+                                        <option key={template.id} value={template.id}>{template.name}</option>
                                     ))}
                                 </select>
                             </div>
                         )}
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
                         <div style={{ marginBottom: '1rem' }}>
                             <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', color: '#374151', marginBottom: '0.5rem' }}>
                                 To:

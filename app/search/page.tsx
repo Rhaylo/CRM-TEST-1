@@ -1,33 +1,21 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import styles from './page.module.css';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
 
 export default async function SearchPage({
     searchParams,
 }: {
     searchParams: Promise<{ q: string }>;
 }) {
-<<<<<<< HEAD
-<<<<<<< HEAD
     const user = await getCurrentUser();
     if (!user) {
         redirect('/auth');
     }
 
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     const { q } = await searchParams;
     const query = q || '';
 
@@ -40,10 +28,6 @@ export default async function SearchPage({
         );
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // Check if we are likely using Postgres (Vercel) vs SQLite (Local)
-    // 'mode' is only supported in Postgres, so we conditionally add it.
     const isPostgres = !!process.env.POSTGRES_PRISMA_URL;
     const mode = isPostgres ? 'insensitive' : undefined;
 
@@ -51,10 +35,7 @@ export default async function SearchPage({
         where: {
             AND: [
                 {
-                    OR: [
-                        { userId: user.id },
-                        { userId: null }
-                    ]
+                    OR: [{ userId: user.id }, { userId: null }],
                 },
                 {
                     OR: [
@@ -63,25 +44,9 @@ export default async function SearchPage({
                         { email: { contains: query, mode: mode as any } },
                         { phone: { contains: query, mode: mode as any } },
                         { address: { contains: query, mode: mode as any } },
-                    ]
-                }
-            ]
-=======
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-    const clients = await prisma.client.findMany({
-        where: {
-            OR: [
-                { companyName: { contains: query } },
-                { contactName: { contains: query } },
-                { email: { contains: query } },
-                { phone: { contains: query } },
-                { address: { contains: query } },
+                    ],
+                },
             ],
-<<<<<<< HEAD
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
         },
     });
 
@@ -104,7 +69,7 @@ export default async function SearchPage({
                         textDecoration: 'none',
                         borderRadius: '0.375rem',
                         fontSize: '0.875rem',
-                        fontWeight: '500'
+                        fontWeight: '500',
                     }}
                 >
                     📍 Open in Google Maps
@@ -128,7 +93,7 @@ export default async function SearchPage({
                             textDecoration: 'none',
                             borderRadius: '0.375rem',
                             fontWeight: '500',
-                            transition: 'background-color 0.2s'
+                            transition: 'background-color 0.2s',
                         }}
                     >
                         🔍 Search "{query}" on Google Maps
@@ -139,32 +104,20 @@ export default async function SearchPage({
                     {clients.map((client) => (
                         <div key={client.id} className={styles.card}>
                             <div className={styles.cardHeader}>
-                                <Link href={`/clients/${client.id}`} className={styles.companyName}>
-                                    {client.companyName}
+                                <h3>{client.contactName || client.companyName}</h3>
+                                <Link href={`/clients/${client.id}`} className={styles.viewLink}>
+                                    View
                                 </Link>
-                                <span className={styles.matchType}>Client</span>
                             </div>
-                            <div className={styles.details}>
-                                <div>👤 {client.contactName}</div>
-                                <div>📧 {client.email}</div>
-                                <div>📞 {client.phone}</div>
-                                <div>📍 {client.address}</div>
+                            <div className={styles.cardDetails}>
+                                <p><strong>Email:</strong> {client.email || '-'}</p>
+                                <p><strong>Phone:</strong> {client.phone || '-'}</p>
+                                <p><strong>Address:</strong> {client.address || '-'}</p>
                             </div>
                         </div>
                     ))}
                 </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            )
-            }
-        </div >
-=======
             )}
         </div>
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
-=======
-            )}
-        </div>
->>>>>>> 3e2ac0d59dc6241e9562d18fc027f13f7ec37d5e
     );
 }

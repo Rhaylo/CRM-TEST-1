@@ -63,6 +63,7 @@ export default function LoginPage() {
                 });
 
                 if (result.error) {
+                    console.error('Sign Up Error Details:', result.error);
                     setError(result.error.message || 'Unable to create account.');
                     return;
                 }

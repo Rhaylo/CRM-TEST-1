@@ -4,7 +4,7 @@
   "private": true,
   "main": "electron-main.js",
   "scripts": {
-    "build": "node scripts/switch-db.js prod && prisma generate && prisma db push && next build",
+    "build": "node scripts/switch-db.js prod && prisma generate && next build",
     "postinstall": "node scripts/switch-db.js prod && prisma generate",
     "dev": "node scripts/switch-db.js local && prisma generate && next dev",
     "start": "next start",

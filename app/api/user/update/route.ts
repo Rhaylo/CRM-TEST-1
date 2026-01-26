@@ -25,7 +25,12 @@ export async function POST(req: Request) {
 
         // Update Email
         if (email) {
-            const { error } = await authServer.updateUser({
+            if (user.role !== 'ADMIN') {
+                return new NextResponse('Only the CEO can change the login email', { status: 403 });
+            }
+
+            const { error } = await authServer.admin.updateUser({
+                userId: user.id,
                 data: {
                     email,
                 },

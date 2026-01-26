@@ -106,8 +106,9 @@ export default function LoginPage() {
                 router.push('/');
                 router.refresh();
             }
-        } catch (err) {
-            setError('An error occurred. Please try again.');
+        } catch (err: any) {
+            console.error('Login error:', err);
+            setError(err.message || JSON.stringify(err) || 'An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -359,6 +360,7 @@ export default function LoginPage() {
                     outline: none;
                     transition: border-color 0.2s, box-shadow 0.2s;
                     background: #ffffff;
+                    color: #1f2937; /* Ensure text is visible */
                 }
                 .auth-input:focus {
                     border-color: #6366f1;

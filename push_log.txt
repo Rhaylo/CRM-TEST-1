@@ -1,0 +1,16 @@
+﻿Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": PostgreSQL database "neondb", schema "public" at "ep-aged-king-ahxt3p40.c-3.us-east-1.aws.neon.tech"
+
+node.exe : Error: P1001: Can't reach database server at 
+`ep-aged-king-ahxt3p40.c-3.us-east-1.aws.neon.tech:5432`
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error: P1001: C...neon.tech:5432`:St 
+   ring) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Please make sure your database server is running at 
+`ep-aged-king-ahxt3p40.c-3.us-east-1.aws.neon.tech:5432`.

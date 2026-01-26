@@ -3,6 +3,9 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET() {
     try {
+        if (process.env.AUTH_DISABLED === 'true') {
+            return NextResponse.json({ hasUsers: true });
+        }
         const count = await prisma.user.count();
         return NextResponse.json({ hasUsers: count > 0 });
     } catch (error) {

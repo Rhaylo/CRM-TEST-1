@@ -21,6 +21,12 @@ export default function LoginPage() {
     const router = useRouter();
 
     useEffect(() => {
+        if (process.env.NEXT_PUBLIC_AUTH_DISABLED === 'true') {
+            router.replace('/');
+        }
+    }, [router]);
+
+    useEffect(() => {
         let mounted = true;
 
         const loadStatus = async () => {

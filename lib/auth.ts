@@ -3,6 +3,20 @@ import { prisma } from '@/lib/prisma';
 
 export async function getCurrentUser() {
     try {
+        if (process.env.AUTH_DISABLED === 'true') {
+            return {
+                id: 'mock-ceo',
+                name: 'Mock CEO',
+                email: 'mock@xyre.com',
+                image: null,
+                emailVerified: new Date(),
+                password: null,
+                role: 'ADMIN',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            };
+        }
+
         const { user } = await neonAuth();
 
         if (!user) {

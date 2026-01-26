@@ -19,6 +19,11 @@ const mockClient = {
         data: { user: { id: 'mock-ceo', name: 'Mock CEO', email: 'mock@xyre.com' }, session: { token: 'mock-token' } },
         isPending: false,
         error: null
+    }),
+    useSession: () => ({
+        data: { user: { id: 'mock-ceo', name: 'Mock CEO', email: 'mock@xyre.com' }, session: { token: 'mock-token' } },
+        isPending: false,
+        error: null
     })
 } as unknown as typeof neonClient;
 

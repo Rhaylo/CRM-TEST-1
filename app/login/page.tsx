@@ -333,7 +333,7 @@ export default function LoginPage() {
                             borderRadius: '999px',
                             border: '1px solid rgba(99, 102, 241, 0.2)'
                         }}>
-                            First time only · CEO bootstrap
+                            Secure Registration
                         </span>
                     </div>
                 )}

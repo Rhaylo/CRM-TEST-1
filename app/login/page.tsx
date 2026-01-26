@@ -53,10 +53,8 @@ export default function LoginPage() {
 
         try {
             if (isSignup) {
-                if (!bootstrapAllowed) {
-                    setError('Registrations are disabled. Contact the CEO for access.');
-                    return;
-                }
+                // Registration is now open for verification
+                // if (!bootstrapAllowed) { ... }
 
                 const result = await authClient.signUp.email({
                     email,
@@ -310,15 +308,13 @@ export default function LoginPage() {
                     <a href="/login/forgot" className="auth-link">
                         Forgot password?
                     </a>
-                    {bootstrapAllowed && (
-                        <button
-                            type="button"
-                            onClick={() => setIsSignup((prev) => !prev)}
-                            className="auth-link-button"
-                        >
-                            {isSignup ? 'Back to Sign In' : 'Create CEO Account'}
-                        </button>
-                    )}
+                    <button
+                        type="button"
+                        onClick={() => setIsSignup((prev) => !prev)}
+                        className="auth-link-button"
+                    >
+                        {isSignup ? 'Back to Sign In' : 'Sign Up'}
+                    </button>
                 </div>
 
                 {bootstrapAllowed && (

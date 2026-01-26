@@ -1,8 +1,8 @@
 
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import bcrypt from "bcryptjs";
 import { getCurrentUser } from "@/lib/auth";
+import { authServer } from "@/lib/auth-server";
 
 export async function POST(req: Request) {
     try {
@@ -20,32 +20,19 @@ export async function POST(req: Request) {
             return new NextResponse("Current password is required", { status: 400 });
         }
 
-        // Fetch user from DB to get the current hashed password
-        const dbUser = await prisma.user.findUnique({
-            where: { id: user.id }
-        });
-
-        if (!dbUser || !dbUser.password) {
-            return new NextResponse("User not found", { status: 404 });
-        }
-
-        // Validate current password
-        const isValid = await bcrypt.compare(currentPassword, dbUser.password);
-        if (!isValid) {
-            return new NextResponse("Incorrect current password", { status: 400 });
-        }
-
         const updates: any = {};
+        let passwordChanged = false;
 
         // Update Email
-        if (email && email !== dbUser.email) {
-            // Check if email is taken
-            const existing = await prisma.user.findUnique({
-                where: { email }
+        if (email) {
+            const { error } = await authServer.updateUser({
+                email,
             });
-            if (existing) {
-                return new NextResponse("Email already in use", { status: 400 });
+
+            if (error) {
+                return new NextResponse(error.message || "Failed to update email", { status: 400 });
             }
+
             updates.email = email;
         }
 
@@ -54,18 +41,29 @@ export async function POST(req: Request) {
             if (password.length < 6) {
                 return new NextResponse("Password must be at least 6 characters", { status: 400 });
             }
-            const hashedPassword = await bcrypt.hash(password, 10);
-            updates.password = hashedPassword;
+
+            const { error } = await authServer.changePassword({
+                currentPassword,
+                newPassword: password,
+            });
+
+            if (error) {
+                return new NextResponse(error.message || "Failed to update password", { status: 400 });
+            }
+
+            passwordChanged = true;
         }
 
-        if (Object.keys(updates).length === 0) {
+        if (Object.keys(updates).length === 0 && !passwordChanged) {
             return new NextResponse("No changes provided", { status: 400 });
         }
 
-        const updatedUser = await prisma.user.update({
-            where: { id: user.id },
-            data: updates,
-        });
+        const updatedUser = Object.keys(updates).length > 0
+            ? await prisma.user.update({
+                where: { id: user.id },
+                data: updates,
+            })
+            : user;
 
         return NextResponse.json({
             success: true,

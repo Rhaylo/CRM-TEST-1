@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 export default async function DealsPage() {
     const user = await getCurrentUser();
     if (!user) {
-        redirect('/auth');
+        redirect('/login');
     }
 
     const deals = await prisma.deal.findMany({

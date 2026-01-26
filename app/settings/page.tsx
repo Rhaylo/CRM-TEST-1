@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Loader2, Shield, Mail, Lock, Key, Eye, EyeOff } from 'lucide-react';
-import { signOut } from 'next-auth/react';
+import { authClient } from '@/lib/auth-client';
 import styles from './Settings.module.css';
 
 const feedbackDelay = 4000;
@@ -59,7 +59,7 @@ export default function SettingsPage() {
             } else {
                 setEmailMessage('Email updated successfully. Please login again.');
                 scheduleClear(setEmailMessage);
-                setTimeout(() => signOut(), 2000);
+                setTimeout(() => authClient.signOut(), 2000);
             }
         } catch (err) {
             setEmailError('Something went wrong');
@@ -100,7 +100,7 @@ export default function SettingsPage() {
             } else {
                 setPasswordMessage('Password updated successfully. Please login again.');
                 scheduleClear(setPasswordMessage);
-                setTimeout(() => signOut(), 2000);
+                setTimeout(() => authClient.signOut(), 2000);
             }
         } catch (err) {
             setPasswordError('Something went wrong');

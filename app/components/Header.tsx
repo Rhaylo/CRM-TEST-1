@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import NotificationBell from './NotificationBell';
-import { signOut } from 'next-auth/react';
+import { authClient } from '@/lib/auth-client';
 
 interface HeaderProps {
     toggleSidebar?: () => void;
@@ -15,7 +15,8 @@ export default function Header({ toggleSidebar }: HeaderProps) {
     const router = useRouter();
 
     const handleLogout = async () => {
-        await signOut({ callbackUrl: '/auth' });
+        await authClient.signOut();
+        router.push('/login');
     };
 
     return (

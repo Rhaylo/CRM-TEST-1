@@ -1,9 +1,9 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { authClient } from '@/lib/auth-client';
 
 export default function AccountPage() {
-    const { data: session } = useSession();
+    const { data: session } = authClient.useSession();
 
     return (
         <div className="min-h-screen pt-20 bg-slate-950 text-white flex flex-col items-center">

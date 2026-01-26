@@ -12,7 +12,7 @@ export default async function TasksPage({
 }) {
     const user = await getCurrentUser();
     if (!user) {
-        redirect('/auth');
+        redirect('/login');
     }
 
     const params = await searchParams;

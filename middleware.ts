@@ -1,13 +1,11 @@
-import { withAuth } from "next-auth/middleware";
+import { neonAuthMiddleware } from '@neondatabase/auth/next/server';
 
-export default withAuth({
-    pages: {
-        signIn: '/login',
-    },
+export default neonAuthMiddleware({
+    loginUrl: '/login',
 });
 
 export const config = {
     matcher: [
-        '/((?!api/auth|login|_next/static|_next/image|favicon.ico|logo.png).*)',
+        '/((?!_next/static|_next/image|favicon.ico|logo.png|login|auth|api/auth|api/bootstrap).*)',
     ],
 };

@@ -13,7 +13,7 @@ export default async function SearchPage({
 }) {
     const user = await getCurrentUser();
     if (!user) {
-        redirect('/auth');
+        redirect('/login');
     }
 
     const { q } = await searchParams;

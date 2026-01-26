@@ -16,7 +16,7 @@ export default async function ClientList({
 }) {
     const user = await getCurrentUser();
     if (!user) {
-        redirect('/auth');
+        redirect('/login');
     }
 
     const status = typeof searchParams.status === 'string' ? searchParams.status : 'Active';

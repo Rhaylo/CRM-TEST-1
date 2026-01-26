@@ -21,7 +21,8 @@ export default function LoginPage() {
     const router = useRouter();
 
     useEffect(() => {
-        if (process.env.NEXT_PUBLIC_AUTH_DISABLED === 'true') {
+        console.log('DEBUG: NEXT_PUBLIC_AUTH_DISABLED', process.env.NEXT_PUBLIC_AUTH_DISABLED);
+        if (process.env.NEXT_PUBLIC_AUTH_DISABLED && process.env.NEXT_PUBLIC_AUTH_DISABLED.includes('true')) {
             router.replace('/');
         }
     }, [router]);

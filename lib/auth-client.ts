@@ -22,4 +22,4 @@ const mockClient = {
     })
 } as unknown as typeof neonClient;
 
-export const authClient = process.env.NEXT_PUBLIC_AUTH_DISABLED === 'true' ? mockClient : neonClient;
+export const authClient = (process.env.NEXT_PUBLIC_AUTH_DISABLED && process.env.NEXT_PUBLIC_AUTH_DISABLED.includes('true')) ? mockClient : neonClient;

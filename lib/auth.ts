@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 
 export async function getCurrentUser() {
     try {
-        if (process.env.AUTH_DISABLED === 'true') {
+        if (process.env.AUTH_DISABLED && process.env.AUTH_DISABLED.includes('true')) {
             return {
                 id: 'mock-ceo',
                 name: 'Mock CEO',

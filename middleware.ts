@@ -1,7 +1,7 @@
 import { neonAuthMiddleware } from '@neondatabase/auth/next/server';
 
 export default function middleware(request: any) {
-    if (process.env.AUTH_DISABLED === 'true') {
+    if (process.env.AUTH_DISABLED && process.env.AUTH_DISABLED.includes('true')) {
         return;
     }
     return neonAuthMiddleware({

@@ -319,6 +319,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@map("app_account")
 }
 
 model Session {
@@ -327,6 +328,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("app_session")
 }
 
 model User {
@@ -353,6 +356,8 @@ model User {
   emailTemplates EmailTemplate[]
   kpiRecords     KPIRecord[]
   contracts      Contract[]
+
+  @@map("app_user")
 }
 
 model VerificationToken {
@@ -361,6 +366,7 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map("app_verification_token")
 }
 
 model TitleCompany {

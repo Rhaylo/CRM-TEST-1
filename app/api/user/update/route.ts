@@ -26,7 +26,9 @@ export async function POST(req: Request) {
         // Update Email
         if (email) {
             const { error } = await authServer.updateUser({
-                email,
+                data: {
+                    email,
+                },
             });
 
             if (error) {

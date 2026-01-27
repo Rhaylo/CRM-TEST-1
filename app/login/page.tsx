@@ -164,6 +164,7 @@ const DotMap = () => {
 
         // Draw background dots
         function drawDots() {
+            if (!ctx) return;
             ctx.clearRect(0, 0, dimensions.width, dimensions.height);
 
             // Draw the dots
@@ -177,6 +178,7 @@ const DotMap = () => {
 
         // Draw animated routes
         function drawRoutes() {
+            if (!ctx) return;
             const currentTime = (Date.now() - startTime) / 1000; // Time in seconds
 
             routes.forEach(route => {

@@ -1,8 +1,7 @@
-
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
-import { authServer } from "@/lib/auth-server";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST(req: Request) {
     try {
@@ -20,6 +19,21 @@ export async function POST(req: Request) {
             return new NextResponse("Current password is required", { status: 400 });
         }
 
+        const supabase = await createClient();
+
+        // Verify current password by attempting to sign in (or re-authenticate)
+        // Since we are already logged in, we are just checking credentials.
+        // We use a fresh client or just try signInWithPassword.
+        // Note: signInWithPassword will update the session cookies in the response, which is fine.
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+            email: user.email!,
+            password: currentPassword
+        });
+
+        if (signInError) {
+            return new NextResponse("Incorrect current password", { status: 400 });
+        }
+
         const updates: any = {};
         let passwordChanged = false;
 
@@ -29,12 +43,7 @@ export async function POST(req: Request) {
                 return new NextResponse('Only the CEO can change the login email', { status: 403 });
             }
 
-            const { error } = await authServer.admin.updateUser({
-                userId: user.id,
-                data: {
-                    email,
-                },
-            });
+            const { error } = await supabase.auth.updateUser({ email });
 
             if (error) {
                 return new NextResponse(error.message || "Failed to update email", { status: 400 });
@@ -49,10 +58,7 @@ export async function POST(req: Request) {
                 return new NextResponse("Password must be at least 6 characters", { status: 400 });
             }
 
-            const { error } = await authServer.changePassword({
-                currentPassword,
-                newPassword: password,
-            });
+            const { error } = await supabase.auth.updateUser({ password });
 
             if (error) {
                 return new NextResponse(error.message || "Failed to update password", { status: 400 });

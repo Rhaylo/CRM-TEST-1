@@ -1,21 +1,32 @@
 'use client';
 
-import { authClient } from '@/lib/auth-client';
+import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState } from 'react';
+import { User } from '@supabase/supabase-js';
 
 export default function AccountPage() {
-    const { data: session } = authClient.useSession();
+    const [user, setUser] = useState<User | null>(null);
+    const supabase = createClient();
+
+    useEffect(() => {
+        const getUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser();
+            setUser(user);
+        };
+        getUser();
+    }, []);
 
     return (
         <div className="min-h-screen pt-20 bg-slate-950 text-white flex flex-col items-center">
             <h1 className="text-3xl font-bold mb-8">Account Settings</h1>
             <div className="w-full max-w-2xl bg-slate-900 rounded-xl border border-slate-800 p-8">
                 <div className="flex items-center gap-4 mb-8">
-                    {session?.user?.image && (
-                        <img src={session.user.image} alt="Profile" className="w-16 h-16 rounded-full" />
+                    {user?.user_metadata?.avatar_url && (
+                        <img src={user.user_metadata.avatar_url} alt="Profile" className="w-16 h-16 rounded-full" />
                     )}
                     <div>
-                        <h2 className="text-xl font-semibold">{session?.user?.name || 'User'}</h2>
-                        <p className="text-slate-400">{session?.user?.email}</p>
+                        <h2 className="text-xl font-semibold">{user?.user_metadata?.full_name || user?.email || 'User'}</h2>
+                        <p className="text-slate-400">{user?.email}</p>
                     </div>
                 </div>
 

@@ -5,7 +5,7 @@ import styles from './Header.module.css';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import NotificationBell from './NotificationBell';
-import { authClient } from '@/lib/auth-client';
+import { createClient } from '@/lib/supabase/client';
 
 interface HeaderProps {
     toggleSidebar?: () => void;
@@ -13,9 +13,10 @@ interface HeaderProps {
 
 export default function Header({ toggleSidebar }: HeaderProps) {
     const router = useRouter();
+    const supabase = createClient();
 
     const handleLogout = async () => {
-        await authClient.signOut();
+        await supabase.auth.signOut();
         router.push('/login');
     };
 

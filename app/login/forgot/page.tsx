@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { authClient } from '@/lib/auth-client';
+import { createClient } from '@/lib/supabase/client';
 
 export default function ForgotPasswordPage() {
     const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ export default function ForgotPasswordPage() {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const supabase = createClient();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -19,13 +20,18 @@ export default function ForgotPasswordPage() {
         setLoading(true);
 
         try {
-            const result = await authClient.forgetPassword.emailOtp({ email });
+            const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                redirectTo: `${window.location.origin}/login/reset`,
+            });
 
-            if (result.error) {
-                setError(result.error.message || 'Unable to send reset code.');
+            if (error) {
+                setError(error.message || 'Unable to send reset code.');
             } else {
-                setMessage('We sent a reset code to your email.');
-                setTimeout(() => router.push('/login/reset'), 1500);
+                setMessage('We sent a reset link to your email. Please check your inbox.');
+                // Don't redirect immediately to allow them to read the message?
+                // The link will take them to /login/reset.
+                // Redirecting to /login might be better?
+                // "Go check your email" is the end state here.
             }
         } catch (err) {
             setError('Something went wrong. Please try again.');
@@ -35,45 +41,22 @@ export default function ForgotPasswordPage() {
     };
 
     return (
-        <div style={{
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            padding: '1rem'
-        }}>
-            <div style={{
-                backgroundColor: 'white',
-                borderRadius: '1rem',
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                padding: '3rem',
-                width: '100%',
-                maxWidth: '420px'
-            }}>
-                <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <h1 style={{
-                        fontSize: '1.6rem',
-                        fontWeight: 'bold',
-                        color: '#1e293b',
-                        marginBottom: '0.5rem'
-                    }}>
+        <div className="auth-page">
+            <div className="auth-halo" />
+            <div className="auth-haloBottom" />
+            <div className="auth-card">
+                <div className="auth-header">
+                    <h1 className="auth-title">
                         Reset your password
                     </h1>
-                    <p style={{ color: '#64748b', fontSize: '0.875rem' }}>
+                    <p className="auth-subtitle">
                         Enter your email to receive a reset code.
                     </p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
                     <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{
-                            display: 'block',
-                            fontSize: '0.875rem',
-                            fontWeight: '500',
-                            color: '#374151',
-                            marginBottom: '0.5rem'
-                        }}>
+                        <label className="auth-label">
                             Email
                         </label>
                         <input
@@ -82,73 +65,29 @@ export default function ForgotPasswordPage() {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="you@company.com"
                             required
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                border: '1px solid #d1d5db',
-                                borderRadius: '0.5rem',
-                                fontSize: '0.875rem',
-                                outline: 'none',
-                                transition: 'border-color 0.2s'
-                            }}
+                            className="auth-input"
                         />
                     </div>
 
                     {error && (
-                        <div style={{
-                            padding: '0.75rem',
-                            backgroundColor: '#fee2e2',
-                            color: '#991b1b',
-                            borderRadius: '0.5rem',
-                            marginBottom: '1.5rem',
-                            fontSize: '0.875rem',
-                            textAlign: 'center'
-                        }}>
+                        <div className="auth-message auth-messageError">
                             {error}
                         </div>
                     )}
 
                     {message && (
-                        <div style={{
-                            padding: '0.75rem',
-                            backgroundColor: '#dcfce7',
-                            color: '#166534',
-                            borderRadius: '0.5rem',
-                            marginBottom: '1.5rem',
-                            fontSize: '0.875rem',
-                            textAlign: 'center'
-                        }}>
+                        <div className="auth-message auth-messageSuccess">
                             {message}
                         </div>
                     )}
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        style={{
-                            width: '100%',
-                            padding: '0.75rem',
-                            backgroundColor: loading ? '#9ca3af' : '#667eea',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '0.5rem',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            cursor: loading ? 'not-allowed' : 'pointer',
-                            transition: 'background-color 0.2s'
-                        }}
-                    >
+                    <button type="submit" disabled={loading} className="auth-button">
                         {loading ? 'Sending code...' : 'Send reset code'}
                     </button>
                 </form>
 
-                <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                    <a href="/login" style={{
-                        textDecoration: 'none',
-                        color: '#4f46e5',
-                        fontWeight: 500,
-                        fontSize: '0.85rem'
-                    }}>
+                <div className="auth-footer">
+                    <a href="/login" className="auth-link">
                         Back to sign in
                     </a>
                 </div>

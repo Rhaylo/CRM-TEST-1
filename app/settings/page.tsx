@@ -1,16 +1,19 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Loader2, Shield, Mail, Lock, Key, Eye, EyeOff } from 'lucide-react';
-import { authClient } from '@/lib/auth-client';
+import { createClient } from '@/lib/supabase/client';
 import styles from './Settings.module.css';
 
 const feedbackDelay = 4000;
 
 export default function SettingsPage() {
+    const router = useRouter();
     const [loadingEmail, setLoadingEmail] = useState(false);
     const [loadingPassword, setLoadingPassword] = useState(false);
     const [loadingAdmin, setLoadingAdmin] = useState(false);
+    const supabase = createClient();
 
     const [emailMessage, setEmailMessage] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -59,7 +62,7 @@ export default function SettingsPage() {
             } else {
                 setEmailMessage('Email updated successfully. Please login again.');
                 scheduleClear(setEmailMessage);
-                setTimeout(() => authClient.signOut(), 2000);
+                setTimeout(() => supabase.auth.signOut().then(() => router.push('/login')), 2000);
             }
         } catch (err) {
             setEmailError('Something went wrong');
@@ -100,7 +103,7 @@ export default function SettingsPage() {
             } else {
                 setPasswordMessage('Password updated successfully. Please login again.');
                 scheduleClear(setPasswordMessage);
-                setTimeout(() => authClient.signOut(), 2000);
+                setTimeout(() => supabase.auth.signOut().then(() => router.push('/login')), 2000);
             }
         } catch (err) {
             setPasswordError('Something went wrong');

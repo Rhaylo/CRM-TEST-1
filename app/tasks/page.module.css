@@ -106,6 +106,8 @@
     font-size: 0.85rem;
     min-width: 160px;
     background: white;
+    color: #0f172a;
+    color-scheme: light;
 }
 
 .clearButton {
@@ -210,27 +212,10 @@
     text-decoration: underline;
 }
 
-.filterSelect {
-    padding: 0.5rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    min-width: 150px;
-}
-
-.clearButton {
-    padding: 0.5rem 1rem;
-    background-color: #f1f5f9;
-    color: #475569;
-    border: 1px solid #cbd5e1;
-    border-radius: 0.375rem;
-    cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.clearButton:hover {
-    background-color: #e2e8f0;
+.filterSelect option,
+.filterSelect optgroup {
+    color: #0f172a;
+    background-color: #ffffff;
 }
 
 .tableContainer {

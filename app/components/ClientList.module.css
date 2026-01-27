@@ -83,6 +83,7 @@
     background: white;
     font-size: 0.8rem;
     color: #0f172a;
+    color-scheme: light;
     cursor: pointer;
     min-width: 200px;
     box-shadow: 0 10px 20px -20px rgba(15, 23, 42, 0.35);
@@ -115,11 +116,21 @@
     border: 1px solid #cbd5e1;
     background-color: white;
     font-size: 0.875rem;
+    color: #0f172a;
+    color-scheme: light;
     outline: none;
     cursor: pointer;
     transition: border-color 0.2s;
     box-shadow: 0 10px 20px -20px rgba(15, 23, 42, 0.35);
     flex-shrink: 0;
+}
+
+.select option,
+.dealFilterSelect option,
+.select optgroup,
+.dealFilterSelect optgroup {
+    color: #0f172a;
+    background-color: #ffffff;
 }
 
 .select:hover {

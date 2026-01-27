@@ -148,6 +148,9 @@ export default function ClientActions({ clientId, clientName, status }: { client
                                             borderRadius: '0.65rem',
                                             fontSize: '0.875rem',
                                             background: '#f8fafc',
+                                            color: '#0f172a',
+                                            caretColor: '#0f172a',
+                                            colorScheme: 'light',
                                         }}
                                     />
                                 </div>
@@ -169,6 +172,9 @@ export default function ClientActions({ clientId, clientName, status }: { client
                                             borderRadius: '0.65rem',
                                             fontSize: '0.875rem',
                                             background: '#f8fafc',
+                                            color: '#0f172a',
+                                            caretColor: '#0f172a',
+                                            colorScheme: 'light',
                                         }}
                                     />
                                 </div>
@@ -190,6 +196,9 @@ export default function ClientActions({ clientId, clientName, status }: { client
                                             borderRadius: '0.65rem',
                                             fontSize: '0.875rem',
                                             background: '#f8fafc',
+                                            color: '#0f172a',
+                                            caretColor: '#0f172a',
+                                            colorScheme: 'light',
                                         }}
                                     />
                                 </div>

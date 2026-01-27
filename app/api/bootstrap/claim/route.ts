@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { neonAuth } from '@neondatabase/auth/next/server';
+import { createClient } from '@/lib/supabase/server';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
     try {
-        const { user } = await neonAuth();
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
 
         if (!user) {
             return new NextResponse('Unauthorized', { status: 401 });
@@ -23,17 +24,20 @@ export async function POST(req: Request) {
                 return { claimed: false };
             }
 
+            // Ensure email is a string, fallback to undefined only if absolutely necessary for Prisma (though usually null is better if nullable)
+            const userEmail = email ?? user.email ?? undefined;
+
             await tx.user.upsert({
                 where: { id: user.id },
                 update: {
-                    email: email ?? user.email ?? undefined,
-                    name: name ?? user.name ?? undefined,
+                    email: userEmail,
+                    name: name ?? undefined, // user.name is not directly on Supabase User object usually, unless in metadata
                     role: 'ADMIN',
                 },
                 create: {
                     id: user.id,
-                    email: email ?? user.email ?? undefined,
-                    name: name ?? user.name ?? undefined,
+                    email: userEmail ?? '', // Email is usually required
+                    name: name ?? undefined,
                     role: 'ADMIN',
                 },
             });

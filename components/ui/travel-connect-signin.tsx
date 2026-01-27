@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, useEffect } from "react";
 import { Eye, EyeOff, ArrowRight, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";

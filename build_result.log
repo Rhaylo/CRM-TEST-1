@@ -1,0 +1,11 @@
+
+> wholesale-crm@0.1.0 build
+> node scripts/switch-db.js prod && prisma generate && next build
+
+Successfully switched schema.prisma to prod configuration.
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Error: 
+EPERM: operation not permitted, rename 'H:\APP BUILDER\APP 1\XYRE CRM\node_modules\.prisma\client\query_engine-windows.dll.node.tmp97752' -> 'H:\APP BUILDER\APP 1\XYRE CRM\node_modules\.prisma\client\query_engine-windows.dll.node'
+
+

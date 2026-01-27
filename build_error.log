@@ -1,0 +1,94 @@
+   ▲ Next.js 16.0.7 (Turbopack)
+   - Environments: .env.local, .env
+
+ ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 4 errors:
+./components/ui/travel-connect-signin.tsx:1:35
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useState[33m,[39m useRef[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m[33m;[39m
+ [90m   |[39m                                   [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { [33mEye[39m[33m,[39m [33mEyeOff[39m[33m,[39m [33mArrowRight[39m[33m,[39m [33mLoader2[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { motion[33m,[39m [33mAnimatePresence[39m } [36mfrom[39m [32m"framer-motion"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { createClient } [36mfrom[39m [32m"@/lib/supabase/client"[39m[33m;[39m[0m
+
+You're importing a component that needs `useEffect`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+Import trace:
+  Server Component:
+    ./components/ui/travel-connect-signin.tsx
+    ./app/test-signin/page.tsx
+
+
+./components/ui/travel-connect-signin.tsx:1:27
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useState[33m,[39m useRef[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m[33m;[39m
+ [90m   |[39m                           [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { [33mEye[39m[33m,[39m [33mEyeOff[39m[33m,[39m [33mArrowRight[39m[33m,[39m [33mLoader2[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { motion[33m,[39m [33mAnimatePresence[39m } [36mfrom[39m [32m"framer-motion"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { createClient } [36mfrom[39m [32m"@/lib/supabase/client"[39m[33m;[39m[0m
+
+You're importing a component that needs `useRef`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+Import trace:
+  Server Component:
+    ./components/ui/travel-connect-signin.tsx
+    ./app/test-signin/page.tsx
+
+
+./components/ui/travel-connect-signin.tsx:5:10
+Ecmascript file had an error
+[0m [90m 3 |[39m [36mimport[39m { motion[33m,[39m [33mAnimatePresence[39m } [36mfrom[39m [32m"framer-motion"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { createClient } [36mfrom[39m [32m"@/lib/supabase/client"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 5 |[39m [36mimport[39m { useRouter } [36mfrom[39m [32m"next/navigation"[39m[33m;[39m
+ [90m   |[39m          [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [90m// Utils function to combine class names[39m
+ [90m 8 |[39m [36mconst[39m cn [33m=[39m ([33m...[39mclasses[33m:[39m (string [33m|[39m boolean [33m|[39m undefined)[]) [33m=>[39m {[0m
+
+You're importing a component that needs `useRouter`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+Import trace:
+  Server Component:
+    ./components/ui/travel-connect-signin.tsx
+    ./app/test-signin/page.tsx
+
+
+./components/ui/travel-connect-signin.tsx:1:17
+Ecmascript file had an error
+[0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useState[33m,[39m useRef[33m,[39m useEffect } [36mfrom[39m [32m"react"[39m[33m;[39m
+ [90m   |[39m                 [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mimport[39m { [33mEye[39m[33m,[39m [33mEyeOff[39m[33m,[39m [33mArrowRight[39m[33m,[39m [33mLoader2[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 3 |[39m [36mimport[39m { motion[33m,[39m [33mAnimatePresence[39m } [36mfrom[39m [32m"framer-motion"[39m[33m;[39m
+ [90m 4 |[39m [36mimport[39m { createClient } [36mfrom[39m [32m"@/lib/supabase/client"[39m[33m;[39m[0m
+
+You're importing a component that needs `useState`. This React Hook only works in a Client Component. To fix, mark the file (or its parent) with the `"use client"` directive.
+
+ Learn more: https://nextjs.org/docs/app/api-reference/directives/use-client
+
+
+
+Import trace:
+  Server Component:
+    ./components/ui/travel-connect-signin.tsx
+    ./app/test-signin/page.tsx
+
+
+    at <unknown> (./components/ui/travel-connect-signin.tsx:1:35)
+    at <unknown> (./components/ui/travel-connect-signin.tsx:1:27)
+    at <unknown> (./components/ui/travel-connect-signin.tsx:5:10)
+    at <unknown> (./components/ui/travel-connect-signin.tsx:1:17)

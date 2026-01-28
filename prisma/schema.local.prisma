@@ -356,8 +356,23 @@ model User {
   emailTemplates EmailTemplate[]
   kpiRecords     KPIRecord[]
   contracts      Contract[]
+  activityLogs   ActivityLog[]
 
   @@map("app_user")
+}
+
+model ActivityLog {
+  id         Int      @id @default(autoincrement())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  action     String
+  entityType String
+  entityId   Int?
+  summary    String
+  metadata   String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
 }
 
 model VerificationToken {

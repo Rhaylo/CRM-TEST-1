@@ -102,14 +102,14 @@ export default async function DashboardPage() {
     return (
         <div className={`${styles.container} ${sora.variable} ${manrope.variable}`}>
             <div className={styles.containerInner}>
-                <div className={`${styles.reveal} ${styles.revealDelay1}`}>
+                <div className={styles.section}>
                     <DashboardHeader
                         initialBusinessName={businessName}
                         initialWelcomeMessage={welcomeMessage}
                     />
                 </div>
 
-                <div className={`${styles.reveal} ${styles.revealDelay2}`}>
+                <div className={styles.section}>
                     <DashboardHighlights
                         totalRevenue={totalRevenue._sum.amount || 0}
                         activeDeals={activeDealsCount}
@@ -119,11 +119,11 @@ export default async function DashboardPage() {
                     />
                 </div>
 
-                <div className={`${styles.reveal} ${styles.revealDelay3}`}>
+                <div className={styles.section}>
                     <KPIBoard initialData={kpiData} dealsWon={dealsWon} />
                 </div>
 
-                <div className={`${styles.reveal} ${styles.revealDelay4}`}>
+                <div className={styles.section}>
                     <KPICards
                         totalRevenue={totalRevenue._sum.amount || 0}
                         activeDeals={activeDealsCount}
@@ -132,12 +132,12 @@ export default async function DashboardPage() {
                     />
                 </div>
 
-                <div className={`${styles.chartsGrid} ${styles.sectionDivider} ${styles.reveal} ${styles.revealDelay5}`}>
+                <div className={`${styles.chartsGrid} ${styles.sectionDivider}`}>
                     <RevenueChart data={revenueData} />
                     <DealPipeline data={pipelineData} />
                 </div>
 
-                <div className={`${styles.activityGrid} ${styles.sectionDivider} ${styles.reveal} ${styles.revealDelay6}`}>
+                <div className={`${styles.activityGrid} ${styles.sectionDivider}`}>
                     <RecentActivity />
                 </div>
             </div >

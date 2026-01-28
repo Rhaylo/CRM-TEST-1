@@ -7,6 +7,9 @@ import ClientLayout from './components/ClientLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
+// Force dynamic for all pages (CRM application)
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Xyre Holdings CRM',
   description: 'Custom Wholesale CRM',

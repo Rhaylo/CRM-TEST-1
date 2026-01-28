@@ -144,7 +144,7 @@ export default async function DashboardPage() {
     const hasAutoRevenue = closedWonDeals.length > 0 || adjustmentByMonthKey.size > 0;
     const finalRevenueData = hasAutoRevenue
         ? revenueData
-        : fallbackRevenueData.map((item) => ({
+        : fallbackRevenueData.map((item: any) => ({
             month: item.month,
             monthKey: `${now.getFullYear()}-${String(monthLabels.indexOf(item.month) + 1).padStart(2, '0')}`,
             baseRevenue: item.revenue,

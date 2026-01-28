@@ -3,6 +3,8 @@ import AdminSidebar from './AdminSidebar';
 import styles from './admin.module.css';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
     const [automationActive, automationTotal, scheduleActive, scheduleTotal, templateTotal] = await Promise.all([
         prisma.automationRule.count({ where: { enabled: true } }),

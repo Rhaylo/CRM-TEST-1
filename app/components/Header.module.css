@@ -6,14 +6,35 @@
     position: fixed;
     top: 0;
     right: 0;
-    left: 260px;
-    /* Sidebar width */
+    left: var(--sidebar-offset, 260px);
     z-index: 10;
-    padding: 0 2rem;
+    padding: 0 1.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 18px 28px -24px rgba(15, 23, 42, 0.35);
+}
+
+.mobileMenuButton {
+    display: none;
+    background: rgba(148, 163, 184, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    color: #475569;
+    cursor: pointer;
+    padding: 0.45rem;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.mobileMenuButton:hover {
+    background: rgba(148, 163, 184, 0.25);
+    color: #1f2937;
+}
+
+.headerSpacer {
+    flex: 1;
 }
 
 .searchContainer {
@@ -62,6 +83,41 @@
     gap: 1rem;
 }
 
+.settingsButton,
+.logoutButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.settingsButton {
+    background-color: rgba(147, 197, 253, 0.25);
+    color: #1d4ed8;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.logoutButton {
+    background: linear-gradient(135deg, #fb7185, #e11d48);
+    color: white;
+    border: none;
+}
+
+.settingsButton:hover,
+.logoutButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.6);
+}
+
+.actionText {
+    display: inline;
+}
+
 .notificationBtn {
     padding: 0.5rem;
     color: #64748b;
@@ -86,4 +142,24 @@
     background-color: #ef4444;
     border-radius: 50%;
     border: 2px solid white;
+}
+
+@media (max-width: 768px) {
+    .header {
+        left: 0;
+        padding: 0 1rem;
+    }
+
+    .mobileMenuButton {
+        display: inline-flex;
+    }
+
+    .actionText {
+        display: none;
+    }
+
+    .settingsButton,
+    .logoutButton {
+        padding: 0.5rem;
+    }
 }

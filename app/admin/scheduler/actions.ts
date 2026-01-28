@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { logActivity } from '@/lib/activity';
 
 export async function createScheduledTask(data: {
     name: string;
@@ -17,6 +18,14 @@ export async function createScheduledTask(data: {
             action: data.action,
             enabled: true,
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'scheduled_task',
+        entityId: task.id,
+        summary: `Scheduled task created: ${task.name}`,
+        metadata: { schedule: task.schedule },
     });
 
     revalidatePath('/admin');
@@ -35,6 +44,13 @@ export async function updateScheduledTask(id: number, data: {
         data,
     });
 
+    await logActivity({
+        action: 'updated',
+        entityType: 'scheduled_task',
+        entityId: task.id,
+        summary: `Scheduled task updated: ${task.name}`,
+    });
+
     revalidatePath('/admin');
     return task;
 }
@@ -45,12 +61,26 @@ export async function toggleScheduledTask(id: number, enabled: boolean) {
         data: { enabled },
     });
 
+    await logActivity({
+        action: enabled ? 'enabled' : 'disabled',
+        entityType: 'scheduled_task',
+        entityId: id,
+        summary: `Scheduled task ${enabled ? 'enabled' : 'disabled'} #${id}`,
+    });
+
     revalidatePath('/admin');
 }
 
 export async function deleteScheduledTask(id: number) {
     await prisma.scheduledTask.delete({
         where: { id },
+    });
+
+    await logActivity({
+        action: 'deleted',
+        entityType: 'scheduled_task',
+        entityId: id,
+        summary: `Scheduled task deleted #${id}`,
     });
 
     revalidatePath('/admin');
@@ -157,6 +187,14 @@ export async function runScheduledTask(id: number) {
             }
         });
 
+        await logActivity({
+            action: 'ran',
+            entityType: 'scheduled_task',
+            entityId: task.id,
+            summary: `Scheduled task ran: ${task.name}`,
+            metadata: { status: 'success', action: action.type },
+        });
+
     } catch (error) {
         console.error('Failed to execute scheduled task:', error);
         // Log failure
@@ -167,6 +205,14 @@ export async function runScheduledTask(id: number) {
                 metadata: JSON.stringify({ taskId: task.id }),
                 duration: 0
             }
+        });
+
+        await logActivity({
+            action: 'ran',
+            entityType: 'scheduled_task',
+            entityId: task.id,
+            summary: `Scheduled task failed: ${task.name}`,
+            metadata: { status: 'failed', error: String(error) },
         });
     }
 

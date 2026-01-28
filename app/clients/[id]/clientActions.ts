@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { logActivity } from '@/lib/activity';
 
 export async function sendToDeal(clientId: number, formData: FormData) {
     const amount = parseFloat(formData.get('amount') as string);
@@ -17,6 +18,14 @@ export async function sendToDeal(clientId: number, formData: FormData) {
             owner,
             stage: 'Pending',
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'deal',
+        entityId: deal.id,
+        summary: `Deal created for client #${clientId}`,
+        metadata: { amount, owner },
     });
 
     redirect('/deals');
@@ -39,13 +48,21 @@ export async function sendToContract(clientId: number, formData: FormData) {
     });
 
     // Create Contract linked to the deal
-    await prisma.contract.create({
+    const contract = await prisma.contract.create({
         data: {
             dealId: deal.id,
             clientId,
             status: 'In',
             dateSent: new Date(),
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'contract',
+        entityId: contract.id,
+        summary: `Contract created for client #${clientId}`,
+        metadata: { dealId: deal.id },
     });
 
     redirect('/contracts');

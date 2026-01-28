@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import { logActivity } from '@/lib/activity';
 
 export async function createDealFromClient(clientId: number, formData: FormData) {
     const arv = parseFloat(formData.get('arv') as string);
@@ -27,7 +28,7 @@ export async function createDealFromClient(clientId: number, formData: FormData)
     const ourOffer = client.ourOffer || 0;
     const assignmentFee = wholesaleOffer - ourOffer;
 
-    await prisma.deal.create({
+    const deal = await prisma.deal.create({
         data: {
             clientId,
             amount: wholesaleOffer,
@@ -36,6 +37,14 @@ export async function createDealFromClient(clientId: number, formData: FormData)
             owner: 'Sales Team',
             stage: 'Pending',
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'deal',
+        entityId: deal.id,
+        summary: `Deal created from client #${clientId}`,
+        metadata: { amount: wholesaleOffer },
     });
 
     redirect('/deals');

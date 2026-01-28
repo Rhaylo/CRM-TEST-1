@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { logActivity } from '@/lib/activity';
 
 export async function createAutomationRule(data: {
     name: string;
@@ -21,6 +22,14 @@ export async function createAutomationRule(data: {
         },
     });
 
+    await logActivity({
+        action: 'created',
+        entityType: 'automation',
+        entityId: rule.id,
+        summary: `Automation rule created: ${rule.name}`,
+        metadata: { triggerType: rule.triggerType },
+    });
+
     revalidatePath('/admin');
     return rule;
 }
@@ -38,6 +47,13 @@ export async function updateAutomationRule(id: number, data: {
         data,
     });
 
+    await logActivity({
+        action: 'updated',
+        entityType: 'automation',
+        entityId: rule.id,
+        summary: `Automation rule updated: ${rule.name}`,
+    });
+
     revalidatePath('/admin');
     return rule;
 }
@@ -48,12 +64,26 @@ export async function toggleAutomationRule(id: number, enabled: boolean) {
         data: { enabled },
     });
 
+    await logActivity({
+        action: enabled ? 'enabled' : 'disabled',
+        entityType: 'automation',
+        entityId: id,
+        summary: `Automation rule ${enabled ? 'enabled' : 'disabled'} #${id}`,
+    });
+
     revalidatePath('/admin');
 }
 
 export async function deleteAutomationRule(id: number) {
     await prisma.automationRule.delete({
         where: { id },
+    });
+
+    await logActivity({
+        action: 'deleted',
+        entityType: 'automation',
+        entityId: id,
+        summary: `Automation rule deleted #${id}`,
     });
 
     revalidatePath('/admin');
@@ -108,7 +138,7 @@ export async function executeAutomationRule(ruleId: number, metadata?: any) {
                         const dueDate = new Date();
                         dueDate.setDate(dueDate.getDate() + daysDue);
 
-                        await prisma.task.create({
+                        const task = await prisma.task.create({
                             data: {
                                 title: action.params?.title || 'Automated Task',
                                 description: action.params?.description || 'Created by automation rule',
@@ -118,6 +148,13 @@ export async function executeAutomationRule(ruleId: number, metadata?: any) {
                                 status: 'Not Started',
                             }
                         });
+                        await logActivity({
+                            action: 'created',
+                            entityType: 'task',
+                            entityId: task.id,
+                            summary: `Automation created task for client #${clientId}`,
+                            metadata: { ruleId: rule.id },
+                        });
                         console.log(`Automation: Created task for client ${clientId}`);
                     } else {
                         console.warn('Automation: create_task action skipped - no clientId found');
@@ -125,12 +162,19 @@ export async function executeAutomationRule(ruleId: number, metadata?: any) {
                 } else if (action.type === 'send_notification') {
                     // Create a notification note
                     if (clientId || taskId) {
-                        await prisma.note.create({
+                        const note = await prisma.note.create({
                             data: {
                                 content: `🔔 Automation Notification: ${action.params?.message || 'Trigger fired'}`,
                                 clientId: clientId,
                                 taskId: taskId,
                             }
+                        });
+                        await logActivity({
+                            action: 'created',
+                            entityType: 'note',
+                            entityId: note.id,
+                            summary: 'Automation notification note created',
+                            metadata: { ruleId: rule.id, clientId, taskId },
                         });
                         console.log(`Automation: Created notification note`);
                     }
@@ -163,6 +207,14 @@ ${body}
             },
         });
 
+        await logActivity({
+            action: 'executed',
+            entityType: 'automation',
+            entityId: rule.id,
+            summary: `Automation executed: ${rule.name}`,
+            metadata: { status: 'success', executionId: execution.id },
+        });
+
         revalidatePath('/admin');
         return { success: true, execution };
     } catch (error: any) {
@@ -173,6 +225,14 @@ ${body}
                 completedAt: new Date(),
                 error: error.message,
             },
+        });
+
+        await logActivity({
+            action: 'executed',
+            entityType: 'automation',
+            entityId: rule.id,
+            summary: `Automation failed: ${rule.name}`,
+            metadata: { status: 'failed', executionId: execution.id, error: error.message },
         });
 
         revalidatePath('/admin');

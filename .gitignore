@@ -28,3 +28,8 @@ yarn-error.log*
 pnpm-debug.log*
 .vercel
 .env*.local
+vercel_env_*.txt
+test-*.js
+*_error.log
+*_result.log
+*_log.txt

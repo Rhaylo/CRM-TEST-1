@@ -10,6 +10,9 @@ export default async function SchedulerPage() {
         orderBy: { createdAt: 'desc' }
     });
 
+    const activeCount = tasks.filter((task) => task.enabled).length;
+    const disabledCount = tasks.length - activeCount;
+
     async function toggleTask(id: number, currentState: boolean) {
         'use server';
         await toggleScheduledTask(id, !currentState);
@@ -28,18 +31,23 @@ export default async function SchedulerPage() {
     return (
         <div>
             <div className={styles.pageHeader}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>
-                        <h1 className={styles.pageTitle}>Task Scheduler</h1>
-                        <p className={styles.pageDescription}>Manage recurring automated tasks (Cron jobs)</p>
+                <div>
+                    <h1 className={styles.pageTitle}>
+                        Schedules
+                        <span className={styles.countBadge}>{tasks.length}</span>
+                    </h1>
+                    <p className={styles.pageDescription}>Time-based runs for recurring tasks</p>
+                    <div className={styles.headerMeta}>
+                        <span className={styles.metaChip}>Active {activeCount}</span>
+                        <span className={styles.metaChip}>Paused {disabledCount}</span>
                     </div>
-                    <Link href="/admin/scheduler/new">
-                        <button className={styles.btn}>
-                            <Plus size={16} style={{ display: 'inline', marginRight: '0.5rem' }} />
-                            Create Schedule
-                        </button>
-                    </Link>
                 </div>
+                <Link href="/admin/scheduler/new">
+                    <button className={styles.btn}>
+                        <Plus size={16} style={{ display: 'inline', marginRight: '0.5rem' }} />
+                        New Schedule
+                    </button>
+                </Link>
             </div>
 
             <div className={styles.card}>

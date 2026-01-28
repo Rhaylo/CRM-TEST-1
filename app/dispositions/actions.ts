@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { logActivity } from '@/lib/activity';
 
 export async function createInvestor(formData: FormData) {
     const contactName = formData.get('contactName') as string;
@@ -13,7 +14,7 @@ export async function createInvestor(formData: FormData) {
     const state = formData.get('state') as string;
     const zone = formData.get('zone') as string;
 
-    await prisma.investor.create({
+    const investor = await prisma.investor.create({
         data: {
             contactName,
             companyName,
@@ -24,6 +25,14 @@ export async function createInvestor(formData: FormData) {
             state,
             zone,
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'investor',
+        entityId: investor.id,
+        summary: `Investor created: ${contactName}`,
+        metadata: { companyName, email },
     });
 
     revalidatePath('/dispositions');
@@ -53,6 +62,14 @@ export async function updateInvestor(investorId: number, formData: FormData) {
         },
     });
 
+    await logActivity({
+        action: 'updated',
+        entityType: 'investor',
+        entityId: investorId,
+        summary: `Investor updated: ${contactName}`,
+        metadata: { companyName, status },
+    });
+
     revalidatePath(`/dispositions/${investorId}`);
     revalidatePath('/dispositions');
 }
@@ -60,11 +77,19 @@ export async function updateInvestor(investorId: number, formData: FormData) {
 export async function addInvestorNote(investorId: number, content: string) {
     if (!content.trim()) return;
 
-    await prisma.note.create({
+    const note = await prisma.note.create({
         data: {
             content,
             investorId,
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'note',
+        entityId: note.id,
+        summary: `Note added to investor #${investorId}`,
+        metadata: { investorId },
     });
     revalidatePath(`/dispositions/${investorId}`);
 }
@@ -72,6 +97,13 @@ export async function addInvestorNote(investorId: number, content: string) {
 export async function deleteInvestorNote(noteId: number, investorId: number) {
     await prisma.note.delete({
         where: { id: noteId },
+    });
+    await logActivity({
+        action: 'deleted',
+        entityType: 'note',
+        entityId: noteId,
+        summary: `Note deleted from investor #${investorId}`,
+        metadata: { investorId },
     });
     revalidatePath(`/dispositions/${investorId}`);
 }
@@ -101,8 +133,16 @@ export async function createDealForInvestor(investorId: number, formData: FormDa
                 expectedCloseDate,
             },
         });
+
+        await logActivity({
+            action: 'updated',
+            entityType: 'deal',
+            entityId: existingDeal.id,
+            summary: `Deal updated for investor #${investorId}`,
+            metadata: { clientId, stage },
+        });
     } else {
-        await prisma.deal.create({
+        const deal = await prisma.deal.create({
             data: {
                 clientId,
                 investorId,
@@ -111,6 +151,14 @@ export async function createDealForInvestor(investorId: number, formData: FormDa
                 stage,
                 expectedCloseDate,
             },
+        });
+
+        await logActivity({
+            action: 'created',
+            entityType: 'deal',
+            entityId: deal.id,
+            summary: `Deal created for investor #${investorId}`,
+            metadata: { clientId, stage },
         });
     }
 
@@ -134,6 +182,14 @@ export async function updateDeal(dealId: number, investorId: number, formData: F
         },
     });
 
+    await logActivity({
+        action: 'updated',
+        entityType: 'deal',
+        entityId: dealId,
+        summary: `Deal updated for investor #${investorId}`,
+        metadata: { stage },
+    });
+
     revalidatePath(`/dispositions/${investorId}`);
 }
 
@@ -146,12 +202,25 @@ export async function deleteDeal(dealId: number, investorId: number) {
         where: { id: dealId },
     });
 
+    await logActivity({
+        action: 'deleted',
+        entityType: 'deal',
+        entityId: dealId,
+        summary: `Deal deleted for investor #${investorId}`,
+    });
+
     revalidatePath(`/dispositions/${investorId}`);
 }
 
 export async function deleteInvestor(investorId: number) {
     await prisma.investor.delete({
         where: { id: investorId },
+    });
+    await logActivity({
+        action: 'deleted',
+        entityType: 'investor',
+        entityId: investorId,
+        summary: `Investor deleted #${investorId}`,
     });
     revalidatePath('/dispositions');
 }

@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { logActivity } from '@/lib/activity';
 
 export async function getTitleCompanies() {
     try {
@@ -28,8 +29,9 @@ export async function createTitleCompany(data: FormData) {
         const email = data.get('email') as string;
         const website = data.get('website') as string;
         const contactName = data.get('contactName') as string;
+        const state = data.get('state') as string;
 
-        await prisma.titleCompany.create({
+        const company = await prisma.titleCompany.create({
             data: {
                 name,
                 address,
@@ -37,7 +39,16 @@ export async function createTitleCompany(data: FormData) {
                 email,
                 website,
                 contactName,
+                state,
             },
+        });
+
+        await logActivity({
+            action: 'created',
+            entityType: 'title_company',
+            entityId: company.id,
+            summary: `Title company created: ${name}`,
+            metadata: { email, phone },
         });
 
         revalidatePath('/admin/title-companies');
@@ -56,6 +67,7 @@ export async function updateTitleCompany(id: number, data: FormData) {
         const email = data.get('email') as string;
         const website = data.get('website') as string;
         const contactName = data.get('contactName') as string;
+        const state = data.get('state') as string;
 
         await prisma.titleCompany.update({
             where: { id },
@@ -66,7 +78,16 @@ export async function updateTitleCompany(id: number, data: FormData) {
                 email,
                 website,
                 contactName,
+                state,
             },
+        });
+
+        await logActivity({
+            action: 'updated',
+            entityType: 'title_company',
+            entityId: id,
+            summary: `Title company updated: ${name}`,
+            metadata: { email, phone },
         });
 
         revalidatePath('/admin/title-companies');
@@ -81,6 +102,13 @@ export async function deleteTitleCompany(id: number) {
     try {
         await prisma.titleCompany.delete({
             where: { id },
+        });
+
+        await logActivity({
+            action: 'deleted',
+            entityType: 'title_company',
+            entityId: id,
+            summary: `Title company deleted #${id}`,
         });
 
         revalidatePath('/admin/title-companies');
@@ -98,13 +126,21 @@ export async function createEscrowAgent(data: FormData) {
         const email = data.get('email') as string;
         const phone = data.get('phone') as string;
 
-        await prisma.escrowAgent.create({
+        const agent = await prisma.escrowAgent.create({
             data: {
                 titleCompanyId,
                 name,
                 email,
                 phone,
             },
+        });
+
+        await logActivity({
+            action: 'created',
+            entityType: 'escrow_agent',
+            entityId: agent.id,
+            summary: `Escrow agent created: ${name}`,
+            metadata: { titleCompanyId, email, phone },
         });
 
         revalidatePath('/admin/title-companies');
@@ -119,6 +155,13 @@ export async function deleteEscrowAgent(id: number) {
     try {
         await prisma.escrowAgent.delete({
             where: { id },
+        });
+
+        await logActivity({
+            action: 'deleted',
+            entityType: 'escrow_agent',
+            entityId: id,
+            summary: `Escrow agent deleted #${id}`,
         });
 
         revalidatePath('/admin/title-companies');

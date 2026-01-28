@@ -2,20 +2,51 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Zap, Clock, FileText, Settings, LogOut, Mail } from 'lucide-react';
+import { Zap, Clock, FileText, LogOut, Mail } from 'lucide-react';
 import styles from './admin.module.css';
 
-export default function AdminSidebar() {
+type SidebarCounts = {
+    automations?: { active: number; total: number };
+    schedules?: { active: number; total: number };
+    templates?: number;
+};
+
+export default function AdminSidebar({ counts }: { counts?: SidebarCounts }) {
     const pathname = usePathname();
 
+    const formatActiveTotal = (value?: { active: number; total: number }) => {
+        if (!value) return undefined;
+        return `${value.active}/${value.total}`;
+    };
+
     const navItems = [
-        { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-        { href: '/admin/revenue', icon: LayoutDashboard, label: 'Revenue Data' },
-        { href: '/admin/automation', icon: Zap, label: 'Automation Rules' },
-        { href: '/admin/scheduler', icon: Clock, label: 'Scheduled Tasks' },
-        { href: '/admin/email-templates', icon: Mail, label: 'Email Templates' },
-        { href: '/admin/logs', icon: FileText, label: 'Execution Logs' },
-        { href: '/admin/settings', icon: Settings, label: 'Settings' },
+        {
+            href: '/admin/automation',
+            icon: Zap,
+            label: 'Automations',
+            description: 'Trigger-based workflows',
+            badge: formatActiveTotal(counts?.automations),
+        },
+        {
+            href: '/admin/scheduler',
+            icon: Clock,
+            label: 'Schedules',
+            description: 'Time-based runs',
+            badge: formatActiveTotal(counts?.schedules),
+        },
+        {
+            href: '/admin/email-templates',
+            icon: Mail,
+            label: 'Templates',
+            description: 'Reusable emails',
+            badge: counts?.templates?.toString(),
+        },
+        {
+            href: '/admin/logs',
+            icon: FileText,
+            label: 'Activity History',
+            description: 'CRM activity log',
+        },
     ];
 
 
@@ -44,8 +75,18 @@ export default function AdminSidebar() {
                                 href={item.href}
                                 className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
                             >
-                                <Icon size={18} />
-                                {item.label}
+                                <span className={styles.navIconWrap}>
+                                    <Icon size={18} />
+                                </span>
+                                <span className={styles.navTextStack}>
+                                    <span className={styles.navLabelRow}>
+                                        <span className={styles.navLabel}>{item.label}</span>
+                                        {item.badge && (
+                                            <span className={styles.navBadge}>{item.badge}</span>
+                                        )}
+                                    </span>
+                                    <span className={styles.navMeta}>{item.description}</span>
+                                </span>
                             </Link>
                         );
                     })}

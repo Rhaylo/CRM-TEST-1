@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { TitleCompany, EscrowAgent } from '@prisma/client';
-import { Plus, Trash2, Phone, Mail, Globe, MapPin, User, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Trash2, Phone, Mail, Globe, MapPin, User, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import styles from './title-companies.module.css';
 import { createTitleCompany, deleteTitleCompany, createEscrowAgent, deleteEscrowAgent } from './actions';
 
@@ -17,8 +17,9 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
     const [isAddingCompany, setIsAddingCompany] = useState(false);
     const [loading, setLoading] = useState(false);
     const [expandedCompany, setExpandedCompany] = useState<number | null>(null);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [stateFilter, setStateFilter] = useState('All');
 
-    // New Agency Form State
     const [newCompany, setNewCompany] = useState({
         name: '',
         address: '',
@@ -29,15 +30,6 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
         state: ''
     });
 
-    const [filterState, setFilterState] = useState<string>('All');
-
-    // Derived state for filtering
-    const states = Array.from(new Set(companies.map(c => c.state).filter((s): s is string => !!s))).sort();
-    const filteredCompanies = filterState === 'All'
-        ? companies
-        : companies.filter(c => c.state === filterState);
-
-    // New Agent Form State
     const [newAgent, setNewAgent] = useState({
         name: '',
         email: '',
@@ -51,9 +43,6 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
         Object.entries(newCompany).forEach(([key, value]) => formData.append(key, value));
 
         await createTitleCompany(formData);
-        // In a real app we might re-fetch or optimistic update, but revalidatePath in action handles the data refresh on next server render.
-        // However, since this is a client component with initial state, we should probably implement a way to refresh or just reload.
-        // For simplicity, we'll reload the window to fetch fresh data or rely on router refresh if using router.
         window.location.reload();
     };
 
@@ -85,30 +74,57 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
         setExpandedCompany(expandedCompany === id ? null : id);
     };
 
+    const states = Array.from(new Set(companies.map((company) => company.state).filter(Boolean))) as string[];
+
+    const filteredCompanies = companies.filter((company) => {
+        const matchesSearch =
+            company.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (company.contactName && company.contactName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (company.email && company.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (company.phone && company.phone.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (company.address && company.address.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        const matchesState = stateFilter === 'All' || company.state === stateFilter;
+        return matchesSearch && matchesState;
+    });
+
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <div>
-                    <h1 className={styles.title}>Title Companies & Escrow</h1>
-                    <div style={{ marginTop: '1rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <span style={{ fontSize: '0.9rem', color: '#94a3b8' }}>Filter by State:</span>
-                        <select
-                            value={filterState}
-                            onChange={(e) => setFilterState(e.target.value)}
-                            className={styles.input}
-                            style={{ width: '150px', padding: '0.3rem' }}
-                        >
-                            <option value="All">All States</option>
-                            {states.map(state => (
-                                <option key={state} value={state}>{state}</option>
-                            ))}
-                        </select>
-                    </div>
+                <div className={styles.headerContent}>
+                    <h1 className={styles.title}>
+                        Title Companies & Escrow
+                        <span className={styles.countBadge}>{companies.length}</span>
+                    </h1>
+                    <p className={styles.subtitle}>Manage your title partners and escrow contacts.</p>
                 </div>
                 <button onClick={() => setIsAddingCompany(!isAddingCompany)} className={styles.addButton}>
                     <Plus size={18} /> Add Title Company
                 </button>
             </header>
+
+            <div className={styles.filterBar}>
+                <div className={styles.searchWrap}>
+                    <Search size={18} className={styles.searchIcon} />
+                    <input
+                        type="text"
+                        placeholder="Search title companies..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className={styles.searchInput}
+                    />
+                </div>
+                <select
+                    value={stateFilter}
+                    onChange={(e) => setStateFilter(e.target.value)}
+                    className={styles.filterSelect}
+                >
+                    <option value="All">All States</option>
+                    {states.map((state) => (
+                        <option key={state} value={state}>{state}</option>
+                    ))}
+                </select>
+            </div>
 
             {isAddingCompany && (
                 <form onSubmit={handleAddCompany} className={styles.form}>
@@ -156,7 +172,7 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
                         <div className={styles.cardHeader}>
                             <div className={styles.companyName}>
                                 {company.name}
-                                {company.contactName && <span style={{ fontSize: '0.8em', color: '#64748b', fontWeight: 400 }}>• {company.contactName}</span>}
+                                {company.contactName && <span className={styles.contactName}>• {company.contactName}</span>}
                             </div>
                             <button onClick={() => handleDeleteCompany(company.id)} className={styles.deleteButton} title="Delete Company">
                                 <Trash2 size={16} />
@@ -166,12 +182,24 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
                         <div className={styles.companyDetails}>
                             {company.phone && <div className={styles.detailItem}><Phone size={14} /> {company.phone}</div>}
                             {company.email && <div className={styles.detailItem}><Mail size={14} /> {company.email}</div>}
-                            {company.website && <div className={styles.detailItem}><Globe size={14} /> <a href={company.website} target="_blank" rel="noreferrer" style={{ color: '#3b82f6' }}>{company.website}</a></div>}
-                            {company.address && <div className={styles.detailItem}><MapPin size={14} /> {company.address}</div>}
-                            {company.state && <div className={styles.detailItem}><span style={{ fontWeight: 'bold', color: '#f8fafc', padding: '2px 6px', backgroundColor: '#334155', borderRadius: '4px', fontSize: '0.75rem' }}>{company.state}</span></div>}
+                            {company.website && (
+                                <div className={styles.detailItem}>
+                                    <Globe size={14} />
+                                    <a href={company.website} target="_blank" rel="noreferrer" className={styles.detailLink}>
+                                        {company.website}
+                                    </a>
+                                </div>
+                            )}
+                            {company.address && (
+                                <div className={styles.detailItem}>
+                                    <MapPin size={14} />
+                                    {company.address}
+                                    {company.state && <span className={styles.stateBadge}>{company.state}</span>}
+                                </div>
+                            )}
                         </div>
 
-                        <div className={styles.sectionTitle} style={{ cursor: 'pointer' }} onClick={() => toggleExpand(company.id)}>
+                        <div className={styles.sectionToggle} onClick={() => toggleExpand(company.id)}>
                             <span>Escrow Agents ({company.escrowAgents.length})</span>
                             {expandedCompany === company.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                         </div>
@@ -182,9 +210,9 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
                                     <div key={agent.id} className={styles.agentItem}>
                                         <div className={styles.agentInfo}>
                                             <User size={16} style={{ color: '#94a3b8' }} />
-                                            <span style={{ color: 'white', fontWeight: 500 }}>{agent.name}</span>
-                                            {agent.email && <span style={{ color: '#64748b' }}>{agent.email}</span>}
-                                            {agent.phone && <span style={{ color: '#64748b' }}>{agent.phone}</span>}
+                                            <span className={styles.agentName}>{agent.name}</span>
+                                            {agent.email && <span className={styles.agentMeta}>{agent.email}</span>}
+                                            {agent.phone && <span className={styles.agentMeta}>{agent.phone}</span>}
                                         </div>
                                         <button onClick={() => handleDeleteAgent(agent.id)} className={styles.deleteButton}>
                                             <Trash2 size={14} />

@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { triggerAutomation } from '@/app/lib/automation';
+import { logActivity } from '@/lib/activity';
 
 export async function createTask(formData: FormData) {
     const title = formData.get('title') as string;
@@ -33,13 +34,29 @@ export async function createTask(formData: FormData) {
         },
     });
 
+    await logActivity({
+        action: 'created',
+        entityType: 'task',
+        entityId: task.id,
+        summary: `Task created: ${title}`,
+        metadata: { clientId: task.clientId, priority: task.priority },
+    });
+
     // Create initial note if provided
     if (notes && notes.trim()) {
-        await prisma.note.create({
+        const note = await prisma.note.create({
             data: {
                 content: notes,
                 taskId: task.id,
             }
+        });
+
+        await logActivity({
+            action: 'created',
+            entityType: 'note',
+            entityId: note.id,
+            summary: `Note added to task #${task.id}`,
+            metadata: { taskId: task.id },
         });
     }
 
@@ -74,6 +91,14 @@ export async function updateTask(taskId: number, formData: FormData) {
         },
     });
 
+    await logActivity({
+        action: 'updated',
+        entityType: 'task',
+        entityId: taskId,
+        summary: `Task updated: ${title}`,
+        metadata: { clientId: task.clientId, status: task.status },
+    });
+
     if (completed) {
         await triggerAutomation('task_completed', task);
     }
@@ -82,8 +107,17 @@ export async function updateTask(taskId: number, formData: FormData) {
 }
 
 export async function deleteTask(taskId: number) {
+    const task = await prisma.task.findUnique({ where: { id: taskId } });
     await prisma.task.delete({
         where: { id: taskId },
+    });
+
+    await logActivity({
+        action: 'deleted',
+        entityType: 'task',
+        entityId: taskId,
+        summary: 'Task deleted',
+        metadata: { clientId: task?.clientId ?? null },
     });
 
     revalidatePath('/tasks');
@@ -97,6 +131,14 @@ export async function markTaskComplete(taskId: number) {
             completed: true,
         },
         include: { client: true },
+    });
+
+    await logActivity({
+        action: 'completed',
+        entityType: 'task',
+        entityId: taskId,
+        summary: `Task completed: ${task.title}`,
+        metadata: { clientId: task.clientId },
     });
 
     await triggerAutomation('task_completed', task);

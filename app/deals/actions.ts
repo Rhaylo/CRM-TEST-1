@@ -5,6 +5,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { revalidatePath } from 'next/cache';
 import { triggerAutomation } from '@/app/lib/automation';
 import { createNotification } from '@/app/notifications/actions';
+import { logActivity } from '@/lib/activity';
 
 export async function updateDealStage(dealId: number, stage: string) {
     const updatedDeal = await prisma.deal.update({
@@ -24,6 +25,18 @@ export async function updateDealStage(dealId: number, stage: string) {
             userId: updatedDeal.userId,
         });
     }
+
+    await logActivity({
+        userId: updatedDeal.userId ?? null,
+        action: 'status_changed',
+        entityType: 'deal',
+        entityId: updatedDeal.id,
+        summary: `Deal stage changed to ${stage}`,
+        metadata: {
+            clientId: updatedDeal.clientId,
+            stage,
+        },
+    });
 
     await triggerAutomation('deal_stage_change', updatedDeal);
 
@@ -89,12 +102,20 @@ export async function updateDealAnalysis(
         if (data.repairs !== undefined) updateData.repairs = data.repairs ?? null;
         if (data.fee !== undefined) updateData.fee = data.fee ?? null;
 
-        if (Object.keys(updateData).length > 0) {
-            await prisma.deal.update({
-                where: { id: dealId },
-                data: updateData,
-            });
-        }
+    if (Object.keys(updateData).length > 0) {
+        await prisma.deal.update({
+            where: { id: dealId },
+            data: updateData,
+        });
+
+        await logActivity({
+            action: 'updated',
+            entityType: 'deal',
+            entityId: dealId,
+            summary: 'Deal analysis updated',
+            metadata: updateData,
+        });
+    }
     } catch (error) {
         console.error('Failed to update Deal analysis via raw SQL:', error);
         throw error;

@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { logActivity } from '@/lib/activity';
 
 export async function updateDealFinancials(
     dealId: number,
@@ -37,6 +38,20 @@ export async function updateDealFinancials(
                 // If we want to persist the fee:
                 assignmentFee: calculatedFee,
             }
+        });
+
+        await logActivity({
+            action: 'updated',
+            entityType: 'deal',
+            entityId: dealId,
+            summary: 'Deal financials updated',
+            metadata: {
+                clientId,
+                wholesalePrice: data.wholesalePrice,
+                ourOffer: data.ourOffer,
+                repairs: data.repairs,
+                arv: data.arv,
+            },
         });
 
         revalidatePath(`/deals/${dealId}`);

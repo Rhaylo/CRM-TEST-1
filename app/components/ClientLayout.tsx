@@ -10,13 +10,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     const isLoginPage = pathname === '/login';
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Add state for mobile menu
+    const sidebarOffset = isSidebarCollapsed ? '80px' : '260px';
 
     if (isLoginPage) {
         return <>{children}</>;
     }
 
     return (
-        <div className="layout-container">
+        <div className="layout-container" style={{ ['--sidebar-offset' as any]: sidebarOffset }}>
             {/* Sidebar handling: 
                 - Desktop: controlled by isSidebarCollapsed 
                 - Mobile: controlled by isMobileMenuOpen (overlay) 
@@ -35,7 +36,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                     className="mobile-backdrop"
                     onClick={() => setIsMobileMenuOpen(false)}
                     style={{
-                        position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 40
+                        position: 'fixed',
+                        inset: 0,
+                        backgroundColor: 'rgba(2, 6, 23, 0.55)',
+                        zIndex: 40,
+                        backdropFilter: 'blur(2px)'
                     }}
                 />
             )}
@@ -67,7 +72,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 .main-content {
                     flex: 1;
                     transition: margin-left 0.3s ease;
-                    margin-left: ${isSidebarCollapsed ? '80px' : '260px'};
+                    margin-left: ${sidebarOffset};
                 }
                 
                 @media (max-width: 768px) {

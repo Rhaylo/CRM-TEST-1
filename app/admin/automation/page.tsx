@@ -16,6 +16,9 @@ export default async function AutomationRulesPage() {
         }
     });
 
+    const activeCount = rules.filter((rule) => rule.enabled).length;
+    const disabledCount = rules.length - activeCount;
+
     async function toggleRule(id: number, currentState: boolean) {
         'use server';
         await toggleAutomationRule(id, !currentState);
@@ -36,15 +39,19 @@ export default async function AutomationRulesPage() {
             <div className={styles.pageHeader}>
                 <div>
                     <h1 className={styles.pageTitle}>
-                        Automation Rules
+                        Automations
                         <span className={styles.countBadge}>{rules.length}</span>
                     </h1>
-                    <p className={styles.pageDescription}>Manage automated workflows and triggers</p>
+                    <p className={styles.pageDescription}>Trigger-based workflows across the CRM</p>
+                    <div className={styles.headerMeta}>
+                        <span className={styles.metaChip}>Active {activeCount}</span>
+                        <span className={styles.metaChip}>Paused {disabledCount}</span>
+                    </div>
                 </div>
                 <Link href="/admin/automation/new">
                     <button className={styles.btn}>
                         <Plus size={16} style={{ display: 'inline', marginRight: '0.5rem' }} />
-                        Create Rule
+                        New Automation
                     </button>
                 </Link>
             </div>

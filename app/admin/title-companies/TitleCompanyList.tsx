@@ -27,7 +27,8 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
         phone: '',
         email: '',
         website: '',
-        contactName: ''
+        contactName: '',
+        state: ''
     });
 
     // New Agent Form State
@@ -157,6 +158,10 @@ export default function TitleCompanyList({ initialCompanies }: TitleCompanyListP
                         <div className={styles.inputGroup}>
                             <label className={styles.label}>Website</label>
                             <input className={styles.input} value={newCompany.website} onChange={e => setNewCompany({ ...newCompany, website: e.target.value })} placeholder="www.titlecompany.com" />
+                        </div>
+                        <div className={styles.inputGroup}>
+                            <label className={styles.label}>State</label>
+                            <input className={styles.input} value={newCompany.state} onChange={e => setNewCompany({ ...newCompany, state: e.target.value })} placeholder="e.g. TX" maxLength={2} />
                         </div>
                     </div>
                     <div className={styles.formActions}>

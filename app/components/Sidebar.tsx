@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, FileSignature, ClipboardCheck, Settings, LayoutDashboard, Calendar, Handshake, Building2, ChevronLeft, ChevronRight, Briefcase } from 'lucide-react';
+import { Users, FileSignature, ClipboardCheck, Settings, LayoutDashboard, Handshake, Building2, ChevronLeft, ChevronRight, Briefcase, X } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
 const navItems = [
@@ -75,35 +75,51 @@ export default function Sidebar({ isCollapsed = false, toggleSidebar, closeMobil
     };
 
     const displayItems = items;
+    const primaryItems = displayItems.filter((item) => item.name !== 'Admin');
+    const systemItems = displayItems.filter((item) => item.name === 'Admin');
 
     return (
         <aside
             className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}
         >
             <div className={styles.header}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: isCollapsed ? 'center' : 'space-between', width: '100%' }}>
+                <div className={styles.brandRow}>
                     {!isCollapsed && (
-                        <img
-                            src="/logo.png"
-                            alt="Xyre Holdings"
-                            style={{
-                                width: '32px',
-                                height: 'auto',
-                                objectFit: 'contain',
-                            }}
-                        />
+                        <div className={styles.brandBlock}>
+                            <img
+                                src="/logo.png"
+                                alt="Xyre Holdings"
+                                className={styles.brandLogo}
+                            />
+                            <div className={styles.brandText}>
+                                <span className={styles.brandTitle}>Xyre CRM</span>
+                                <span className={styles.brandSubtitle}>Command Center</span>
+                            </div>
+                        </div>
                     )}
-                    <button
-                        onClick={toggleSidebar}
-                        className={styles.toggleButton}
-                        title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
-                    >
-                        {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-                    </button>
+                    <div className={styles.headerActions}>
+                        {closeMobileMenu && (
+                            <button
+                                onClick={closeMobileMenu}
+                                className={`${styles.iconButton} ${styles.mobileClose}`}
+                                title="Close Menu"
+                            >
+                                <X size={18} />
+                            </button>
+                        )}
+                        <button
+                            onClick={toggleSidebar}
+                            className={styles.toggleButton}
+                            title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+                        >
+                            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+                        </button>
+                    </div>
                 </div>
             </div>
             <nav className={styles.nav}>
-                {displayItems.map((item) => {
+                {!isCollapsed && <div className={styles.sectionLabel}>Menu</div>}
+                {primaryItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = pathname === item.href;
                     return (
@@ -116,7 +132,41 @@ export default function Sidebar({ isCollapsed = false, toggleSidebar, closeMobil
                             <span className={styles.iconWrap}>
                                 <Icon size={20} strokeWidth={1.5} />
                             </span>
-                            {!isCollapsed && <span className="font-medium">{item.name}</span>}
+                            {!isCollapsed && (
+                                <span className={styles.textStack}>
+                                    <span className={styles.linkLabel}>{item.name}</span>
+                                    <span className={styles.linkSubtitle}>{item.subtitle}</span>
+                                </span>
+                            )}
+                            {isCollapsed && (
+                                <span className={styles.tooltip}>
+                                    <span className={styles.tooltipTitle}>{item.name}</span>
+                                    <span className={styles.tooltipSubtitle}>{item.subtitle}</span>
+                                </span>
+                            )}
+                        </Link>
+                    );
+                })}
+                {!isCollapsed && <div className={styles.sectionLabel}>System</div>}
+                {systemItems.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = pathname === item.href;
+                    return (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`${styles.link} ${isActive ? styles.active : ''} ${isCollapsed ? styles.linkCollapsed : ''}`}
+                            title={isCollapsed ? item.name : ''}
+                        >
+                            <span className={styles.iconWrap}>
+                                <Icon size={20} strokeWidth={1.5} />
+                            </span>
+                            {!isCollapsed && (
+                                <span className={styles.textStack}>
+                                    <span className={styles.linkLabel}>{item.name}</span>
+                                    <span className={styles.linkSubtitle}>{item.subtitle}</span>
+                                </span>
+                            )}
                             {isCollapsed && (
                                 <span className={styles.tooltip}>
                                     <span className={styles.tooltipTitle}>{item.name}</span>

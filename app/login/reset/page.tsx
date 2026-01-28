@@ -15,19 +15,45 @@ export default function ResetPasswordPage() {
     const supabase = createClient();
 
     useEffect(() => {
+        let mounted = true;
+
         const checkSession = async () => {
+            // First check existing session
             const { data: { session } } = await supabase.auth.getSession();
-            if (!session) {
-                // If no session, it might be that the hash hasn't been processed yet or link is invalid.
-                // supabase-js handles hash parsing automatically.
-                // Give it a moment or check if we are on the client.
-                // But typically if we land here from an email link, the session is set.
-                // If not, we should probably redirect to login or forgot password.
-                setError('Invalid or expired reset link.');
+
+            if (session) {
+                if (mounted) setVerifying(false);
+                return;
             }
-            setVerifying(false);
+
+            // If no session, listen for the recovery event
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+                if (event === 'PASSWORD_RECOVERY' || (event === 'SIGNED_IN' && session)) {
+                    if (mounted) setVerifying(false);
+                }
+            });
+
+            // Set a timeout to avoid infinite loading if the link is invalid
+            setTimeout(async () => {
+                if (mounted) {
+                    const { data: { session } } = await supabase.auth.getSession();
+                    if (!session) {
+                        setError('Invalid or expired reset link.');
+                    }
+                    setVerifying(false);
+                }
+            }, 3000);
+
+            return () => {
+                subscription.unsubscribe();
+            };
         };
+
         checkSession();
+
+        return () => {
+            mounted = false;
+        };
     }, [supabase]);
 
     const handleSubmit = async (event: React.FormEvent) => {

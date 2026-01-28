@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { logActivity } from '@/lib/activity';
 
 export async function updateClientDetails(clientId: number, formData: FormData) {
     const contactName = formData.get('contactName') as string;
@@ -31,17 +32,37 @@ export async function updateClientDetails(clientId: number, formData: FormData) 
         },
     });
 
+    await logActivity({
+        action: 'updated',
+        entityType: 'client',
+        entityId: clientId,
+        summary: 'Client details updated',
+        metadata: {
+            contactName,
+            email,
+            phone,
+        },
+    });
+
     revalidatePath(`/clients/${clientId}`);
 }
 
 export async function addNote(clientId: number, content: string) {
     if (!content.trim()) return;
 
-    await prisma.note.create({
+    const note = await prisma.note.create({
         data: {
             content,
             clientId,
         },
+    });
+
+    await logActivity({
+        action: 'created',
+        entityType: 'note',
+        entityId: note.id,
+        summary: `Note added to client #${clientId}`,
+        metadata: { clientId },
     });
     revalidatePath(`/clients/${clientId}`);
 }
@@ -49,6 +70,14 @@ export async function addNote(clientId: number, content: string) {
 export async function deleteNote(noteId: number, clientId: number) {
     await prisma.note.delete({
         where: { id: noteId },
+    });
+
+    await logActivity({
+        action: 'deleted',
+        entityType: 'note',
+        entityId: noteId,
+        summary: `Note deleted from client #${clientId}`,
+        metadata: { clientId },
     });
     revalidatePath(`/clients/${clientId}`);
 }
@@ -59,6 +88,14 @@ export async function editClientNote(noteId: number, content: string) {
         where: { id: noteId },
         data: { content: content.trim() },
     });
+
+    await logActivity({
+        action: 'updated',
+        entityType: 'note',
+        entityId: noteId,
+        summary: 'Note updated',
+        metadata: { clientId: note.clientId ?? null },
+    });
     if (note.clientId) {
         revalidatePath(`/clients/${note.clientId}`);
     }
@@ -68,6 +105,13 @@ export async function deleteClientNote(noteId: number) {
     const note = await prisma.note.findUnique({ where: { id: noteId } });
     if (!note) return;
     await prisma.note.delete({ where: { id: noteId } });
+    await logActivity({
+        action: 'deleted',
+        entityType: 'note',
+        entityId: noteId,
+        summary: 'Note deleted',
+        metadata: { clientId: note.clientId ?? null },
+    });
     if (note.clientId) {
         revalidatePath(`/clients/${note.clientId}`);
     }
@@ -82,6 +126,14 @@ export async function updateMotivation(clientId: number, score: number, note: st
             propertyCondition: condition,
         },
     });
+
+    await logActivity({
+        action: 'updated',
+        entityType: 'client',
+        entityId: clientId,
+        summary: 'Client motivation updated',
+        metadata: { score, condition },
+    });
     revalidatePath(`/clients/${clientId}`);
 }
 
@@ -89,6 +141,13 @@ export async function updateClientStatus(clientId: number, status: string) {
     await prisma.client.update({
         where: { id: clientId },
         data: { status },
+    });
+
+    await logActivity({
+        action: 'status_changed',
+        entityType: 'client',
+        entityId: clientId,
+        summary: `Client status changed to ${status}`,
     });
     revalidatePath(`/clients/${clientId}`);
 }
@@ -111,12 +170,28 @@ export async function addSeller(clientId: number, formData: FormData) {
         },
     });
 
+    await logActivity({
+        action: 'created',
+        entityType: 'additional_seller',
+        entityId: null,
+        summary: `Additional seller added for client #${clientId}`,
+        metadata: { clientId, name },
+    });
+
     revalidatePath(`/clients/${clientId}`);
 }
 
 export async function deleteSeller(sellerId: number, clientId: number) {
     await prisma.additionalSeller.delete({
         where: { id: sellerId },
+    });
+
+    await logActivity({
+        action: 'deleted',
+        entityType: 'additional_seller',
+        entityId: sellerId,
+        summary: `Additional seller removed for client #${clientId}`,
+        metadata: { clientId },
     });
     revalidatePath(`/clients/${clientId}`);
 }
@@ -137,6 +212,14 @@ export async function editSeller(clientId: number, sellerId: number, formData: F
             phone: phone || null,
             relationship: relationship || null,
         },
+    });
+
+    await logActivity({
+        action: 'updated',
+        entityType: 'additional_seller',
+        entityId: sellerId,
+        summary: `Additional seller updated for client #${clientId}`,
+        metadata: { clientId, name },
     });
 
     revalidatePath(`/clients/${clientId}`);

@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { triggerAutomation } from '@/app/lib/automation';
+import { logActivity } from '@/lib/activity';
 
 export async function createClient(formData: FormData) {
     const contactName = formData.get('contactName') as string;
@@ -42,6 +43,18 @@ export async function createClient(formData: FormData) {
             arv: arv ? parseFloat(arv) : undefined,
             motivationScore: motivationScore ? parseInt(motivationScore) : undefined,
             motivationNote,
+        },
+    });
+
+    await logActivity({
+        userId: user.id,
+        action: 'created',
+        entityType: 'client',
+        entityId: client.id,
+        summary: `Client created: ${contactName}`,
+        metadata: {
+            email,
+            phone,
         },
     });
 

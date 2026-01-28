@@ -317,6 +317,22 @@
     }
 
     .navLink {
-        padding: 0.4rem 0.6rem;
+        padding: 0.4rem 0.55rem;
+        min-height: 40px;
+        scroll-snap-align: start;
+    }
+
+    .nav {
+        scroll-snap-type: x mandatory;
+    }
+
+    .navActive .navLabel {
+        display: inline;
+        white-space: nowrap;
+        max-width: none;
+    }
+
+    .navActive {
+        padding-right: 0.8rem;
     }
 }

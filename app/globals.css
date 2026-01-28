@@ -47,6 +47,13 @@ body {
   /* Header height + padding */
 }
 
+@media (max-width: 720px) {
+  .page-content {
+    padding: 1.25rem 1rem 1.75rem;
+    padding-top: 5rem;
+  }
+}
+
 /* Global Utilities */
 .card {
   background: white;

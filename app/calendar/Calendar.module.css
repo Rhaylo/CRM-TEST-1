@@ -517,6 +517,26 @@
     align-items: flex-start;
   }
 
+  .headerActions {
+    width: 100%;
+  }
+
+  .viewToggle {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .ghostButton,
+  .primaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navButtons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .grid {
     gap: 0.35rem;
   }
@@ -528,6 +548,14 @@
   .dayCell,
   .emptyCell {
     min-height: 90px;
+  }
+
+  .sidebarSection {
+    padding: 1rem;
+  }
+
+  .notesInput {
+    min-height: 100px;
   }
 
   .formRow {

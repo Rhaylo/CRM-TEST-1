@@ -306,4 +306,24 @@
         flex: 1;
         justify-content: center;
     }
+
+    .board {
+        flex-direction: column;
+        overflow-x: visible;
+        padding-bottom: 0;
+    }
+
+    .column {
+        min-width: 100%;
+        max-height: none;
+    }
+
+    .cardTop {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .iconActions {
+        align-self: flex-end;
+    }
 }

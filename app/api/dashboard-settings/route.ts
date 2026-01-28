@@ -13,7 +13,7 @@ export async function GET() {
         const settings = await prisma.settings.findMany({
             where: {
                 key: {
-                    in: ['business_name', 'welcome_message']
+                    in: ['business_name', 'welcome_message', 'revenue_adjustments']
                 },
                 userId: user.id
             }
@@ -21,8 +21,9 @@ export async function GET() {
 
         const businessName = settings.find(s => s.key === 'business_name')?.value || 'Business Overview';
         const welcomeMessage = settings.find(s => s.key === 'welcome_message')?.value || "Welcome back! Here's what's happening today.";
+        const revenueAdjustments = settings.find(s => s.key === 'revenue_adjustments')?.value || '[]';
 
-        return NextResponse.json({ businessName, welcomeMessage });
+        return NextResponse.json({ businessName, welcomeMessage, revenueAdjustments });
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
@@ -35,7 +36,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        const { businessName, welcomeMessage } = await request.json();
+        const { businessName, welcomeMessage, revenueAdjustments } = await request.json();
 
         // Helper to update user settings
         const upsertUserSetting = async (key: string, value: string) => {
@@ -63,6 +64,10 @@ export async function POST(request: NextRequest) {
         // Update or create welcome_message
         if (welcomeMessage !== undefined) {
             await upsertUserSetting('welcome_message', welcomeMessage);
+        }
+
+        if (revenueAdjustments !== undefined) {
+            await upsertUserSetting('revenue_adjustments', JSON.stringify(revenueAdjustments));
         }
 
         return NextResponse.json({ success: true });

@@ -37,21 +37,13 @@ body {
 
 .main-content {
   flex: 1;
-  margin-left: 260px;
-  /* Sidebar width */
   display: flex;
   flex-direction: column;
 }
 
-@media (max-width: 1024px) {
-  .main-content {
-    margin-left: 0;
-  }
-}
-
 .page-content {
   padding: 2rem;
-  padding-top: 6rem;
+  padding-top: 5rem;
   /* Header height + padding */
 }
 

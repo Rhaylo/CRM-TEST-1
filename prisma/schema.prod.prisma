@@ -357,8 +357,54 @@ model User {
   kpiRecords     KPIRecord[]
   contracts      Contract[]
   activityLogs   ActivityLog[]
+  calendarEvents CalendarEvent[]
+  calendarNotes  CalendarNote[]
 
   @@map("app_user")
+}
+
+model CalendarEvent {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  startAt     DateTime
+  endAt       DateTime?
+  allDay      Boolean  @default(false)
+  reminderAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  attachments CalendarAttachment[]
+
+  @@index([userId])
+  @@index([startAt])
+}
+
+model CalendarAttachment {
+  id          Int           @id @default(autoincrement())
+  eventId     Int
+  event       CalendarEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  fileName    String
+  contentType String?
+  content     Bytes
+  createdAt   DateTime      @default(now())
+
+  @@index([eventId])
+}
+
+model CalendarNote {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@index([userId])
 }
 
 model ActivityLog {

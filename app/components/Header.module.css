@@ -6,7 +6,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    left: var(--sidebar-offset, 260px);
+    left: 0;
     z-index: 10;
     padding: 0 1.75rem;
     display: flex;
@@ -15,27 +15,78 @@
     box-shadow: 0 18px 28px -24px rgba(15, 23, 42, 0.35);
 }
 
-.mobileMenuButton {
-    display: none;
-    background: rgba(148, 163, 184, 0.15);
-    border: 1px solid rgba(148, 163, 184, 0.25);
-    color: #475569;
-    cursor: pointer;
-    padding: 0.45rem;
-    border-radius: 999px;
+.leftCluster {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
+    gap: 1rem;
+    min-width: 0;
 }
 
-.mobileMenuButton:hover {
-    background: rgba(148, 163, 184, 0.25);
-    color: #1f2937;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.headerSpacer {
-    flex: 1;
+.brandLogo {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: rgba(15, 23, 42, 0.28);
+    border: 1px solid rgba(15, 23, 42, 0.28);
+    padding: 0.3rem;
+    object-fit: contain;
+    box-shadow: inset 0 0 0 1px rgba(248, 250, 252, 0.8), 0 10px 18px -12px rgba(15, 23, 42, 0.75), 0 0 0 2px rgba(59, 130, 246, 0.18);
+    filter: contrast(1.08) saturate(1.08);
 }
+
+.brandText {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brandTitle {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0f172a;
+}
+
+.brandSubtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+.userBadge {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-left: 0.9rem;
+    border-left: 1px solid rgba(15, 23, 42, 0.1);
+    min-width: 0;
+}
+
+.userName {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.userRole {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #64748b;
+}
+
+
+
 
 .searchContainer {
     flex: 1;
@@ -81,6 +132,64 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+.nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0 1.25rem;
+    min-width: 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+    display: none;
+}
+
+.navLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #475569;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, border 0.2s ease;
+}
+
+.navLink:hover {
+    color: #0f172a;
+    background: rgba(148, 163, 184, 0.18);
+}
+
+.navActive {
+    color: #1d4ed8;
+    background: rgba(147, 197, 253, 0.35);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 10px 18px -16px rgba(59, 130, 246, 0.7);
+}
+
+.navIcon {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(148, 163, 184, 0.2);
+    color: inherit;
+}
+
+.navLabel {
+    line-height: 1;
 }
 
 .settingsButton,
@@ -150,8 +259,36 @@
         padding: 0 1rem;
     }
 
-    .mobileMenuButton {
-        display: inline-flex;
+    .leftCluster {
+        gap: 0.6rem;
+    }
+
+    .brandLogo {
+        width: 28px;
+        height: 28px;
+    }
+
+    .brandTitle {
+        font-size: 0.85rem;
+    }
+
+    .brandSubtitle {
+        display: none;
+    }
+
+    .userRole {
+        display: none;
+    }
+
+    .nav {
+        justify-content: flex-start;
+        padding: 0 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .navLink {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.78rem;
     }
 
     .actionText {

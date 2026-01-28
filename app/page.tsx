@@ -9,6 +9,7 @@ import DealPipeline from './dashboard/DealPipeline';
 import RecentActivity from './dashboard/RecentActivity';
 import DashboardHeader from './dashboard/DashboardHeader';
 import DashboardHighlights from './dashboard/DashboardHighlights';
+import CalendarWidget from './dashboard/CalendarWidget';
 
 import styles from './dashboard/Dashboard.module.css';
 
@@ -51,7 +52,7 @@ export default async function DashboardPage() {
         prisma.settings.findMany({
             where: {
                 key: {
-                    in: ['business_name', 'welcome_message', 'revenue_data']
+                    in: ['business_name', 'welcome_message', 'revenue_data', 'revenue_adjustments']
                 },
                 userId
             }
@@ -63,10 +64,10 @@ export default async function DashboardPage() {
     const businessName = settings.find(s => s.key === 'business_name')?.value || 'Xyre Holdings';
     const welcomeMessage = settings.find(s => s.key === 'welcome_message')?.value || "Welcome back! Here's what's happening today.";
 
-    // Get revenue data from settings or use defaults
     const revenueSettings = settings.find(s => s.key === 'revenue_data');
+    const revenueAdjustmentsSettings = settings.find(s => s.key === 'revenue_adjustments');
 
-    const revenueData = revenueSettings?.value
+    const fallbackRevenueData = revenueSettings?.value
         ? JSON.parse(revenueSettings.value)
         : [
             { month: 'Jan', revenue: 12000 },
@@ -76,6 +77,80 @@ export default async function DashboardPage() {
             { month: 'May', revenue: 28000 },
             { month: 'Jun', revenue: 35000 },
         ];
+
+    const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const now = new Date();
+    const year = now.getFullYear();
+    const monthWindow = monthLabels.map((label, index) => {
+        const date = new Date(year, index, 1);
+        const monthKey = `${year}-${String(index + 1).padStart(2, '0')}`;
+        return { monthLabel: label, monthKey, date };
+    });
+
+    const startDate = new Date(year, 0, 1);
+    const endDate = new Date(year + 1, 0, 1);
+
+    const closedWonDeals = await prisma.deal.findMany({
+        where: {
+            stage: 'Closed Won',
+            userId,
+            createdAt: {
+                gte: startDate,
+                lt: endDate,
+            },
+        },
+        select: {
+            amount: true,
+            createdAt: true,
+        }
+    });
+
+    const baseByMonthKey = new Map<string, number>();
+    monthWindow.forEach((item) => baseByMonthKey.set(item.monthKey, 0));
+
+    closedWonDeals.forEach((deal) => {
+        const dealDate = deal.createdAt;
+        const monthKey = `${dealDate.getFullYear()}-${String(dealDate.getMonth() + 1).padStart(2, '0')}`;
+        if (!baseByMonthKey.has(monthKey)) return;
+        const current = baseByMonthKey.get(monthKey) ?? 0;
+        baseByMonthKey.set(monthKey, current + (deal.amount || 0));
+    });
+
+    const adjustmentsRaw = revenueAdjustmentsSettings?.value
+        ? JSON.parse(revenueAdjustmentsSettings.value)
+        : [];
+
+    const adjustmentByMonthKey = new Map<string, number>();
+    if (Array.isArray(adjustmentsRaw)) {
+        adjustmentsRaw.forEach((entry) => {
+            if (!entry?.monthKey) return;
+            adjustmentByMonthKey.set(entry.monthKey, Number(entry.adjustment) || 0);
+        });
+    }
+
+    const revenueData = monthWindow.map((item) => {
+        const baseRevenue = baseByMonthKey.get(item.monthKey) ?? 0;
+        const adjustment = adjustmentByMonthKey.get(item.monthKey) ?? 0;
+        const total = baseRevenue + adjustment;
+        return {
+            month: item.monthLabel,
+            monthKey: item.monthKey,
+            baseRevenue,
+            adjustment,
+            revenue: total,
+        };
+    });
+
+    const hasAutoRevenue = closedWonDeals.length > 0 || adjustmentByMonthKey.size > 0;
+    const finalRevenueData = hasAutoRevenue
+        ? revenueData
+        : fallbackRevenueData.map((item) => ({
+            month: item.month,
+            monthKey: `${now.getFullYear()}-${String(monthLabels.indexOf(item.month) + 1).padStart(2, '0')}`,
+            baseRevenue: item.revenue,
+            adjustment: 0,
+            revenue: item.revenue,
+        }));
 
 
     // Process pipeline data
@@ -133,12 +208,13 @@ export default async function DashboardPage() {
                 </div>
 
                 <div className={`${styles.chartsGrid} ${styles.sectionDivider}`}>
-                    <RevenueChart data={revenueData} />
+                    <RevenueChart data={finalRevenueData} />
                     <DealPipeline data={pipelineData} />
                 </div>
 
                 <div className={`${styles.activityGrid} ${styles.sectionDivider}`}>
                     <RecentActivity />
+                    <CalendarWidget />
                 </div>
             </div >
         </div >

@@ -1,0 +1,536 @@
+.page {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  min-height: calc(100vh - 4rem);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.viewToggle {
+  display: inline-flex;
+  gap: 0.4rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.toggleButton {
+  border: none;
+  background: transparent;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.toggleActive {
+  background: #fff;
+  color: #1d4ed8;
+  box-shadow: 0 10px 20px -18px rgba(37, 99, 235, 0.5);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.calendarCard {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 24px 40px -32px rgba(15, 23, 42, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.reminderBanner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.9rem;
+  background: rgba(254, 215, 170, 0.6);
+  border: 1px solid rgba(251, 146, 60, 0.35);
+  color: #9a3412;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.weekHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.weekDay {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.weekColumn {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+  cursor: pointer;
+  transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.weekColumn:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 18px 30px -24px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.weekColumnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weekDayLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.weekDateLabel {
+  font-weight: 700;
+  color: #334155;
+}
+
+.weekEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.weekEvent {
+  background: rgba(129, 140, 248, 0.16);
+  color: #312e81;
+  border-radius: 0.6rem;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.weekEmpty {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.dayCell {
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.6rem;
+  min-height: 110px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.dayCell:hover {
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 18px 30px -24px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.daySelected {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 18px 30px -24px rgba(59, 130, 246, 0.5);
+}
+
+.emptyCell {
+  background: rgba(248, 250, 252, 0.65);
+  border-radius: 1rem;
+  min-height: 110px;
+}
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dayNumber {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.dayToday {
+  background: rgba(59, 130, 246, 0.15);
+  color: #1d4ed8;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+
+.eventCount {
+  background: rgba(15, 23, 42, 0.08);
+  color: #475569;
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.dayEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.eventChip {
+  background: rgba(147, 197, 253, 0.22);
+  color: #1d4ed8;
+  border-radius: 0.6rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.moreChip {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.loading {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidebarSection {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.2rem;
+  padding: 1.25rem;
+  box-shadow: 0 18px 28px -22px rgba(15, 23, 42, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sidebarTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sidebarDate {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sectionHeader h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.eventRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.9rem;
+  padding: 0.75rem;
+  background: rgba(248, 250, 252, 0.8);
+}
+
+.reminderRow {
+  border: 1px solid rgba(251, 146, 60, 0.25);
+  border-radius: 0.9rem;
+  padding: 0.7rem;
+  background: rgba(255, 237, 213, 0.6);
+}
+
+.eventMeta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.eventReminder {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.eventActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.attachmentList {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.attachmentLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.attachmentLink:hover {
+  text-decoration: underline;
+}
+
+.emptyState {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.notesInput {
+  min-height: 120px;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  resize: vertical;
+  outline: none;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.formLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.input,
+.textarea {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 0.6rem 0.7rem;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #475569;
+}
+
+.formActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.formError {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.primaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ghostButton {
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(148, 163, 184, 0.12);
+  color: #475569;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.iconButton {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.35rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+}
+
+.linkButton {
+  border: none;
+  background: none;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.navButtons {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .weekGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding: 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid {
+    gap: 0.35rem;
+  }
+
+  .weekGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dayCell,
+  .emptyCell {
+    min-height: 90px;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

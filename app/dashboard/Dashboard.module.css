@@ -306,7 +306,7 @@
 
 .activityGrid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: 1.5rem;
 }
 
@@ -367,6 +367,159 @@
 
 .chartBody {
   height: 300px;
+}
+
+.calendarWidget {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calendarReminders {
+  background: rgba(255, 237, 213, 0.7);
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 0.9rem;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.calendarSectionTitle {
+  margin: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #9a3412;
+  font-weight: 700;
+}
+
+.calendarReminderItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #7c2d12;
+}
+
+.calendarReminderTitle {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendarList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.calendarItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(248, 250, 252, 0.9);
+}
+
+.calendarBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(147, 197, 253, 0.2);
+  color: #1d4ed8;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.calendarTitle {
+  display: block;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.calendarTime {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.calendarEmpty {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.revenueAdjustPanel {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(248, 250, 252, 0.9);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.revenueAdjustHeader,
+.revenueAdjustRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.revenueAdjustHeader {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.revenueAdjustRow {
+  padding: 0.55rem 0.25rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.revenueAdjustMonth {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.revenueAdjustBase,
+.revenueAdjustTotal {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.revenueAdjustInput {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  background: #fff;
+  font-size: 0.85rem;
+  color: #0f172a;
+  outline: none;
+}
+
+.revenueAdjustInput:focus {
+  border-color: rgba(37, 99, 235, 0.6);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+.revenueAdjustActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
 }
 
 .header {
@@ -1119,6 +1272,10 @@
     grid-template-columns: 1fr;
   }
 
+  .activityGrid {
+    grid-template-columns: 1fr;
+  }
+
   .header {
     flex-direction: column;
   }
@@ -1146,5 +1303,11 @@
   .highlightProgress {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .revenueAdjustHeader,
+  .revenueAdjustRow {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0.4rem;
   }
 }

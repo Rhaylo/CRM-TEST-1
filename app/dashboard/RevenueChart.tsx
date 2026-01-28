@@ -1,13 +1,85 @@
+
 'use client';
 
+import { useEffect, useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { Pencil, Save, X } from 'lucide-react';
 import styles from './Dashboard.module.css';
 
 interface RevenueChartProps {
-    data: { month: string; revenue: number }[];
+    data: { month: string; monthKey: string; revenue: number; baseRevenue: number; adjustment: number }[];
 }
 
 export default function RevenueChart({ data }: RevenueChartProps) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [adjustments, setAdjustments] = useState(() =>
+        data.map((item) => ({
+            month: item.month,
+            monthKey: item.monthKey,
+            baseRevenue: item.baseRevenue,
+            adjustment: item.adjustment || 0,
+        }))
+    );
+
+    useEffect(() => {
+        setAdjustments(
+            data.map((item) => ({
+                month: item.month,
+                monthKey: item.monthKey,
+                baseRevenue: item.baseRevenue,
+                adjustment: item.adjustment || 0,
+            }))
+        );
+    }, [data]);
+
+    const handleAdjustmentChange = (index: number, value: string) => {
+        const next = [...adjustments];
+        const numeric = Number(value);
+        next[index] = {
+            ...next[index],
+            adjustment: Number.isFinite(numeric) ? numeric : 0,
+        };
+        setAdjustments(next);
+    };
+
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            const response = await fetch('/api/dashboard-settings', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    revenueAdjustments: adjustments.map((item) => ({
+                        monthKey: item.monthKey,
+                        adjustment: item.adjustment,
+                    }))
+                }),
+            });
+
+            if (response.ok) {
+                setIsEditing(false);
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error saving revenue adjustments:', error);
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const handleCancel = () => {
+        setAdjustments(
+            data.map((item) => ({
+                month: item.month,
+                monthKey: item.monthKey,
+                baseRevenue: item.baseRevenue,
+                adjustment: item.adjustment || 0,
+            }))
+        );
+        setIsEditing(false);
+    };
+
     const GlassBar = (props: any) => {
         const { x, y, width, height } = props as { x?: number; y?: number; width?: number; height?: number };
         if (x === undefined || y === undefined || width === undefined || height === undefined) return null;
@@ -35,7 +107,58 @@ export default function RevenueChart({ data }: RevenueChartProps) {
             <div className={styles.cardHeader}>
                 <h3 className={styles.cardTitle}>Revenue Overview</h3>
                 <span className={styles.cardMeta}>Monthly totals</span>
+                {!isEditing && (
+                    <button
+                        onClick={() => setIsEditing(true)}
+                        className={`${styles.actionButton} ${styles.ghostButton}`}
+                        type="button"
+                    >
+                        <Pencil size={16} />
+                        Adjust
+                    </button>
+                )}
             </div>
+            {isEditing && (
+                <div className={styles.revenueAdjustPanel}>
+                    <div className={styles.revenueAdjustHeader}>
+                        <span>Month</span>
+                        <span>Base</span>
+                        <span>Adjustment</span>
+                        <span>Total</span>
+                    </div>
+                    {adjustments.map((item, index) => (
+                        <div className={styles.revenueAdjustRow} key={item.monthKey}>
+                            <span className={styles.revenueAdjustMonth}>{item.month}</span>
+                            <span className={styles.revenueAdjustBase}>${item.baseRevenue.toLocaleString()}</span>
+                            <input
+                                type="number"
+                                value={item.adjustment}
+                                onChange={(event) => handleAdjustmentChange(index, event.target.value)}
+                                className={styles.revenueAdjustInput}
+                                step="100"
+                            />
+                            <span className={styles.revenueAdjustTotal}>${(item.baseRevenue + item.adjustment).toLocaleString()}</span>
+                        </div>
+                    ))}
+                    <div className={styles.revenueAdjustActions}>
+                        <button
+                            onClick={handleSave}
+                            className={`${styles.actionButton} ${styles.primaryButton}`}
+                            disabled={saving}
+                        >
+                            <Save size={16} />
+                            {saving ? 'Saving...' : 'Save'}
+                        </button>
+                        <button
+                            onClick={handleCancel}
+                            className={`${styles.actionButton} ${styles.ghostButton}`}
+                        >
+                            <X size={16} />
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            )}
             <div className={styles.chartBody}>
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data}>
